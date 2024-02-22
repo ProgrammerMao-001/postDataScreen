@@ -8,7 +8,7 @@ import store from "../store";
 // 环境的切换
 if (process.env.NODE_ENV == "development") {
   // 本地开发环境
-  axios.defaults.baseURL = "http://127.0.0.1:3002/";
+  axios.defaults.baseURL = "http://127.0.0.1:3003/";
 } else if (process.env.NODE_ENV == "debug") {
   // 本地测试环境
   axios.defaults.baseURL = "";
