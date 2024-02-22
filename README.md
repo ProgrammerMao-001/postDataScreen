@@ -54,4 +54,8 @@ animation 动画库
 
 # todo
 ```
+ 更换镜像
+ npm config set registry 
+ 1. https://registry.npmjs.org
+ 2. https://registry.npmmirror.com  
 ```
