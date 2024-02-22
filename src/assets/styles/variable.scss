@@ -1,0 +1,93 @@
+$--color-primary: #4c64fe !default;
+// 窗口最小宽度
+$window-width-min: 1080px;
+// 基础色卡
+$blue: #1890ff; // 主要蓝色
+$t-normal: #08111f; // 正常字体色
+
+// 常用 默认主题色 ------------------------------------ start -------------------------------------------------------------
+
+$mainColor: var(--mainColor, #4c64fe); // 主色调
+
+$secondMainColor: var(--secondMainColor, #409eff); // 第二主色调 el-ui 主色
+
+$mainChangeColor: var(--mainChangeColor, #7e8ffa); // 主色渐变
+
+$mainBackground: var(--mainBackground, #f1f6fd); // 主背景色
+
+$secondBackground: var(--secondBackground, #ffffff); // 次背景色 默认白色
+
+$secondBackgroundChange: var(--secondBackgroundChange, #ffffff); // 次背景色 默认白色 颜色切换变化
+
+$thirdBackgroundChange: var(--thirdBackgroundChange, #f9f9f9); // 次背景色 默认#f9f9f9
+
+$mainText: var(--mainText, #666666); // 主要文本颜色
+
+$blackText: var(--blackText, #000c17); // 更黑的文本颜色
+
+$mainTextLight: var(--mainTextLight, #ffffff); // 主要 默认亮色文本颜色
+
+$mainLine: var(--mainLine, #eee); // 主要 分割线颜色
+
+$transitionTime: var(--transitionTime, .3s); // 公共 动画时间
+
+$whiteToGrey: var(--whiteToGrey, #fff); // 白色变换灰色 处理无边框输入框深色模式下显示
+
+// 常用 默认主题色 ------------------------------------- end --------------------------------------------------------------
+
+// 其他 默认主题色 ------------------------------------ start -------------------------------------------------------------
+$tipText: var(--tipText, #c0c4cc); // el-ui 提示文字颜色 todo 变色处理
+
+$elBorder: var(--elBorder, #dcdfe6); // el-ui 边框颜色
+
+$whiteToMainColor: var(--whiteToMainColor, #c6ceff); // 白色 切换至 主色 头部标题竖线
+
+$scrollbar: var(--scrollbar, #cecece); // 滚动条颜色
+
+$blackWhite: var(--blackWhite, rgba(0,0,0,.1)); // 默认黑 切换白 el-ui默认阴影切换
+
+$elBackgroundColorBase: var(--elBackgroundColorBase, #f5f7fa); // el-ui 表格Hover背景色 样式 table-1
+
+$elTableStripeBackgroundColor: var(--elTableStripeBackgroundColor, #fafafa); // el-ui 表格斑马条纹背景色
+
+$elPageButtonBackgroundColor: var(--elPageButtonBackgroundColor, #f4f4f5); // el-ui 分页按钮背景样式
+
+$elTableHeaderBackgroundColor: var(--elTableHeaderBackgroundColor, #f6f6f6); // el-ui 表格头部背景色 样式 table-1
+
+$mainHeaderBackgroundColor: var(--mainHeaderBackgroundColor, #4c64fe); // 外框头部栏背景色
+
+$mainBoxShadow: var(--mainBoxShadow, rgba(76, 100, 254, 0.15)); // 主要模块外阴影颜色
+
+
+//$boxShadow-1: var(--boxShadow-1, rgb(230 237 253)); // 菜单滑块阴影颜色 // ??? fixme 因为报错所以注释掉
+
+$boxShadow-2: var(--boxShadow-2, rgba(76, 100, 254, 0.08)); // 菜单滑块阴影颜色
+
+$menuShadowHeight: var(--menuShadowHeight, 40px); // 菜单滑遮盖样式
+
+$menuShadowMarginTop: var(--menuShadowMarginTop, 5px); // 菜单滑遮盖样式
+
+$menuShadowHeight-2: var(--menuShadowHeight-2, 60px); // 菜单滑遮盖样式
+
+$menuShadowMarginTop-2: var(--menuShadowMarginTop-2, -5px); // 菜单滑遮盖样式
+
+$treeShadow: var(--treeShadow, #e0e0e0); // 树控件阴影
+
+$borderTransition: var(--borderTransition, .2s); // 边框动画
+
+$buttonTransition: var(--buttonTransition, .1s); // 按钮动画
+
+// 其他 默认主题色 ------------------------------------- end --------------------------------------------------------------
+// 基础色卡
+$blue:#324157;
+$light-blue:#3A71A8;
+$red:#C03639;
+$pink: #E65D6E;
+$green: #30B08F;
+$tiffany: #4AB7BD;
+$yellow:#FEC171;
+$panGreen: #30B08F;
+$risk_blue: #3265fe;
+$risk_yellow: #dad03f;
+$risk_orange: #f68c1f;
+$risk_red: #d62f28;

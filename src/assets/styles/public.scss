@@ -1,0 +1,308 @@
+@import "src/assets/styles/variable";
+@import "src/assets/styles/qiandun";
+// 基础色卡
+$backColor: #eef4fd; // 主题背景色
+$textColor: #c0c0c0; // 正常字体色
+
+
+/* 全局样式 */
+#app {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.clearfix1 :after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+/* 清除浮动 */
+.clearfix:before,
+.clearfix:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.home, html, body, #app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+
+// historyPage 页面的样式
+.tabs-view-container {
+  background-color: #fff;
+  //overflow: hidden;
+  white-space: nowrap;
+  padding: 5px 10px;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+  position: relative;
+
+  .tags-view-item {
+    .el-tag {
+      margin: 0 20px;
+      color: rgb(96, 98, 102);
+      padding: 0;
+      border: transparent;
+
+      &:first-child {
+        //margin-left: 0;
+      }
+
+      .el-icon-close {
+        display: none;
+      }
+    }
+
+    &.active {
+      .el-tag {
+        // 选中 tag 时的颜色
+        //background-color: #ffb6c1;
+        color: #4c64fe;
+        border-radius: 0;
+        border-bottom: 2px solid #4c64fe;
+        padding-left: 4px;
+
+        .el-icon-close {
+          color: #4c64fe;
+          display: inline-block;
+          background-color: #fff;
+        }
+
+        //&:before {
+        //  position: relative;
+        //  content: '';
+        //  background: #fff;
+        //  display: inline-block;
+        //  width: 6px;
+        //  height: 6px;
+        //  border-radius: 50%;
+        //  margin-right: 2px;
+        //}
+      }
+    }
+  }
+
+  .public-side-icon {
+    color: #4c64fe !important;
+  }
+
+  .el-icon-arrow-left {
+    position: absolute;
+    left: 10px;
+    top: 12px;
+    cursor: pointer;
+  }
+
+  .el-icon-arrow-right {
+    position: absolute;
+    right: 10px;
+    top: 12px;
+    cursor: pointer;
+  }
+}
+
+.tabs-view-container:hover {
+  //cursor: pointer;
+  //overflow-x: auto;
+}
+
+.right-menu {
+  z-index: 99999 !important;
+  position: absolute;
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background-color: white;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+
+  .right-menu-box {
+    font-size: 14px;
+    padding: 6px 0;
+    border-top: 1px solid #eee;
+    cursor: pointer;
+  }
+
+  .right-menu-box:hover {
+    background-color: #f5f5f5;
+  }
+}
+
+#menu {
+  display: none;
+}
+
+// 历史记录选项卡的样式
+.history-page-style {
+  height: 50px;
+}
+
+// 侧边栏的样式
+.aside-class {
+  width: 240px !important;
+  height: 100%;
+  position: relative;
+  background-color: $backColor;
+  margin-left: 20px;
+
+  .aside-box-shadow {
+    width: 220px !important;
+    height: 97%;
+    border-radius: 20px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+    background-color: #fff;
+  }
+
+  .aside-box-shadow-close {
+    width: 64px !important;
+    height: 97%;
+    border-radius: 20px;
+    position: absolute;
+    left: 16px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+    background-color: #fff;
+  }
+
+  .aside-font {
+    display: flex;
+    width: 100%;
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #4c64fe;
+    line-height: 30px;
+    justify-content: space-around;
+
+    i {
+      line-height: 30px;
+    }
+  }
+}
+
+// 真正的主页内容部分的样式 --- 公共模板
+.main-view {
+  width: 100%;
+  height: 100% !important;
+  background-color: #fff;
+  margin-top: 7px;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+}
+
+// 用户管理专用模板 （左侧权限 右侧菜单）
+.public-style-have-lr {
+  width: 100%;
+  height: 100%;
+  margin-top: 7px;
+  position: relative;
+
+  &-left {
+    float: left;
+    width: 200px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+    border-radius: 20px;
+  }
+
+  .center-box {
+    position: absolute;
+    top: 50%;
+    left: 200px;
+    width: 8px;
+    height: 50px;
+    background-color: #4c64fe;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 10px;
+
+    i {
+      position: absolute;
+      top: 19px;
+      left: -2px;
+      color: #fff;
+    }
+  }
+
+  &-right {
+    float: right;
+    width: calc(100% - 209px);
+    height: 100%;
+    border-radius: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+    //transition: all 0.4s ease-in-out, background-color 0s !important;
+  }
+}
+
+// 用户管理专用模板 折叠起来的状态（左侧权限 右侧菜单）
+.public-style-have-lr-copy {
+  width: 100%;
+  height: 100%;
+  margin-top: 7px;
+  position: relative;
+
+  .public-style-have-lr-left {
+    float: left;
+    display: none;
+  }
+
+  .center-box {
+    position: absolute;
+    top: 50%;
+    left: -8px;
+    width: 8px;
+    height: 50px;
+    background-color: #4c64fe;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 10px;
+
+    i {
+      position: absolute;
+      top: 19px;
+      left: -2px;
+      color: #fff;
+    }
+  }
+
+  .public-style-have-lr-right {
+    float: right;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+  }
+}
+
+
+// 弹窗的公共样式修改
+.el-dialog {
+  border-radius: 20px;
+}
+
+.el-dialog__headerbtn .el-dialog__close:hover {
+  color: #4c64fe;
+}
+
+// 按钮的公共样式修改
+

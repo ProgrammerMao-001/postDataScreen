@@ -1,0 +1,148 @@
+.my-table-1 {
+  height: 100%;
+  border-radius: 5px;
+  //overflow: auto;
+
+  .el-table__header tr,
+  .el-table__header th {
+    padding: 0;
+    height: 34px !important;
+    color: $mainText;
+    font-size: 12px;
+    font-weight: 600;
+    background-color: $elTableHeaderBackgroundColor !important;
+
+    div {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .el-table__body tr,
+  .el-table__body td {
+    font-size: 12px;
+    padding: 0;
+    height: 39px !important;
+    color: $mainText;
+
+    div {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+
+      span {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .cell {
+      display: flex;
+      align-items: center;
+      line-height: 24px !important;
+    }
+
+    /* 状态一列的 span */
+    .table_state {
+      display: inline-block;
+      width: 38px;
+      height: 18px;
+      line-height: 18px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 12px;
+      color: #ffffff;
+    }
+
+    /* 状态一列的 span */
+    .table_state_normal {
+      display: inline-block;
+      width: 38px;
+      height: 18px;
+      line-height: 18px;
+      text-align: center;
+      font-size: 12px;
+      background-color: #f0f9eb !important;
+      border: 1px solid #e1f3d8;
+      color: #67c23a !important;
+      border-radius: 2px !important;
+    }
+
+    /* 状态一列的 span */
+    .table_state_stop {
+      display: inline-block;
+      width: 38px;
+      height: 18px;
+      line-height: 18px;
+      text-align: center;
+      font-size: 12px;
+      background-color: #fef0f0 !important;
+      border: 1px solid #fde2e2;
+      color: #4c64fe !important;
+      border-radius: 2px !important;
+    }
+  }
+
+  .table_button-box {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    height: 100%;
+
+    i {
+      text-align: center;
+      width: 24px;
+      font-size: 14px;
+      display: inline-block;
+
+      &:hover {
+        transform: scale(1.1);
+        font-size: 16px;
+      }
+    }
+
+    .el-dropdown {
+      width: 24px;
+      height: 24px;
+
+      span {
+        width: 24px;
+        height: 24px;
+        display: inline-block;
+      }
+    }
+
+    .table_edit {
+      color: #108c53;
+    }
+
+    .table_ban {
+      color: #dd5a43;
+    }
+
+    .table_delete {
+      color: #dd5a43;
+    }
+
+    .table_add {
+      color: $blue;
+      font-size: 15px;
+    }
+
+    .table_enable {
+      color: #108c53;
+      font-size: 15px;
+    }
+
+    .table_more {
+      color: $blue;
+      font-weight: bold;
+    }
+
+    .table_password {
+      color: $blue;
+    }
+  }
+}
