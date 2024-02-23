@@ -58,7 +58,6 @@
             border
             :data="tableData.slice((pageNo - 1) * pageSize, pageNo * pageSize)"
             style="width: 100%"
-            class="r-content-table my-table-1"
           >
             <el-table-column type="index" label="序号" width="60">
               <template slot-scope="scope">
