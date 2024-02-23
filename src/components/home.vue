@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <el-container style="height: 100%">
-      <el-header style="width: 100%; height: 50px; background-color: #4c64fe">
+      <el-header class="home-header">
         <topBar />
       </el-header>
       <el-container style="background-color: #eef4fd">
@@ -18,16 +18,7 @@
             ]"
           >
             <div class="aside-font">
-              <div
-                v-show="!isOpenFlag"
-                style="
-                  width: 6px;
-                  height: 22px;
-                  margin-top: 4px;
-                  background-color: #4c64fe;
-                  border-radius: 20px;
-                "
-              ></div>
+              <div v-show="!isOpenFlag" class="aside-font-border"></div>
               <span v-show="!isOpenFlag"> 疫&nbsp;情&nbsp;防&nbsp;控 </span>
               <i
                 style="cursor: pointer"
@@ -80,4 +71,18 @@ export default class Home extends Vue {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import "~@/assets/styles/colorMap";
+.home-header {
+  background: $greenOBg;
+  height: 50px !important;
+}
+
+.aside-font-border {
+  width: 6px;
+  height: 22px;
+  margin-top: 4px;
+  background-color: $greenBg;
+  border-radius: 20px;
+}
+</style>

@@ -326,6 +326,7 @@ export default class PublicPage extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/styles/colorMap";
 .main-view {
   &-header {
     width: 100%;
@@ -346,13 +347,13 @@ export default class PublicPage extends Vue {
       cursor: pointer;
 
       .el-icon-back {
-        color: #2244ff;
+        color: $greenBg;
       }
     }
 
     &-right {
       .el-icon-user {
-        color: #2244ff;
+        color: $greenBg;
         margin: 0 6px;
       }
     }
@@ -364,7 +365,7 @@ export default class PublicPage extends Vue {
       margin: 11px 20px 24px;
       padding-bottom: 10px;
       border-bottom: 1px solid #eee;
-      color: #2244ff;
+      color: $greenBg;
       font-style: italic;
     }
   }

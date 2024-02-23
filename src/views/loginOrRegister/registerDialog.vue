@@ -189,6 +189,7 @@ export default class Register extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/styles/colorMap";
 ::v-deep .el-dialog {
   margin-top: 24vh !important;
   min-width: 450px !important;
@@ -196,7 +197,7 @@ export default class Register extends Vue {
 }
 
 ::v-deep .el-dialog__title {
-  color: #2244ff !important;
+  color: $greenBg !important;
 }
 
 ::v-deep .el-input {

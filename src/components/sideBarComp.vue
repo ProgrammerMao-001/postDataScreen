@@ -5,7 +5,6 @@
       class="el-menu"
       background-color="#ffffff"
       text-color="#606266"
-      active-text-color="#4c64fe"
       :unique-opened="true"
       :default-active="$route.path"
       :collapse="isCollapse"
@@ -71,6 +70,7 @@ export default class SideBarComp extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/styles/colorMap";
 // todo 侧边栏的样式设置
 .el-menu {
   border-right: none;
@@ -78,17 +78,17 @@ export default class SideBarComp extends Vue {
 
 /deep/ .el-menu .el-menu-item:hover {
   outline: 0 !important;
-  background-color: rgba(76, 100, 254, 0.2) !important;
+  background-color: rgba(0, 180, 179, 0.2) !important;
   /*background: linear-gradient(270deg, #ffe3eb 0%, #FFB6C1 80%) !important;*/
 }
 
 /deep/ .el-menu .el-menu-item.is-active {
-  color: #4c64fe !important;
+  color: $greenBg !important;
   /*background: linear-gradient(270deg, #ffe3eb 0%, #FFB6C1 80%) !important;*/
 }
 
 /deep/ .el-submenu__title:hover {
-  background-color: rgba(76, 100, 254, 0.2) !important;
+  background-color: rgba(0, 180, 179, 0.2) !important;
   /*background: linear-gradient(270deg, #ffe3eb 0%, #FFB6C1 80%) !important;*/
 }
 

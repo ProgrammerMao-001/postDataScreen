@@ -307,6 +307,7 @@ export default class PublicDialog extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/styles/colorMap";
 ::v-deep .el-dialog {
   min-width: 700px !important;
 }
@@ -316,7 +317,7 @@ export default class PublicDialog extends Vue {
   margin: 11px 20px 24px;
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
-  color: #2244ff;
+  color: $greenBg;
   font-style: italic;
 }
 

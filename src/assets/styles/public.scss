@@ -60,13 +60,13 @@
       .el-tag {
         // 选中 tag 时的颜色
         //background-color: #ffb6c1;
-        color: $btnColor;
+        color: $greenBg;
         border-radius: 0;
-        border-bottom: 2px solid $btnColor;
+        border-bottom: 2px solid $greenBg;
         padding-left: 4px;
 
         .el-icon-close {
-          color: $btnColor;
+          color: $greenBg;
           display: inline-block;
           background-color: #fff;
         }
@@ -86,7 +86,7 @@
   }
 
   .public-side-icon {
-    color: $btnColor !important;
+    color: $greenBg !important;
   }
 
   .el-icon-arrow-left {
@@ -125,10 +125,12 @@
     padding: 6px 0;
     border-top: 1px solid #eee;
     cursor: pointer;
+    color: $textColor;
   }
 
   .right-menu-box:hover {
-    background-color: #f5f5f5;
+    background-color: $greenBg;
+    color: #ffffff;
   }
 }
 
@@ -182,7 +184,7 @@
     margin-top: 20px;
     font-size: 18px;
     font-weight: 700;
-    color: $btnColor;
+    color: $greenBg;
     line-height: 30px;
     justify-content: space-around;
 
@@ -296,7 +298,7 @@
 }
 
 .el-dialog__headerbtn .el-dialog__close:hover {
-  color: $btnColor;
+  color: $greenBg;
 }
 
 .el-dialog__header {

@@ -298,6 +298,7 @@ export default class TsComp extends Vue {
 }
 </script>
 <style lang="scss" scoped>
+@import "~@/assets/styles/colorMap";
 .r-content {
   margin: 10px;
   height: calc(100% - 20px);
@@ -312,7 +313,7 @@ export default class TsComp extends Vue {
     justify-content: space-between;
 
     &-left {
-      color: #2244ff;
+      color: $greenBg;
 
       .font {
         font-size: 15px;
@@ -352,7 +353,7 @@ export default class TsComp extends Vue {
       color: #666;
 
       .el-icon-menu {
-        color: #2244ff;
+        color: $greenBg;
       }
     }
 
@@ -409,7 +410,7 @@ export default class TsComp extends Vue {
 }
 
 ::v-deep .el-pagination.is-background .el-pager li:not(.disabled).active {
-  background-color: #2244ff;
+  background-color: $greenBg;
 }
 
 ::v-deep .el-radio-group {

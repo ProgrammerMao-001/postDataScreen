@@ -158,6 +158,7 @@ export default class TreeComp extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/styles/colorMap";
 .l-content {
   &-header {
     border-bottom: 1px solid #eee;
@@ -173,7 +174,7 @@ export default class TreeComp extends Vue {
       color: #666;
 
       .el-icon-menu {
-        color: #2244ff;
+        color: $greenBg;
       }
     }
 

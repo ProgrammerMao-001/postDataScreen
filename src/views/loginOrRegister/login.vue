@@ -117,7 +117,7 @@
             ></i>
             <span
               v-show="remPsdFlag"
-              style="font-size: 20px; line-height: 0px; color: #0a2fff"
+              style="font-size: 20px; line-height: 0px; color: $greenBg"
             >
               √
             </span>
@@ -397,18 +397,18 @@ export default class Login extends Vue {
 }
 
 .rem-psd_i-bg {
-  background-color: #0a2fff;
+  background-color: $greenBg;
 }
 
 .icon--no-inp--color {
-  color: #4c64fe !important;
+  color: $red !important;
 }
 
 .inp--no-inp--color {
-  border-color: #4c64fe !important;
+  border-color: $red !important;
 
   &::placeholder {
-    color: #4c64fe !important;
+    color: $red !important;
   }
 }
 
@@ -490,7 +490,7 @@ export default class Login extends Vue {
         font-size: 24px;
         font-weight: 600;
         letter-spacing: 1px;
-        color: #0a2fff;
+        color: $greenBg;
       }
 
       /* 用户账号密码表单主题 */
@@ -570,7 +570,7 @@ export default class Login extends Vue {
           .rem-psd_span {
             margin-right: 0;
             font-size: 14px;
-            color: #4c64fe;
+            color: $red;
             user-select: none;
             position: absolute;
             left: -274px;
@@ -582,7 +582,7 @@ export default class Login extends Vue {
             right: 64px;
             width: 9px;
             height: 9px;
-            border: 1px solid #0a2fff;
+            border: 1px solid $greenBg;
             border-radius: 2px;
             cursor: pointer;
           }
@@ -595,7 +595,7 @@ export default class Login extends Vue {
           }
 
           &:hover {
-            color: #0a2fff;
+            color: $greenBg;
           }
         }
 
@@ -606,7 +606,7 @@ export default class Login extends Vue {
           height: 45px;
           margin-top: 17px;
           border-radius: 80px;
-          background-color: #0a2fff;
+          background-color: $greenBg;
           text-align: center;
           color: #ffffff;
           font-size: 17px;
@@ -616,7 +616,7 @@ export default class Login extends Vue {
           letter-spacing: 4px;
 
           &:hover {
-            background-color: #0a2fff;
+            background-color: $greenBg;
           }
         }
       }
@@ -640,7 +640,7 @@ export default class Login extends Vue {
             cursor: pointer;
 
             &:hover {
-              color: #0a2fff;
+              color: $greenBg;
             }
           }
 
@@ -651,7 +651,7 @@ export default class Login extends Vue {
             cursor: pointer;
 
             &:hover {
-              color: #0a2fff;
+              color: $greenBg;
             }
           }
         }
@@ -685,7 +685,7 @@ export default class Login extends Vue {
               cursor: pointer;
 
               &:hover {
-                color: #0a2fff;
+                color: $greenBg;
               }
             }
           }

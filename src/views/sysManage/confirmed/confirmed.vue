@@ -309,6 +309,7 @@ export default class RoleManage extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/styles/colorMap";
 .r-content {
   margin: 10px;
   height: calc(100% - 20px);
@@ -324,7 +325,7 @@ export default class RoleManage extends Vue {
     padding-top: 10px;
 
     &-left {
-      color: #2244ff;
+      color: $greenBg;
 
       .font {
         font-size: 15px;

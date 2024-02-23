@@ -1,4 +1,9 @@
-<!-- todo 历史记录标签，后续新增 在标签上右击实现 关闭左侧/关闭右侧/关闭全部 的功能 -->
+<!--
+ * @Description: 历史记录标签 页面
+ * @Author: mhf
+ * @Date: 2024-02-24 03:19:28
+ * @params:
+-->
 <template>
   <div class="tabs-view-container">
     <router-link
@@ -126,7 +131,7 @@ export default {
       let menu = document.querySelector("#menu");
       document.addEventListener("click", this.unShowMenu); // 给整个document添加监听鼠标事件，点击任何位置执行unShowMenu方法
       menu.style.display = "block";
-      menu.style.left = event.clientX - 220 + "px";
+      menu.style.left = event.clientX - 260 + "px";
       menu.style.top = event.clientY - 60 + "px";
     },
 

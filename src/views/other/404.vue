@@ -17,6 +17,7 @@ export default class NotFound extends Vue {}
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/styles/colorMap";
 .container {
   width: 100%;
   height: 100%;
@@ -53,7 +54,7 @@ export default class NotFound extends Vue {}
       color: #666;
 
       &:hover {
-        color: #2244ff;
+        color: $greenBg;
       }
     }
   }

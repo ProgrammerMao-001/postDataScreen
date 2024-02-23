@@ -143,6 +143,7 @@ export default class RoleManage extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/styles/colorMap";
 .comment-manage {
   &-header {
     margin-left: 32px;
@@ -166,7 +167,7 @@ export default class RoleManage extends Vue {
   justify-content: space-between;
 
   &-left {
-    color: #2244ff;
+    color: $greenBg;
 
     .font {
       font-size: 15px;
