@@ -1,4 +1,3 @@
-<!-- 用户管理 新增和编辑 页 -->
 <template>
   <div class="main-view">
     <!-- 头部 -->

@@ -44,54 +44,6 @@ const routes: Array<RouteConfig> = [
       ),
   },
 
-  // ********************************** 打卡 **********************************
-  {
-    path: "/clockCard",
-    name: "ClockCard",
-    meta: {
-      title: "打卡",
-    },
-    component: Home,
-    children: [
-      {
-        path: "/clockCard",
-        name: "ClockCard",
-        meta: {
-          title: "打卡",
-        },
-        component: () =>
-          import(
-            /* webpackChunkName: "clockCard" */ "@/views/clockCard/clockCard.vue"
-          ),
-      },
-    ],
-  },
-  // ********************************** 打卡 **********************************
-
-  // ********************************** 角色管理 **********************************
-  {
-    path: "/roleManage",
-    name: "RoleManage",
-    meta: {
-      title: "角色管理",
-    },
-    component: Home,
-    children: [
-      {
-        path: "/roleManage",
-        name: "RoleManage",
-        meta: {
-          title: "角色管理",
-        },
-        component: () =>
-          import(
-            /* webpackChunkName: "roleManage" */ "@/views/roleManage/roleManage.vue"
-          ),
-      },
-    ],
-  },
-  // ********************************** 角色管理 **********************************
-
   // ********************************** 人员管理 **********************************
   {
     path: "/userManage",
@@ -102,17 +54,6 @@ const routes: Array<RouteConfig> = [
     },
     component: Home,
     children: [
-      {
-        path: "/userManage/peopleManage",
-        name: "PeopleManage",
-        meta: {
-          title: "用户",
-        },
-        component: () =>
-          import(
-            /* webpackChunkName: "userManage" */ "@/views/sysManage/userManage/userManage.vue"
-          ),
-      },
       {
         path: "/userManage/confirmed",
         name: "Confirmed",
@@ -127,30 +68,6 @@ const routes: Array<RouteConfig> = [
     ],
   },
   // ********************************** 人员管理 **********************************
-
-  // ********************************** 疫苗信息 **********************************
-  {
-    path: "/vaccineInformation",
-    name: "VaccineInformation",
-    meta: {
-      title: "疫苗信息",
-    },
-    component: Home,
-    children: [
-      {
-        path: "/vaccineInformation",
-        name: "VaccineInformation",
-        meta: {
-          title: "疫苗信息",
-        },
-        component: () =>
-          import(
-            /* webpackChunkName: "vaccineInformation" */ "@/views/vaccineInformation/vaccineInformation.vue"
-          ),
-      },
-    ],
-  },
-  // ********************************** 疫苗信息 **********************************
 
   // ********************************** 个人中心 **********************************
   {
@@ -176,6 +93,81 @@ const routes: Array<RouteConfig> = [
   },
   // ********************************** 个人中心 **********************************
 
+  // ********************************** 驾驶舱 **********************************
+  {
+    path: "/dataScreen",
+    name: "DataScreen",
+    meta: {
+      title: "驾驶舱",
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "dataScreen" */ "@/views/dataScreen/dataScreen.vue"
+      ),
+    // component: Home,
+    children: [
+      {
+        path: "/dataScreen",
+        name: "DataScreen",
+        meta: {
+          title: "个人中心",
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "dataScreen" */ "@/views/dataScreen/dataScreen.vue"
+          ),
+      },
+    ],
+  },
+  // ********************************** 驾驶舱 **********************************
+
+  // ********************************** 系统管理 **********************************
+  {
+    path: "/sysManage",
+    redirect: "/sysManage/user",
+    name: "user",
+    meta: {
+      title: "系统管理",
+    },
+    component: Home,
+    children: [
+      {
+        path: "/sysManage/user",
+        name: "User",
+        meta: {
+          title: "用户",
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "user" */ "@/views/sysManage/user/user.vue"
+          ),
+      },
+      {
+        path: "/sysManage/role",
+        name: "Role",
+        meta: {
+          title: "角色",
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "role" */ "@/views/sysManage/role/role.vue"
+          ),
+      },
+      {
+        path: "/sysManage/dict",
+        name: "Dict",
+        meta: {
+          title: "字典",
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "dict" */ "@/views/sysManage/dict/dict.vue"
+          ),
+      },
+    ],
+  },
+  // ********************************** 系统管理 **********************************
+
   // ********************************** 404 **********************************
   {
     path: "/:pathMatch(.*)*",
@@ -193,7 +185,6 @@ const router = new VueRouter({
 
 // 导航守卫
 // 使用 router.beforeEach 注册一个全局前置守卫，判断用户是否登陆(如果没登录就退出到登陆页面)
-/* todo 需要修改的地方 --- 路由鉴权 */
 router.beforeEach((to, from, next) => {
   if (to.path === "/login") {
     next();

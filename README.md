@@ -52,10 +52,16 @@ cnpm install mysql
 animation 动画库
 `
 
-# todo
+# 注意
 ```
  更换镜像
  npm config set registry 
  1. https://registry.npmjs.org
  2. https://registry.npmmirror.com  
+```
+
+# todo
+```
+1. 文件上传组件的状态控制
+2. 无权限人员进入管理员页面控制
 ```

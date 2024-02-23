@@ -1,3 +1,8 @@
+<!--
+ * @Description: 用户 页面
+ * @Author: mhf
+ * @Date: 2024/2/23 23:18
+-->
 <template>
   <div
     :class="[closeFlag ? 'public-style-have-lr' : 'public-style-have-lr-copy']"
@@ -71,8 +76,8 @@
                 <span>{{ (pageNo - 1) * pageSize + scope.$index + 1 }}</span>
               </template>
             </el-table-column>
-            <el-table-column prop="role" label="账号类型" />
             <el-table-column prop="username" label="用户名" />
+            <el-table-column prop="role" label="账号类型" />
             <el-table-column prop="id" label="id" />
             <el-table-column label="操作" width="100">
               <template slot-scope="scope">
@@ -112,7 +117,7 @@
         </div>
       </div>
     </div>
-    <publicPage v-else :willPassData="willPassData" />
+    <userPage v-else :willPassData="willPassData" />
   </div>
 </template>
 
@@ -120,10 +125,9 @@
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { deleteUser, updateUser, getUserByUserName } from "@/api/userModule";
 import treeComp from "@/components/treeComp.vue";
-import publicPage from "@/views/sysManage/userManage/publicPage.vue";
-
+import userPage from "@/views/sysManage/user/userPage.vue";
 @Component({
-  components: { treeComp, publicPage },
+  components: { treeComp, userPage },
 })
 export default class TsComp extends Vue {
   closeFlag: boolean = true;
@@ -140,22 +144,31 @@ export default class TsComp extends Vue {
   willPassData: any = {}; // 传给publicPage的数据
 
   /**
-   * @desc 显示/隐藏左侧
-   */
+   * @Event 显示/隐藏左侧
+   * @description:
+   * @author: mhf
+   * @time: 2024-02-23 23:23:27
+   **/
   isClose() {
     this.closeFlag = !this.closeFlag;
   }
 
   /**
-   * @desc 查询
-   */
+   * @Event 查询
+   * @description:
+   * @author: mhf
+   * @time: 2024-02-23 23:23:21
+   **/
   onSearchForm() {
     this.getTableData();
   }
 
   /**
-   * @desc 重置
-   */
+   * @Event 重置
+   * @description:
+   * @author: mhf
+   * @time: 2024-02-23 23:23:16
+   **/
   onRestForm() {
     this.formData = {
       username: "", // 用户名
@@ -168,8 +181,11 @@ export default class TsComp extends Vue {
   }
 
   /**
-   * @desc 获取表格数据
-   */
+   * @Event 获取表格数据
+   * @description:
+   * @author: mhf
+   * @time: 2024-02-23 23:23:11
+   **/
   getTableData() {
     this.pageNo = 1;
     this.pageSize = 10;
@@ -185,23 +201,32 @@ export default class TsComp extends Vue {
   }
 
   /**
-   * @desc 分页切换事件
-   */
+   * @Event 分页切换事件
+   * @description:
+   * @author: mhf
+   * @time: 2024-02-23 23:23:02
+   **/
   handleSizeChange(val: any) {
     this.pageNo = 1;
     this.pageSize = val;
   }
 
   /**
-   * @desc 分页切换事件
-   */
+   * @Event 分页切换事件
+   * @description:
+   * @author: mhf
+   * @time: 2024-02-23 23:22:47
+   **/
   handleCurrentChange(val: any) {
     this.pageNo = val;
   }
 
   /**
-   * @desc 表格 编辑、新增用户
-   */
+   * @Event 表格 编辑、新增用户
+   * @description:
+   * @author: mhf
+   * @time: 2024-02-23 23:22:42
+   **/
   showPublicPageMethod(data: any, type: string) {
     this.showPublicPage = !this.showPublicPage;
     this.willPassData = {
@@ -211,15 +236,21 @@ export default class TsComp extends Vue {
   }
 
   /**
-   * @desc 返回当前页面
-   */
+   * @Event 返回当前页面
+   * @description:
+   * @author: mhf
+   * @time: 2024-02-23 23:22:34
+   **/
   backIndex() {
     this.showPublicPage = true;
   }
 
   /**
-   * @desc 表格 删除用户
-   */
+   * @Event 表格 删除用户
+   * @description:
+   * @author: mhf
+   * @time: 2024-02-23 23:22:27
+   **/
   deleteUser(data: any) {
     this.$confirm("此操作将永久删除该条数据, 是否继续?", "提示", {
       confirmButtonText: "确定",
@@ -251,10 +282,12 @@ export default class TsComp extends Vue {
   }
 
   /**
-   * 获取父组件（树）勾选上的值
-   */
+   * @Event 获取父组件（树）勾选上的值
+   * @description:
+   * @author: mhf
+   * @time: 2024-02-23 23:22:13
+   **/
   getData(data: any) {
-    // console.log(data)
     this.formData.role = data.toString();
     this.getTableData();
   }
