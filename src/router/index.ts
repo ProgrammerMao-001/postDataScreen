@@ -44,7 +44,7 @@ const routes: Array<RouteConfig> = [
       ),
   },
 
-  // ********************************** 人员管理 **********************************
+  // todo 需要删掉的部分 ********************************** 人员管理  **********************************
   {
     path: "/userManage",
     redirect: "/userManage/peopleManage",
@@ -67,7 +67,7 @@ const routes: Array<RouteConfig> = [
       },
     ],
   },
-  // ********************************** 人员管理 **********************************
+  // todo 需要删掉的部分 ********************************** 人员管理 **********************************
 
   // ********************************** 个人中心 **********************************
   {
@@ -167,6 +167,42 @@ const routes: Array<RouteConfig> = [
     ],
   },
   // ********************************** 系统管理 **********************************
+
+  // ********************************** 数据管理 **********************************
+  {
+    path: "/dataManage",
+    redirect: "/dataManage/company",
+    name: "company",
+    meta: {
+      title: "公司管理",
+    },
+    component: Home,
+    children: [
+      {
+        path: "/dataManage/company",
+        name: "Company",
+        meta: {
+          title: "公司",
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "company" */ "@/views/dataManage/company/company.vue"
+          ),
+      },
+      {
+        path: "/dataManage/post",
+        name: "Post",
+        meta: {
+          title: "岗位",
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "role" */ "@/views/dataManage/post/post.vue"
+          ),
+      },
+    ],
+  },
+  // ********************************** 数据管理 **********************************
 
   // ********************************** 404 **********************************
   {
