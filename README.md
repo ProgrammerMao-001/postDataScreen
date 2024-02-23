@@ -43,6 +43,7 @@ cnpm install sass-loader@7.3.1 --save-dev
 cnpm install express
 cnpm install cors
 cnpm install mysql
+npm install vue-json-editor --save
 ```
 
 [vue-cli](https://cli.vuejs.org/config/)

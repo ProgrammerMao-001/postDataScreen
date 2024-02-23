@@ -44,31 +44,6 @@ const routes: Array<RouteConfig> = [
       ),
   },
 
-  // todo 需要删掉的部分 ********************************** 人员管理  **********************************
-  {
-    path: "/userManage",
-    redirect: "/userManage/peopleManage",
-    name: "peopleManage",
-    meta: {
-      title: "人员管理",
-    },
-    component: Home,
-    children: [
-      {
-        path: "/userManage/confirmed",
-        name: "Confirmed",
-        meta: {
-          title: "确诊人",
-        },
-        component: () =>
-          import(
-            /* webpackChunkName: "confirmed" */ "@/views/sysManage/confirmed/confirmed.vue"
-          ),
-      },
-    ],
-  },
-  // todo 需要删掉的部分 ********************************** 人员管理 **********************************
-
   // ********************************** 个人中心 **********************************
   {
     path: "/personalCenter",

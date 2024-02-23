@@ -305,6 +305,11 @@
   border-bottom: 1px solid #eee;
 }
 
+.el-dialog__body {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
 // 按钮的公共样式修改
 
 // 表格样式修改
