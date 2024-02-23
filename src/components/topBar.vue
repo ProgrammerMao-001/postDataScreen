@@ -46,7 +46,6 @@ import getDay from "@/utils/getDay";
 export default class TopBar extends Vue {
   headImg: any = ""; // 头像
   userName: string = "admin";
-  togetherDay: any = 0;
   role: string = ""; // 角色类型
 
   handleCommand(command: any) {
@@ -81,7 +80,6 @@ export default class TopBar extends Vue {
   }
 
   created() {
-    this.togetherDay = getDay("2022-03-30 00:00:00");
     let userInfo = JSON.parse((localStorage as any).getItem("userInfo"));
     this.userName = userInfo.username;
     this.headImg = userInfo.headimg;
@@ -103,17 +101,6 @@ export default class TopBar extends Vue {
     img {
       width: 100%;
     }
-  }
-
-  .time-weather-box {
-    width: 300px;
-    height: 50px;
-    position: absolute;
-    float: right;
-    right: 130px;
-    color: #fff;
-    letter-spacing: 4px;
-    font-size: 12px;
   }
 
   .login-info {

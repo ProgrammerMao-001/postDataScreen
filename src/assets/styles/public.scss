@@ -1,9 +1,4 @@
-@import "src/assets/styles/variable";
-@import "src/assets/styles/qiandun";
-// 基础色卡
-$backColor: #eef4fd; // 主题背景色
-$textColor: #c0c0c0; // 正常字体色
-
+@import "colorMap";
 
 /* 全局样式 */
 #app {
@@ -65,13 +60,13 @@ $textColor: #c0c0c0; // 正常字体色
       .el-tag {
         // 选中 tag 时的颜色
         //background-color: #ffb6c1;
-        color: #4c64fe;
+        color: $btnColor;
         border-radius: 0;
-        border-bottom: 2px solid #4c64fe;
+        border-bottom: 2px solid $btnColor;
         padding-left: 4px;
 
         .el-icon-close {
-          color: #4c64fe;
+          color: $btnColor;
           display: inline-block;
           background-color: #fff;
         }
@@ -91,7 +86,7 @@ $textColor: #c0c0c0; // 正常字体色
   }
 
   .public-side-icon {
-    color: #4c64fe !important;
+    color: $btnColor !important;
   }
 
   .el-icon-arrow-left {
@@ -187,7 +182,7 @@ $textColor: #c0c0c0; // 正常字体色
     margin-top: 20px;
     font-size: 18px;
     font-weight: 700;
-    color: #4c64fe;
+    color: $btnColor;
     line-height: 30px;
     justify-content: space-around;
 
@@ -229,7 +224,7 @@ $textColor: #c0c0c0; // 正常字体色
     left: 200px;
     width: 8px;
     height: 50px;
-    background-color: #4c64fe;
+    background-color: $btnColor;
     border-radius: 10px;
     cursor: pointer;
     font-size: 10px;
@@ -271,7 +266,7 @@ $textColor: #c0c0c0; // 正常字体色
     left: -8px;
     width: 8px;
     height: 50px;
-    background-color: #4c64fe;
+    background-color: $btnColor;
     border-radius: 10px;
     cursor: pointer;
     font-size: 10px;
@@ -297,12 +292,20 @@ $textColor: #c0c0c0; // 正常字体色
 
 // 弹窗的公共样式修改
 .el-dialog {
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 .el-dialog__headerbtn .el-dialog__close:hover {
-  color: #4c64fe;
+  color: $btnColor;
+}
+
+.el-dialog__header {
+  border-bottom: 1px solid #eee;
 }
 
 // 按钮的公共样式修改
 
+// 表格样式修改
+.el-table th.el-table__cell {
+  background-color: #f8f8f9;
+}

@@ -4,6 +4,7 @@
       :title="title"
       :visible.sync="dialogVisible"
       width="40%"
+      v-el-drag-dialog
       :close-on-click-modal="false"
       :before-close="hideDialog"
     >

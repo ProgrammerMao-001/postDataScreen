@@ -40,6 +40,7 @@
               type="password"
               v-model="formData.checkPass"
               autocomplete="off"
+              show-password
             ></el-input>
           </el-form-item>
 
@@ -196,10 +197,6 @@ export default class Register extends Vue {
 
 ::v-deep .el-dialog__title {
   color: #2244ff !important;
-}
-
-::v-deep .el-dialog__header {
-  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.1);
 }
 
 ::v-deep .el-input {

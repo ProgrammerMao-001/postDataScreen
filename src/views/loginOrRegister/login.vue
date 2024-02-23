@@ -391,6 +391,7 @@ export default class Login extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/styles/colorMap";
 .icon--chose-color {
   color: rgb(96, 98, 102) !important;
 }
@@ -418,7 +419,7 @@ export default class Login extends Vue {
   min-width: 1280px;
   min-height: 800px;
   overflow: hidden;
-  background: #0c2dff;
+  background: $greenBg;
   background-size: cover;
   /* 头部标题logo */
   .head-title {
@@ -427,7 +428,7 @@ export default class Login extends Vue {
     left: 0;
     width: 100%;
     height: 80px;
-    background-color: #2244ff;
+    background-color: $greenOBg;
     align-items: center;
     display: flex;
     padding-left: 20px;
@@ -703,7 +704,7 @@ export default class Login extends Vue {
     padding-top: 12px;
     padding-bottom: 4px;
     text-align: center;
-    background-color: #2244ff;
+    background-color: $greenOBg;
     line-height: 12px;
     color: #ccc;
     font-size: 12px;
