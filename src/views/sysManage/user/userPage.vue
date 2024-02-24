@@ -41,6 +41,7 @@
                 type="text"
                 v-model="formData.password"
                 size="small"
+                placeholder="默认：a123456"
               ></el-input>
             </el-form-item>
           </el-col>
@@ -117,7 +118,7 @@ export default class PublicPage extends Vue {
   @Prop() willPassData: any;
   formData: any = {
     username: "",
-    password: "",
+    password: "a123456",
     role: "", // 非必填，不填默认为 用户
     roleid: "", // 非必填，不填默认为 用户 id(2)
   };
