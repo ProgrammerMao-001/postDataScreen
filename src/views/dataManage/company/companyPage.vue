@@ -1,5 +1,5 @@
 <template>
-  <div class="main-view">
+  <div class="content">
     <!-- 头部 -->
     <div class="main-view-header">
       <div class="main-view-header-left" @click="goBack">
@@ -10,159 +10,160 @@
         <span> {{ willPassData.type | getTitle }} </span>
       </div>
     </div>
-    <!-- 公司信息 -->
-    <div class="main-view-content">
-      <div class="main-view-content-header">公司信息</div>
-    </div>
 
-    <div class="main-view-main">
-      <el-form
-        :model="formData"
-        :rules="formRules"
-        ref="form"
-        label-width="150px"
-        class=""
-      >
-        <el-row :gutter="24">
-          <el-col :span="12">
-            <el-form-item label="企业名称：" prop="username">
-              <el-input
-                :disabled="willPassData.type === '详情'"
-                v-model="formData.username"
-                size="small"
-              ></el-input>
-            </el-form-item>
-          </el-col>
+    <div class="content-main">
+      <!-- 公司信息 -->
+      <div class="main-view-content">
+        <div class="main-view-content-header">公司信息</div>
+      </div>
 
-          <el-col :span="12">
-            <el-form-item label="企业类型：" prop="username">
-              <!-- todo 换成下拉 -->
-              <el-input
-                :disabled="willPassData.type === '详情'"
-                v-model="formData.username"
-                size="small"
-              ></el-input>
-            </el-form-item>
-          </el-col>
-
-          <el-col :span="12">
-            <el-form-item label="经营状态：" prop="username">
-              <!-- todo 换成下拉 -->
-              <el-input
-                :disabled="willPassData.type === '详情'"
-                v-model="formData.username"
-                size="small"
-              ></el-input>
-            </el-form-item>
-          </el-col>
-
-          <el-col :span="12">
-            <el-form-item label="法定代表人：" prop="username">
-              <!-- todo 换成下拉 -->
-              <el-input
-                :disabled="willPassData.type === '详情'"
-                v-model="formData.username"
-                size="small"
-              ></el-input>
-            </el-form-item>
-          </el-col>
-
-          <el-col :span="12">
-            <el-form-item label="成立时间：" prop="username">
-              <!-- todo 换成时间选择器 -->
-              <el-input
-                :disabled="willPassData.type === '详情'"
-                v-model="formData.username"
-                size="small"
-              ></el-input>
-            </el-form-item>
-          </el-col>
-
-          <el-col :span="12">
-            <el-form-item label="统一社会信用代码：" prop="username">
-              <el-input
-                :disabled="willPassData.type === '详情'"
-                v-model="formData.username"
-                size="small"
-              ></el-input>
-            </el-form-item>
-          </el-col>
-
-          <el-col :span="12">
-            <el-form-item label="登记机关：" prop="username">
-              <el-input
-                :disabled="willPassData.type === '详情'"
-                v-model="formData.username"
-                size="small"
-              ></el-input>
-            </el-form-item>
-          </el-col>
-
-          <el-col :span="12">
-            <el-form-item label="经营范围：" prop="username">
-              <el-input
-                :disabled="willPassData.type === '详情'"
-                v-model="formData.username"
-                size="small"
-              ></el-input>
-            </el-form-item>
-          </el-col>
-
-          <el-col :span="24">
-            <el-form-item label="公司简介：" prop="username">
-              <el-input
-                :disabled="willPassData.type === '详情'"
-                v-model="formData.username"
-                type="textarea"
-              />
-            </el-form-item>
-          </el-col>
-
-          <el-col :span="24">
-            <el-form-item label="企业照片：" prop="fileList">
-              <auto-upload-comp
-                :fileList="fileList"
-                @on-response="handleRemoveFile"
-                :limit="1"
-                @getFileList="getFileList"
-                @getFullPath="getFullPath"
-                ref="uploadImg"
-                name="avater"
-              />
-            </el-form-item>
-          </el-col>
-        </el-row>
-      </el-form>
-    </div>
-
-    <!-- 公司地址 -->
-    <div class="main-view-content">
-      <div class="main-view-content-header">公司地址</div>
-    </div>
-
-    <div class="main-view-main2">
-      <div class="main-view-main2-main">
-        <el-form :model="formData" ref="form" label-width="150px" class="">
-          <el-row>
-            <el-col :span="24">
-              <el-form-item label="详细地址：" prop="username">
+      <div class="main-view-main">
+        <el-form
+            :model="formData"
+            :rules="formRules"
+            ref="form"
+            label-width="150px"
+            class=""
+        >
+          <el-row :gutter="24">
+            <el-col :span="12">
+              <el-form-item label="企业名称：" prop="username">
                 <el-input
-                  :disabled="willPassData.type === '详情'"
-                  v-model="formData.username"
-                  type="textarea"
+                    :disabled="willPassData.type === '详情'"
+                    v-model="formData.username"
+                    size="small"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="12">
+              <el-form-item label="企业类型：" prop="username">
+                <!-- todo 换成下拉 -->
+                <el-input
+                    :disabled="willPassData.type === '详情'"
+                    v-model="formData.username"
+                    size="small"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="12">
+              <el-form-item label="经营状态：" prop="username">
+                <!-- todo 换成下拉 -->
+                <el-input
+                    :disabled="willPassData.type === '详情'"
+                    v-model="formData.username"
+                    size="small"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="12">
+              <el-form-item label="法定代表人：" prop="username">
+                <!-- todo 换成下拉 -->
+                <el-input
+                    :disabled="willPassData.type === '详情'"
+                    v-model="formData.username"
+                    size="small"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="12">
+              <el-form-item label="成立时间：" prop="username">
+                <!-- todo 换成时间选择器 -->
+                <el-input
+                    :disabled="willPassData.type === '详情'"
+                    v-model="formData.username"
+                    size="small"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="12">
+              <el-form-item label="统一社会信用代码：" prop="username">
+                <el-input
+                    :disabled="willPassData.type === '详情'"
+                    v-model="formData.username"
+                    size="small"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="12">
+              <el-form-item label="登记机关：" prop="username">
+                <el-input
+                    :disabled="willPassData.type === '详情'"
+                    v-model="formData.username"
+                    size="small"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="12">
+              <el-form-item label="经营范围：" prop="username">
+                <el-input
+                    :disabled="willPassData.type === '详情'"
+                    v-model="formData.username"
+                    size="small"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="24">
+              <el-form-item label="公司简介：" prop="username">
+                <el-input
+                    :disabled="willPassData.type === '详情'"
+                    v-model="formData.username"
+                    type="textarea"
                 />
               </el-form-item>
             </el-col>
 
             <el-col :span="24">
+              <el-form-item label="企业照片：" prop="fileList">
+                <auto-upload-comp
+                    :fileList="fileList"
+                    @on-response="handleRemoveFile"
+                    :limit="1"
+                    @getFileList="getFileList"
+                    @getFullPath="getFullPath"
+                    ref="uploadImg"
+                    name="avater"
+                />
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
+      </div>
+
+      <!-- 公司地址 -->
+      <div class="main-view-content">
+        <div class="main-view-content-header">公司地址</div>
+      </div>
+
+      <div class="main-view-main">
+        <el-form :model="formData" ref="form" label-width="150px" class="">
+          <el-row>
+            <el-col :span="12">
+              <el-form-item label="所在省份：" prop="username">
+                <el-input
+                    :disabled="willPassData.type === '详情'"
+                    size="small"
+                    v-model="formData.username"
+                />
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="12">
               <el-form-item label="选择点位：" prop="username">
                 <!-- todo 地图上选点 -->
                 <el-input
-                  :disabled="willPassData.type === '详情'"
-                  @focus="showRoleDialog(formData.roleid)"
-                  placeholder="地图上选择位置后自动获取经纬度"
-                  size="small"
-                  v-model="formData.role"
+                    :disabled="willPassData.type === '详情'"
+                    @focus="showRoleDialog(formData.roleid)"
+                    placeholder="地图上选择位置后自动获取经纬度"
+                    size="small"
+                    v-model="formData.role"
                 >
                   <template slot="append">
                     <i class="el-icon-search"></i>
@@ -172,12 +173,11 @@
             </el-col>
 
             <el-col :span="24">
-              <el-form-item label="所在省份：" prop="username">
-                <!--        todo 下拉-->
+              <el-form-item label="详细地址：" prop="username">
                 <el-input
-                  :disabled="willPassData.type === '详情'"
-                  v-model="formData.username"
-                  type="textarea"
+                    :disabled="willPassData.type === '详情'"
+                    v-model="formData.username"
+                    type="textarea"
                 />
               </el-form-item>
             </el-col>
@@ -189,31 +189,31 @@
     <!-- 底部按钮 -->
     <div class="main-view-btn">
       <el-button size="small" icon="el-icon-back" @click="goBack"
-        >返回
+      >返回
       </el-button>
       <el-button
-        type="primary"
-        size="small"
-        icon="el-icon-check"
-        @click="saveUserInfo"
-        >保存
+          type="primary"
+          size="small"
+          icon="el-icon-check"
+          @click="saveUserInfo"
+      >保存
       </el-button>
     </div>
 
     <!-- 选择账号类型的弹窗 -->
-    <roleDialog ref="roleDialog" @on-response="getPassData" />
+    <roleDialog ref="roleDialog" @on-response="getPassData"/>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from "vue-property-decorator";
-import { getUserDetail } from "@/api/userModule";
+import {Component, Prop, Vue, Watch} from "vue-property-decorator";
+import {getUserDetail} from "@/api/userModule";
 import roleDialog from "@/components/roleDialog.vue";
 import autoUploadComp from "@/components/autoUploadComp.vue";
-import { register, updateUser } from "@/api/userModule";
+import {register, updateUser} from "@/api/userModule";
 
 @Component({
-  components: { autoUploadComp, roleDialog },
+  components: {autoUploadComp, roleDialog},
   filters: {
     getTitle(value: string): string {
       if (value === "详情") {
@@ -337,18 +337,18 @@ export default class PublicPage extends Vue {
       role: this.formData.role ? this.formData.role : "用户",
       roleid: this.formData.roleid ? this.formData.roleid : "2",
     })
-      .then((res: any) => {
-        if (res.status === 200) {
-          this.$message.success("新增成功！");
-          this.goBack();
-          (this.$parent as any).getTableData();
-        } else {
-          this.$message.warning(res.message);
-        }
-      })
-      .catch((e: any) => {
-        throw e;
-      });
+        .then((res: any) => {
+          if (res.status === 200) {
+            this.$message.success("新增成功！");
+            this.goBack();
+            (this.$parent as any).getTableData();
+          } else {
+            this.$message.warning(res.message);
+          }
+        })
+        .catch((e: any) => {
+          throw e;
+        });
   }
 
   /**
@@ -364,19 +364,19 @@ export default class PublicPage extends Vue {
       role: this.formData.role ? this.formData.role : "用户", // 如果没有选择用户类型则默认为普通用户
       roleid: this.formData.roleid ? this.formData.roleid : "2",
     })
-      .then((res: any) => {
-        console.log("res", res);
-        if (res.status === 200) {
-          this.$message.success("新增成功！");
-          this.goBack();
-          (this.$parent as any).getTableData();
-        } else {
-          this.$message.warning(res.message);
-        }
-      })
-      .catch((e: any) => {
-        throw e;
-      });
+        .then((res: any) => {
+          console.log("res", res);
+          if (res.status === 200) {
+            this.$message.success("新增成功！");
+            this.goBack();
+            (this.$parent as any).getTableData();
+          } else {
+            this.$message.warning(res.message);
+          }
+        })
+        .catch((e: any) => {
+          throw e;
+        });
   }
 
   /**
@@ -421,7 +421,8 @@ export default class PublicPage extends Vue {
     this.fileList = [];
   }
 
-  getFileList(data: any) {}
+  getFileList(data: any) {
+  }
 
   getFullPath(data: any) {
     this.formData.picurl = data.url;
@@ -439,7 +440,19 @@ export default class PublicPage extends Vue {
 <style lang="scss" scoped>
 @import "~@/assets/styles/colorMap";
 
+.content {
+  max-height: calc(80vh - 20px);
+
+  &-main {
+    border: 1px solid red;
+    height: calc(80vh - 80px);
+    overflow-y: auto;
+  }
+}
+
 .main-view {
+  max-height: 80vh;
+
   &-header {
     width: 100%;
     height: 50px;
@@ -485,10 +498,6 @@ export default class PublicPage extends Vue {
   &-main {
     width: 94%;
     margin: 0 auto;
-  }
-
-  &-main2 {
-    display: flex;
   }
 
   &-btn {
