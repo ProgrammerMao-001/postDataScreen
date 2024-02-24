@@ -37,24 +37,15 @@
             </el-col>
 
             <el-col :span="12">
-              <!--              todo 修改字典数据-->
               <el-form-item label="职位类型：" prop="username">
-                <el-select
-                  :disabled="willPassData.type === '详情'"
-                  v-model="formData.username"
-                  placeholder=""
-                  size="small"
-                  clearable
-                  filterable
-                >
-                  <el-option
-                    v-for="item in businessStatusList"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  >
-                  </el-option>
-                </el-select>
+                <el-cascader
+                    size="small"
+                    placeholder=""
+                    :options="postTypeList"
+                    :props="cascaderProps"
+                    filterable
+                    clearable
+                ></el-cascader>
               </el-form-item>
             </el-col>
 
@@ -235,6 +226,12 @@ export default class PublicPage extends Vue {
   workExperienceList: any = []; // 工作经验列表
   companyList: any = []; // 企业列表
   postTypeList: any = postType(); // 企业列表
+  cascaderProps: any = {
+    children: "subLevelModelList",
+    label: "name",
+    value: "code",
+    expandTrigger: "click",
+  }; // 自定义级联列表参数
 
   /**
    * @desc 返回主页
@@ -504,6 +501,7 @@ export default class PublicPage extends Vue {
 }
 
 .el-input--small,
+.el-cascader,
 .el-select {
   width: 100%;
 }
