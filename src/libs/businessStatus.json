@@ -1,0 +1,43 @@
+// 企业经营状态
+[
+  {
+    "label": "存续",
+    "value": "0",
+    "color": "#128f8e"
+  },
+  {
+    "label": "在业",
+    "value": "1",
+    "color": "#128f8e"
+  },
+  {
+    "label": "未注销",
+    "value": "2",
+    "color": "#00b4b3 "
+  },
+  {
+    "label": "注销",
+    "value": "3",
+    "color": "#bb2e3e"
+  },
+  {
+    "label": "迁出",
+    "value": "4",
+    "color": ""
+  },
+  {
+    "label": "迁入",
+    "value": "5",
+    "color": ""
+  },
+  {
+    "label": "停业",
+    "value": "6",
+    "color": "#bb2e3e"
+  },
+  {
+    "label": "清算",
+    "value": "7",
+    "color": "#ff0000"
+  }
+]

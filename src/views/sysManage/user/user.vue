@@ -391,23 +391,6 @@ export default class TsComp extends Vue {
   }
 }
 
-.el-icon-edit {
-  color: #108c53;
-  margin-right: 12px;
-  cursor: pointer;
-}
-
-.el-icon-info {
-  color: #409eff;
-  margin-right: 12px;
-  cursor: pointer;
-}
-
-.el-icon-delete {
-  color: #dd5a43;
-  cursor: pointer;
-}
-
 ::v-deep .el-pagination.is-background .el-pager li:not(.disabled).active {
   background-color: $greenBg;
 }

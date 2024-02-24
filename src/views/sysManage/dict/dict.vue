@@ -72,27 +72,21 @@
             <el-table-column show-overflow-tooltip prop="remark" label="备注" />
             <el-table-column prop="" label="操作" min-width="120">
               <template slot-scope="scope">
-                <el-button
-                  type="text"
+                <i
+                  class="el-icon-info"
                   @click="showPublicDialog('详情', scope.row)"
-                  size="small"
-                >
-                  详情
-                </el-button>
-                <el-button
-                  type="text"
+                  title="字典详情"
+                ></i>
+                <i
+                  class="el-icon-edit"
                   @click="showPublicDialog('编辑', scope.row)"
-                  size="small"
-                >
-                  编辑
-                </el-button>
-                <el-button
-                  type="text"
-                  @click="deletePeople(scope.row)"
-                  size="small"
-                >
-                  删除
-                </el-button>
+                  title="编辑字典"
+                ></i>
+                <i
+                  class="el-icon-delete"
+                  @click="deleteRow(scope.row)"
+                  title="删除字典"
+                ></i>
               </template>
             </el-table-column>
           </el-table>
@@ -201,7 +195,7 @@ export default class RoleManage extends Vue {
     (this.$refs.dictDialog as any).showDialog(passData);
   }
 
-  deletePeople(data: any) {
+  deleteRow(data: any) {
     this.$confirm("此操作将永久删除该条数据, 是否继续?", "提示", {
       confirmButtonText: "确定",
       cancelButtonText: "取消",
