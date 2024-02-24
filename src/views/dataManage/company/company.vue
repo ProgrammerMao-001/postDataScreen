@@ -44,7 +44,15 @@
           </el-form-item>
 
           <el-form-item size="small" label="经营状态:">
-            <el-input v-model="searchForm.remark"></el-input>
+            <el-select v-model="searchForm.remark" placeholder="">
+              <el-option
+                v-for="item in businessStatusList"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
           </el-form-item>
 
           <el-form-item size="small">
@@ -165,6 +173,7 @@ export default class RoleManage extends Vue {
   showSearchForm: boolean = false;
   showPage: number = 1;
   willPassData: any = {};
+  businessStatusList: any = []; // 经营状态列表
 
   // 获取全部的字典
   getTableData() {
@@ -260,9 +269,15 @@ export default class RoleManage extends Vue {
         });
       });
   }
-
+  getBusinessStatusList() {
+    (this as any).getDict("businessStatus").then((res: any) => {
+      let arr = res.data.data[0]?.data || "[]";
+      this.businessStatusList = JSON.parse(arr);
+    });
+  }
   created() {
     this.getTableData();
+    this.getBusinessStatusList();
   }
 }
 </script>

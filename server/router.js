@@ -7,6 +7,8 @@ let roleModule = require('./API/roleModule')
 let routerModule = require('./API/routerModule')
 let uploadModule = require('./API/uploadModule')
 let dictModule = require('./API/dictModule')
+let companyModule = require('./API/companyModule')
+let postModule = require('./API/postModule')
 
 router.get('/', (req, res) => {
     res.send('express启动成功!');
@@ -44,5 +46,23 @@ router.post('/updateDict', dictModule.updateDict)
 router.get('/getDictDetail', dictModule.getDictDetail)
 router.get('/deleteDict', dictModule.deleteDict)
 /* 字典模块 */
+
+/* 公司模块 */
+router.get('/getCompanyList', companyModule.getCompanyList)
+router.get('/getCompanyListByPrams', companyModule.getCompanyListByPrams)
+router.post('/addCompany', companyModule.addCompany)
+router.post('/updateCompany', companyModule.updateCompany)
+router.get('/getCompanyDetail', companyModule.getCompanyDetail)
+router.get('/deleteCompany', companyModule.deleteCompany)
+/* 公司模块 */
+
+/* 岗位模块 */
+router.get('/getPostList', postModule.getPostList)
+router.get('/getPostListByPrams', postModule.getPostListByPrams)
+router.post('/addPost', postModule.addPost)
+router.post('/updatePost', postModule.updatePost)
+router.get('/getPostDetail', postModule.getPostDetail)
+router.get('/deletePost', postModule.deletePost)
+/* 岗位模块 */
 
 module.exports = router
