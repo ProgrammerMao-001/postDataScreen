@@ -11,6 +11,8 @@ import "@/assets/styles/public.scss";
 import dataV from "@jiaminghi/data-view";
 // 全局自定义指令
 import directive from "@/directives";
+import getDict from "@/utils/getDict";
+Vue.prototype.getDict = getDict;
 import filter from "./filter";
 Vue.use(filter);
 Vue.prototype.$axios = axios;

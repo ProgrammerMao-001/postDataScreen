@@ -19,19 +19,19 @@
 
       <div class="main-view-main">
         <el-form
-            :model="formData"
-            :rules="formRules"
-            ref="form"
-            label-width="150px"
-            class=""
+          :model="formData"
+          :rules="formRules"
+          ref="form"
+          label-width="150px"
+          class=""
         >
           <el-row :gutter="24">
             <el-col :span="12">
               <el-form-item label="企业名称：" prop="username">
                 <el-input
-                    :disabled="willPassData.type === '详情'"
-                    v-model="formData.username"
-                    size="small"
+                  :disabled="willPassData.type === '详情'"
+                  v-model="formData.username"
+                  size="small"
                 ></el-input>
               </el-form-item>
             </el-col>
@@ -40,9 +40,9 @@
               <el-form-item label="企业类型：" prop="username">
                 <!-- todo 换成下拉 -->
                 <el-input
-                    :disabled="willPassData.type === '详情'"
-                    v-model="formData.username"
-                    size="small"
+                  :disabled="willPassData.type === '详情'"
+                  v-model="formData.username"
+                  size="small"
                 ></el-input>
               </el-form-item>
             </el-col>
@@ -51,9 +51,9 @@
               <el-form-item label="经营状态：" prop="username">
                 <!-- todo 换成下拉 -->
                 <el-input
-                    :disabled="willPassData.type === '详情'"
-                    v-model="formData.username"
-                    size="small"
+                  :disabled="willPassData.type === '详情'"
+                  v-model="formData.username"
+                  size="small"
                 ></el-input>
               </el-form-item>
             </el-col>
@@ -62,9 +62,9 @@
               <el-form-item label="法定代表人：" prop="username">
                 <!-- todo 换成下拉 -->
                 <el-input
-                    :disabled="willPassData.type === '详情'"
-                    v-model="formData.username"
-                    size="small"
+                  :disabled="willPassData.type === '详情'"
+                  v-model="formData.username"
+                  size="small"
                 ></el-input>
               </el-form-item>
             </el-col>
@@ -73,9 +73,9 @@
               <el-form-item label="成立时间：" prop="username">
                 <!-- todo 换成时间选择器 -->
                 <el-input
-                    :disabled="willPassData.type === '详情'"
-                    v-model="formData.username"
-                    size="small"
+                  :disabled="willPassData.type === '详情'"
+                  v-model="formData.username"
+                  size="small"
                 ></el-input>
               </el-form-item>
             </el-col>
@@ -83,9 +83,9 @@
             <el-col :span="12">
               <el-form-item label="统一社会信用代码：" prop="username">
                 <el-input
-                    :disabled="willPassData.type === '详情'"
-                    v-model="formData.username"
-                    size="small"
+                  :disabled="willPassData.type === '详情'"
+                  v-model="formData.username"
+                  size="small"
                 ></el-input>
               </el-form-item>
             </el-col>
@@ -93,9 +93,9 @@
             <el-col :span="12">
               <el-form-item label="登记机关：" prop="username">
                 <el-input
-                    :disabled="willPassData.type === '详情'"
-                    v-model="formData.username"
-                    size="small"
+                  :disabled="willPassData.type === '详情'"
+                  v-model="formData.username"
+                  size="small"
                 ></el-input>
               </el-form-item>
             </el-col>
@@ -103,9 +103,9 @@
             <el-col :span="12">
               <el-form-item label="经营范围：" prop="username">
                 <el-input
-                    :disabled="willPassData.type === '详情'"
-                    v-model="formData.username"
-                    size="small"
+                  :disabled="willPassData.type === '详情'"
+                  v-model="formData.username"
+                  size="small"
                 ></el-input>
               </el-form-item>
             </el-col>
@@ -113,9 +113,9 @@
             <el-col :span="24">
               <el-form-item label="公司简介：" prop="username">
                 <el-input
-                    :disabled="willPassData.type === '详情'"
-                    v-model="formData.username"
-                    type="textarea"
+                  :disabled="willPassData.type === '详情'"
+                  v-model="formData.username"
+                  type="textarea"
                 />
               </el-form-item>
             </el-col>
@@ -123,13 +123,13 @@
             <el-col :span="24">
               <el-form-item label="企业照片：" prop="fileList">
                 <auto-upload-comp
-                    :fileList="fileList"
-                    @on-response="handleRemoveFile"
-                    :limit="1"
-                    @getFileList="getFileList"
-                    @getFullPath="getFullPath"
-                    ref="uploadImg"
-                    name="avater"
+                  :fileList="fileList"
+                  @on-response="handleRemoveFile"
+                  :limit="1"
+                  @getFileList="getFileList"
+                  @getFullPath="getFullPath"
+                  ref="uploadImg"
+                  name="avater"
                 />
               </el-form-item>
             </el-col>
@@ -147,11 +147,15 @@
           <el-row>
             <el-col :span="12">
               <el-form-item label="所在省份：" prop="username">
-                <el-input
-                    :disabled="willPassData.type === '详情'"
-                    size="small"
-                    v-model="formData.username"
-                />
+                <el-select v-model="formData.username" placeholder="">
+                  <el-option
+                    v-for="item in provinceList"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  >
+                  </el-option>
+                </el-select>
               </el-form-item>
             </el-col>
 
@@ -159,11 +163,11 @@
               <el-form-item label="选择点位：" prop="username">
                 <!-- todo 地图上选点 -->
                 <el-input
-                    :disabled="willPassData.type === '详情'"
-                    @focus="showRoleDialog(formData.roleid)"
-                    placeholder="地图上选择位置后自动获取经纬度"
-                    size="small"
-                    v-model="formData.role"
+                  :disabled="willPassData.type === '详情'"
+                  @focus="showRoleDialog(formData.roleid)"
+                  placeholder="地图上选择位置后自动获取经纬度"
+                  size="small"
+                  v-model="formData.role"
                 >
                   <template slot="append">
                     <i class="el-icon-search"></i>
@@ -175,9 +179,9 @@
             <el-col :span="24">
               <el-form-item label="详细地址：" prop="username">
                 <el-input
-                    :disabled="willPassData.type === '详情'"
-                    v-model="formData.username"
-                    type="textarea"
+                  :disabled="willPassData.type === '详情'"
+                  v-model="formData.username"
+                  type="textarea"
                 />
               </el-form-item>
             </el-col>
@@ -189,31 +193,31 @@
     <!-- 底部按钮 -->
     <div class="main-view-btn">
       <el-button size="small" icon="el-icon-back" @click="goBack"
-      >返回
+        >返回
       </el-button>
       <el-button
-          type="primary"
-          size="small"
-          icon="el-icon-check"
-          @click="saveUserInfo"
-      >保存
+        type="primary"
+        size="small"
+        icon="el-icon-check"
+        @click="saveUserInfo"
+        >保存
       </el-button>
     </div>
 
     <!-- 选择账号类型的弹窗 -->
-    <roleDialog ref="roleDialog" @on-response="getPassData"/>
+    <roleDialog ref="roleDialog" @on-response="getPassData" />
   </div>
 </template>
 
 <script lang="ts">
-import {Component, Prop, Vue, Watch} from "vue-property-decorator";
-import {getUserDetail} from "@/api/userModule";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
+import { getUserDetail } from "@/api/userModule";
 import roleDialog from "@/components/roleDialog.vue";
 import autoUploadComp from "@/components/autoUploadComp.vue";
-import {register, updateUser} from "@/api/userModule";
+import { register, updateUser } from "@/api/userModule";
 
 @Component({
-  components: {autoUploadComp, roleDialog},
+  components: { autoUploadComp, roleDialog },
   filters: {
     getTitle(value: string): string {
       if (value === "详情") {
@@ -233,20 +237,6 @@ export default class PublicPage extends Vue {
     roleid: "", // 非必填，不填默认为 用户 id(2)
   };
   formRules: any = {
-    username: [
-      {
-        required: true,
-        validator: this.validateUsername,
-        trigger: "blur",
-      },
-    ],
-    password: [
-      {
-        required: true,
-        validator: this.validatePassword,
-        trigger: "blur",
-      },
-    ],
     fileList: [
       {
         required: true,
@@ -256,34 +246,7 @@ export default class PublicPage extends Vue {
       },
     ],
   };
-
-  /**
-   * @desc 用户名的校验
-   * 10个字符 (只能10个中文字符)
-   **/
-  validateUsername(rule: any, value: any, callback: any) {
-    if (value === "") {
-      callback(new Error("请输入用户名"));
-    } else if (value && /^(?:[\u4e00-\u9fa5·]{2,10})$/.test(value) === false) {
-      callback(new Error("请输入正确的中文用户名"));
-    }
-    callback();
-  }
-
-  /**
-   * @desc 密码框的校验
-   * 只能输入十个字符，英文和数字组成
-   **/
-  validatePassword(rule: any, value: any, callback: any) {
-    if (value === "") {
-      callback(new Error("请输入密码"));
-    } else if (value && /^(?=.*[a-zA-Z])(?=.*\d).+$/.test(value) == false) {
-      callback(new Error("密码必须由英文和数字组成"));
-    } else if (value && value.length > 10) {
-      callback(new Error("密码的长度不能大于10位"));
-    }
-    callback();
-  }
+  provinceList: any = []; // 省份列表
 
   /**
    * @desc 检测是否上传图片
@@ -337,18 +300,18 @@ export default class PublicPage extends Vue {
       role: this.formData.role ? this.formData.role : "用户",
       roleid: this.formData.roleid ? this.formData.roleid : "2",
     })
-        .then((res: any) => {
-          if (res.status === 200) {
-            this.$message.success("新增成功！");
-            this.goBack();
-            (this.$parent as any).getTableData();
-          } else {
-            this.$message.warning(res.message);
-          }
-        })
-        .catch((e: any) => {
-          throw e;
-        });
+      .then((res: any) => {
+        if (res.status === 200) {
+          this.$message.success("新增成功！");
+          this.goBack();
+          (this.$parent as any).getTableData();
+        } else {
+          this.$message.warning(res.message);
+        }
+      })
+      .catch((e: any) => {
+        throw e;
+      });
   }
 
   /**
@@ -364,19 +327,19 @@ export default class PublicPage extends Vue {
       role: this.formData.role ? this.formData.role : "用户", // 如果没有选择用户类型则默认为普通用户
       roleid: this.formData.roleid ? this.formData.roleid : "2",
     })
-        .then((res: any) => {
-          console.log("res", res);
-          if (res.status === 200) {
-            this.$message.success("新增成功！");
-            this.goBack();
-            (this.$parent as any).getTableData();
-          } else {
-            this.$message.warning(res.message);
-          }
-        })
-        .catch((e: any) => {
-          throw e;
-        });
+      .then((res: any) => {
+        console.log("res", res);
+        if (res.status === 200) {
+          this.$message.success("新增成功！");
+          this.goBack();
+          (this.$parent as any).getTableData();
+        } else {
+          this.$message.warning(res.message);
+        }
+      })
+      .catch((e: any) => {
+        throw e;
+      });
   }
 
   /**
@@ -421,8 +384,7 @@ export default class PublicPage extends Vue {
     this.fileList = [];
   }
 
-  getFileList(data: any) {
-  }
+  getFileList(data: any) {}
 
   getFullPath(data: any) {
     this.formData.picurl = data.url;
@@ -430,9 +392,23 @@ export default class PublicPage extends Vue {
   }
 
   /* 以上是图片上传相关的代码 */
+
+  getProvinceList() {
+    (this as any).getDict("province").then((res: any) => {
+      let arr = res.data.data[0]?.data || "[]";
+      this.provinceList = JSON.parse(arr);
+      console.log(this.provinceList, "provinceList");
+    });
+  }
   created() {
-    if (this.willPassData.type !== "新增用户") this.getDetail();
+    if (this.willPassData.type !== "新增用户") {
+      this.getDetail();
+    }
     console.log(this.willPassData);
+  }
+
+  mounted() {
+    this.getProvinceList();
   }
 }
 </script>
