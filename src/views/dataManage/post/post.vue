@@ -14,17 +14,17 @@
 
         <div class="r-content-header-right">
           <el-button
-              icon="el-icon-search"
-              size="small"
-              @click="showSearchForm = !showSearchForm"
+            icon="el-icon-search"
+            size="small"
+            @click="showSearchForm = !showSearchForm"
           >
             {{ showSearchForm ? "隐藏" : "查询" }}
           </el-button>
           <el-button
-              icon="el-icon-plus"
-              type="primary"
-              size="small"
-              @click="showPublicPage('新增', null)"
+            icon="el-icon-plus"
+            type="primary"
+            size="small"
+            @click="showPublicPage('新增', null)"
           >
             新增
           </el-button>
@@ -34,10 +34,10 @@
       <!-- 搜索框 -->
       <div class="r-content-search-box" v-show="showSearchForm">
         <el-form
-            :inline="true"
-            :model="searchForm"
-            class=""
-            style="margin: 20px 0 0 20px"
+          :inline="true"
+          :model="searchForm"
+          class=""
+          style="margin: 20px 0 0 20px"
         >
           <el-form-item size="small" label="岗位名称:">
             <el-input v-model="searchForm.name"></el-input>
@@ -54,10 +54,10 @@
       <div style="width: 97%; margin: 0 auto">
         <div class="table">
           <el-table
-              stripe
-              border
-              :data="tableData.slice((pageNo - 1) * pageSize, pageNo * pageSize)"
-              style="width: 100%"
+            stripe
+            border
+            :data="tableData.slice((pageNo - 1) * pageSize, pageNo * pageSize)"
+            style="width: 100%"
           >
             <el-table-column type="index" label="序号" width="60">
               <template slot-scope="scope">
@@ -65,51 +65,47 @@
               </template>
             </el-table-column>
             <el-table-column
-                show-overflow-tooltip
-                prop="name"
-                label="岗位名称"
+              show-overflow-tooltip
+              prop="name"
+              label="岗位名称"
             />
             <el-table-column
-                show-overflow-tooltip
-                prop="name"
-                label="薪资范围"
+              show-overflow-tooltip
+              prop="name"
+              label="薪资范围"
             />
             <el-table-column
-                show-overflow-tooltip
-                prop="name"
-                label="招聘状态"
+              show-overflow-tooltip
+              prop="name"
+              label="招聘状态"
             />
             <el-table-column
-                show-overflow-tooltip
-                prop="remark"
-                label="职位类型"
+              show-overflow-tooltip
+              prop="remark"
+              label="职位类型"
             />
             <el-table-column
-                show-overflow-tooltip
-                prop="remark"
-                label="所需经验"
+              show-overflow-tooltip
+              prop="remark"
+              label="所需经验"
             />
-            <el-table-column
-                show-overflow-tooltip
-                prop="remark"
-                label="学历"
-            />
+            <el-table-column show-overflow-tooltip prop="remark" label="学历" />
             <el-table-column prop="" label="操作" min-width="120">
               <template slot-scope="scope">
                 <i
-                    class="el-icon-info"
-                    @click="showPublicPage('详情', scope.row)"
-                    title="岗位详情"
+                  class="el-icon-info"
+                  @click="showPublicPage('详情', scope.row)"
+                  title="岗位详情"
                 ></i>
                 <i
-                    class="el-icon-edit"
-                    @click="showPublicPage('编辑', scope.row)"
-                    title="编辑岗位"
+                  class="el-icon-edit"
+                  @click="showPublicPage('编辑', scope.row)"
+                  title="编辑岗位"
                 ></i>
                 <i
-                    class="el-icon-delete"
-                    @click="deleteRow(scope.row)"
-                    title="删除岗位"
+                  class="el-icon-delete"
+                  @click="deleteRow(scope.row)"
+                  title="删除岗位"
                 ></i>
               </template>
             </el-table-column>
@@ -119,24 +115,24 @@
         <!-- 分页 -->
         <div>
           <el-pagination
-              background
-              style="text-align: right; margin-top: 15px"
-              @size-change="handleSizeChange"
-              @current-change="handleCurrentChange"
-              :current-page="pageNo"
-              :page-sizes="[5, 10, 20, 30, 50]"
-              :page-size="pageSize"
-              layout="total, sizes, prev, pager, next, jumper"
-              :total="tableData.length"
+            background
+            style="text-align: right; margin-top: 15px"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="pageNo"
+            :page-sizes="[5, 10, 20, 30, 50]"
+            :page-size="pageSize"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="tableData.length"
           >
           </el-pagination>
         </div>
       </div>
     </div>
     <postPage
-        v-if="showPage === 2"
-        ref="postPage"
-        :willPassData="willPassData"
+      v-if="showPage === 2"
+      ref="postPage"
+      :willPassData="willPassData"
     />
   </div>
 </template>
@@ -144,7 +140,7 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { getDictListByPrams, deleteDict } from "@/api/dictModule";
-import postPage from "@/views/dataManage/post/postPage.vue"
+import postPage from "@/views/dataManage/post/postPage.vue";
 @Component({
   components: { postPage },
 })
@@ -232,28 +228,28 @@ export default class RoleManage extends Vue {
       cancelButtonText: "取消",
       type: "warning",
     })
-        .then(() => {
-          // deleteDict({
-          //   id: data.id,
-          // })
-          //   .then((res: any) => {
-          //     if (res.data.status === 200) {
-          //       this.$message.success("删除成功！");
-          //     } else {
-          //       this.$message.error("删除失败，请稍后再试！");
-          //     }
-          //     this.getTableData();
-          //   })
-          //   .catch((e: any) => {
-          //     console.log(e);
-          //   });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消删除",
-          });
+      .then(() => {
+        // deleteDict({
+        //   id: data.id,
+        // })
+        //   .then((res: any) => {
+        //     if (res.data.status === 200) {
+        //       this.$message.success("删除成功！");
+        //     } else {
+        //       this.$message.error("删除失败，请稍后再试！");
+        //     }
+        //     this.getTableData();
+        //   })
+        //   .catch((e: any) => {
+        //     console.log(e);
+        //   });
+      })
+      .catch(() => {
+        this.$message({
+          type: "info",
+          message: "已取消删除",
         });
+      });
   }
 
   created() {

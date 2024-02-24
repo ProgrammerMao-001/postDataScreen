@@ -37,7 +37,7 @@
             </el-col>
 
             <el-col :span="12">
-<!--              todo 修改字典数据-->
+              <!--              todo 修改字典数据-->
               <el-form-item label="职位类型：" prop="username">
                 <el-select
                   :disabled="willPassData.type === '详情'"
@@ -58,7 +58,6 @@
               </el-form-item>
             </el-col>
 
-            <!--              todo 修改字典数据-->
             <el-col :span="12">
               <el-form-item label="招聘状态：" prop="username">
                 <el-select
@@ -70,39 +69,37 @@
                   filterable
                 >
                   <el-option
-                    v-for="item in userList"
-                    :key="item.id"
-                    :label="item.username"
-                    :value="item.id"
+                    v-for="item in recruitStatusList"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
                   >
                   </el-option>
                 </el-select>
               </el-form-item>
             </el-col>
 
-            <!--              todo 修改字典数据-->
             <el-col :span="12">
               <el-form-item label="学历：" prop="username">
                 <el-select
                   :disabled="willPassData.type === '详情'"
-                  v-model="formData.userName"
+                  v-model="formData.username"
                   placeholder=""
                   size="small"
                   clearable
                   filterable
                 >
                   <el-option
-                    v-for="item in userList"
-                    :key="item.id"
-                    :label="item.username"
-                    :value="item.id"
+                    v-for="item in educationList"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
                   >
                   </el-option>
                 </el-select>
               </el-form-item>
             </el-col>
 
-            <!--              todo 修改字典数据-->
             <el-col :span="12">
               <el-form-item label="工作年限：" prop="username">
                 <el-select
@@ -114,19 +111,18 @@
                   filterable
                 >
                   <el-option
-                    v-for="item in userList"
-                    :key="item.id"
-                    :label="item.username"
-                    :value="item.id"
+                    v-for="item in workExperienceList"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
                   >
                   </el-option>
                 </el-select>
               </el-form-item>
             </el-col>
 
-
             <el-col :span="12">
-<!--   todo 自动计算平均薪资           -->
+              <!--   todo 自动计算平均薪资           -->
               <el-form-item label="薪资范围：" prop="username">
                 <el-input
                   :disabled="willPassData.type === '详情'"
@@ -158,21 +154,20 @@
         <el-form :model="formData" ref="form" label-width="150px" class="">
           <el-row>
             <el-col :span="12">
-<!--              todo 公司下拉 -->
               <el-form-item label="企业名称：" prop="username">
                 <el-select
-                    :disabled="willPassData.type === '详情'"
-                    v-model="formData.userName"
-                    placeholder=""
-                    size="small"
-                    clearable
-                    filterable
+                  :disabled="willPassData.type === '详情'"
+                  v-model="formData.userName"
+                  placeholder=""
+                  size="small"
+                  clearable
+                  filterable
                 >
                   <el-option
-                      v-for="item in userList"
-                      :key="item.id"
-                      :label="item.username"
-                      :value="item.id"
+                    v-for="item in companyList"
+                    :key="item.id"
+                    :label="item.username"
+                    :value="item.id"
                   >
                   </el-option>
                 </el-select>
@@ -208,9 +203,9 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { register, updateUser, getUserByUserName } from "@/api/userModule";
-
+// import { getCompanyList } from "@/api/companyModule"
 @Component({
-  components: {  },
+  components: {},
   filters: {
     getTitle(value: string): string {
       if (value === "详情") {
@@ -229,13 +224,15 @@ export default class PublicPage extends Vue {
     role: "", // 非必填，不填默认为 用户
     roleid: "", // 非必填，不填默认为 用户 id(2)
   };
-  formRules: any = {
-
-  };
+  formRules: any = {};
   provinceList: any = []; // 省份列表
   businessStatusList: any = []; // 经营状态列表
   userList: any = []; // 用户列表
 
+  recruitStatusList: any = []; // 招聘状态列表
+  educationList: any = []; // 学历列表
+  workExperienceList: any = []; // 工作经验列表
+  companyList: any = []; // 企业列表
 
   /**
    * @desc 返回主页
@@ -368,6 +365,37 @@ export default class PublicPage extends Vue {
     });
   }
 
+  /* 获取企业列表 */
+  getCompanyList() {
+    // getCompanyList({ role: "" }).then((res: any) => {
+    //   this.companyList = res.data.data || [];
+    // });
+  }
+
+  /* 获取招聘状态列表 */
+  getRecruitStatusList() {
+    (this as any).getDict("recruitmentStatus").then((res: any) => {
+      let arr = res.data.data[0]?.data || "[]";
+      this.recruitStatusList = JSON.parse(arr);
+    });
+  }
+
+  /* 获取学历列表 */
+  getEducationList() {
+    (this as any).getDict("education").then((res: any) => {
+      let arr = res.data.data[0]?.data || "[]";
+      this.educationList = JSON.parse(arr);
+    });
+  }
+
+  /* 获取工作经验列表 */
+  getWorkExperienceList() {
+    (this as any).getDict("workExperience").then((res: any) => {
+      let arr = res.data.data[0]?.data || "[]";
+      this.workExperienceList = JSON.parse(arr);
+    });
+  }
+
   created() {
     if (this.willPassData.type !== "新增用户") {
       this.getDetail();
@@ -379,6 +407,11 @@ export default class PublicPage extends Vue {
     this.getUserList();
     this.getProvinceList();
     this.getBusinessStatusList();
+
+    this.getCompanyList();
+    this.getRecruitStatusList();
+    this.getEducationList();
+    this.getWorkExperienceList();
   }
 }
 </script>
