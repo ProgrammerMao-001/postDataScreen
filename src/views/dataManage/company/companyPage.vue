@@ -37,46 +37,55 @@
             </el-col>
 
             <el-col :span="12">
-              <el-form-item label="企业类型：" prop="username">
-                <!-- todo 换成下拉 -->
-                <el-input
-                  :disabled="willPassData.type === '详情'"
-                  v-model="formData.username"
-                  size="small"
-                ></el-input>
-              </el-form-item>
-            </el-col>
-
-            <el-col :span="12">
               <el-form-item label="经营状态：" prop="username">
-                <!-- todo 换成下拉 -->
-                <el-input
-                  :disabled="willPassData.type === '详情'"
+                <el-select
                   v-model="formData.username"
+                  placeholder=""
                   size="small"
-                ></el-input>
+                  clearable
+                  filterable
+                >
+                  <el-option
+                    v-for="item in businessStatusList"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  >
+                  </el-option>
+                </el-select>
               </el-form-item>
             </el-col>
 
             <el-col :span="12">
               <el-form-item label="法定代表人：" prop="username">
-                <!-- todo 换成下拉 -->
-                <el-input
-                  :disabled="willPassData.type === '详情'"
-                  v-model="formData.username"
+                <el-select
+                  v-model="formData.userName"
+                  placeholder=""
                   size="small"
-                ></el-input>
+                  clearable
+                  filterable
+                >
+                  <el-option
+                    v-for="item in userList"
+                    :key="item.id"
+                    :label="item.username"
+                    :value="item.id"
+                  >
+                  </el-option>
+                </el-select>
               </el-form-item>
             </el-col>
 
             <el-col :span="12">
               <el-form-item label="成立时间：" prop="username">
-                <!-- todo 换成时间选择器 -->
-                <el-input
-                  :disabled="willPassData.type === '详情'"
+                <el-date-picker
                   v-model="formData.username"
+                  type="date"
                   size="small"
-                ></el-input>
+                  placeholder=""
+                  value-format="yyyy-MM-dd"
+                >
+                </el-date-picker>
               </el-form-item>
             </el-col>
 
@@ -100,16 +109,6 @@
               </el-form-item>
             </el-col>
 
-            <el-col :span="12">
-              <el-form-item label="经营范围：" prop="username">
-                <el-input
-                  :disabled="willPassData.type === '详情'"
-                  v-model="formData.username"
-                  size="small"
-                ></el-input>
-              </el-form-item>
-            </el-col>
-
             <el-col :span="24">
               <el-form-item label="公司简介：" prop="username">
                 <el-input
@@ -117,6 +116,17 @@
                   v-model="formData.username"
                   type="textarea"
                 />
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="24">
+              <el-form-item label="经营范围：" prop="username">
+                <el-input
+                  :disabled="willPassData.type === '详情'"
+                  v-model="formData.username"
+                  size="small"
+                  type="textarea"
+                ></el-input>
               </el-form-item>
             </el-col>
 
@@ -147,7 +157,13 @@
           <el-row>
             <el-col :span="12">
               <el-form-item label="所在省份：" prop="username">
-                <el-select v-model="formData.username" placeholder="">
+                <el-select
+                  v-model="formData.username"
+                  placeholder=""
+                  size="small"
+                  clearable
+                  filterable
+                >
                   <el-option
                     v-for="item in provinceList"
                     :key="item.value"
@@ -161,16 +177,19 @@
 
             <el-col :span="12">
               <el-form-item label="选择点位：" prop="username">
-                <!-- todo 地图上选点 -->
                 <el-input
-                  :disabled="willPassData.type === '详情'"
-                  @focus="showRoleDialog(formData.roleid)"
+                  disabled
                   placeholder="地图上选择位置后自动获取经纬度"
                   size="small"
-                  v-model="formData.role"
+                  v-model="formData.position"
                 >
                   <template slot="append">
-                    <i class="el-icon-search"></i>
+                    <el-button
+                      size="small"
+                      icon="el-icon-location"
+                      @click="showMapDialog"
+                      >选择
+                    </el-button>
                   </template>
                 </el-input>
               </el-form-item>
@@ -204,20 +223,16 @@
       </el-button>
     </div>
 
-    <!-- 选择账号类型的弹窗 -->
-    <roleDialog ref="roleDialog" @on-response="getPassData" />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
-import { getUserDetail } from "@/api/userModule";
-import roleDialog from "@/components/roleDialog.vue";
 import autoUploadComp from "@/components/autoUploadComp.vue";
-import { register, updateUser } from "@/api/userModule";
+import { register, updateUser, getUserByUserName } from "@/api/userModule";
 
 @Component({
-  components: { autoUploadComp, roleDialog },
+  components: { autoUploadComp },
   filters: {
     getTitle(value: string): string {
       if (value === "详情") {
@@ -247,6 +262,8 @@ export default class PublicPage extends Vue {
     ],
   };
   provinceList: any = []; // 省份列表
+  businessStatusList: any = []; // 经营状态列表
+  userList: any = []; // 用户列表
 
   /**
    * @desc 检测是否上传图片
@@ -346,27 +363,27 @@ export default class PublicPage extends Vue {
    * @desc 获取详情的接口
    */
   getDetail() {
-    getUserDetail({
-      id: this.willPassData.data.id,
-    }).then((res: any) => {
-      if (res.data.status === 200) {
-        console.log(res.data.data);
-        this.formData = res.data.data[0];
-        this.fileList = [
-          {
-            name: res.data.data[0].picname,
-            url: res.data.data[0].headimg,
-          },
-        ];
-      }
-    });
+    // getUserDetail({
+    //   id: this.willPassData.data.id,
+    // }).then((res: any) => {
+    //   if (res.data.status === 200) {
+    //     console.log(res.data.data);
+    //     this.formData = res.data.data[0];
+    //     this.fileList = [
+    //       {
+    //         name: res.data.data[0].picname,
+    //         url: res.data.data[0].headimg,
+    //       },
+    //     ];
+    //   }
+    // });
   }
 
   /**
    * @desc 账号类型 input框点击 出现弹窗
    */
-  showRoleDialog(data: any) {
-    (this.$refs.roleDialog as any).showDialog(data);
+  showMapDialog() {
+    console.log(this.formData.position, "点位")
   }
 
   /**
@@ -397,9 +414,22 @@ export default class PublicPage extends Vue {
     (this as any).getDict("province").then((res: any) => {
       let arr = res.data.data[0]?.data || "[]";
       this.provinceList = JSON.parse(arr);
-      console.log(this.provinceList, "provinceList");
     });
   }
+
+  getBusinessStatusList() {
+    (this as any).getDict("businessStatus").then((res: any) => {
+      let arr = res.data.data[0]?.data || "[]";
+      this.businessStatusList = JSON.parse(arr);
+    });
+  }
+
+  getUserList() {
+    getUserByUserName({ role: "" }).then((res: any) => {
+      this.userList = res.data.data || [];
+    });
+  }
+
   created() {
     if (this.willPassData.type !== "新增用户") {
       this.getDetail();
@@ -408,7 +438,9 @@ export default class PublicPage extends Vue {
   }
 
   mounted() {
+    this.getUserList();
     this.getProvinceList();
+    this.getBusinessStatusList();
   }
 }
 </script>
@@ -491,12 +523,16 @@ export default class PublicPage extends Vue {
 </style>
 
 <style lang="scss" scoped>
-.el-input-group {
-  width: 39%;
-  height: 32px;
+.el-form-item__content .el-input-group {
+  vertical-align: bottom !important;
 }
 
-.el-input--small {
+.el-input-group__append button.el-button {
+  color: #409eff;
+}
+
+.el-input--small,
+.el-select {
   width: 100%;
 }
 </style>
