@@ -6,7 +6,7 @@ let userModule = require('./API/userModule')
 let roleModule = require('./API/roleModule')
 let routerModule = require('./API/routerModule')
 let uploadModule = require('./API/uploadModule')
-// let definiteModule = require('./API/definiteModule')
+let dictModule = require('./API/dictModule')
 
 router.get('/', (req, res) => {
     res.send('express启动成功!');
@@ -36,14 +36,13 @@ router.post('/upload', uploadModule.upload)
 router.get('/getImg', uploadModule.getImg)
 /* 图片上传 */
 
-// /* 确诊人模块 */
-// router.get('/getDefiniteList', definiteModule.getDefiniteList)
-// router.get('/getDefiniteListByName', definiteModule.getDefiniteListByName)
-// router.post('/addDefinite', definiteModule.addDefinite)
-// router.post('/updateDefinite', definiteModule.updateDefinite)
-// router.get('/getDefiniteDetail', definiteModule.getDefiniteDetail)
-// router.get('/deleteDefinite', definiteModule.deleteDefinite)
-// /* 确诊人模块 */
-
+/* 字典模块 */
+router.get('/getDictList', dictModule.getDictList)
+router.get('/getDictListByPrams', dictModule.getDictListByPrams)
+router.post('/addDict', dictModule.addDict)
+router.post('/updateDict', dictModule.updateDict)
+router.get('/getDictDetail', dictModule.getDictDetail)
+router.get('/deleteDict', dictModule.deleteDict)
+/* 字典模块 */
 
 module.exports = router
