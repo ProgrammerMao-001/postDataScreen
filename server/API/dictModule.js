@@ -20,9 +20,12 @@ exports.getDictListByPrams = (req, res) => {
     let sql = 'SELECT * FROM dictlist';
     let obj = req.query;
     if (!obj) sql = 'SELECT name,remark FROM dictlist'
-    if (obj.remark && !obj.name) sql = `SELECT * FROM dictlist WHERE remark = "${obj.remark}"`
-    if (obj.name && !obj.remark) sql = `SELECT * FROM dictlist WHERE name = "${obj.name}"`
-    if (obj.remark && obj.name) sql = `SELECT * FROM dictlist WHERE name = "${obj.name}" AND remark = "${obj.remark}"`
+    // if (obj.remark && !obj.name) sql = `SELECT * FROM dictlist WHERE remark = "${obj.remark}"` // 精确查询
+    if (obj.remark && !obj.name) sql = `SELECT * FROM dictlist WHERE remark LIKE "%${obj.remark}%"` // 模糊查询
+    // if (obj.name && !obj.remark) sql = `SELECT * FROM dictlist WHERE name = "${obj.name}"`
+    if (obj.name && !obj.remark) sql = `SELECT * FROM dictlist WHERE name LIKE "%${obj.name}%"`
+    // if (obj.remark && obj.name) sql = `SELECT * FROM dictlist WHERE name = "${obj.name}" AND remark = "${obj.remark}"`
+    if (obj.remark && obj.name) sql = `SELECT * FROM dictlist WHERE name LIKE "%${obj.name}%" AND remark LIKE "%${obj.remark}%"`
     db.query(sql, (err, data, fields) => {
         if (err) {
             return res.send('错误：' + err.message)
