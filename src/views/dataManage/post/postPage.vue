@@ -39,12 +39,12 @@
             <el-col :span="12">
               <el-form-item label="职位类型：" prop="username">
                 <el-cascader
-                    size="small"
-                    placeholder=""
-                    :options="postTypeList"
-                    :props="cascaderProps"
-                    filterable
-                    clearable
+                  size="small"
+                  placeholder=""
+                  :options="postTypeList"
+                  :props="cascaderProps"
+                  filterable
+                  clearable
                 ></el-cascader>
               </el-form-item>
             </el-col>
