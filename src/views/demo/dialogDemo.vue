@@ -1,28 +1,28 @@
 <template>
   <div class="">
     <el-dialog
-        :title="title"
-        :visible.sync="dialogVisible"
-        width="40%"
-        v-el-drag-dialog
-        :close-on-click-modal="false"
-        :before-close="hideDialog"
+      :title="title"
+      :visible.sync="dialogVisible"
+      width="40%"
+      v-el-drag-dialog
+      :close-on-click-modal="false"
+      :before-close="hideDialog"
     >
       <div class="dialog-content">
         <el-form
-            label-width="120px"
-            ref="form"
-            :model="formData"
-            :rules="formRules"
+          label-width="120px"
+          ref="form"
+          :model="formData"
+          :rules="formRules"
         >
           <div class="main-view-content-header">确诊人信息</div>
           <el-row :gutter="24">
             <el-col :span="12">
               <el-form-item label="确诊人:" prop="name">
                 <el-input
-                    :disabled="isDisabled"
-                    size="small"
-                    v-model="formData.name"
+                  :disabled="isDisabled"
+                  size="small"
+                  v-model="formData.name"
                 ></el-input>
               </el-form-item>
             </el-col>
@@ -33,11 +33,11 @@
       <span slot="footer">
         <el-button @click="hideDialog" size="small">取 消</el-button>
         <el-button
-            v-if="!isDisabled"
-            type="primary"
-            @click="onSubmit"
-            size="small"
-        >确 定</el-button
+          v-if="!isDisabled"
+          type="primary"
+          @click="onSubmit"
+          size="small"
+          >确 定</el-button
         >
       </span>
     </el-dialog>
@@ -46,11 +46,11 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
-import {
-  getDefiniteDetail,
-  updateDefinite,
-  addDefinite,
-} from "@/api/definiteModule";
+// import {
+//   getDefiniteDetail,
+//   updateDefinite,
+//   addDefinite,
+// } from "@/api/definiteModule";
 
 @Component({
   components: {},
@@ -84,11 +84,11 @@ export default class PublicDialog extends Vue {
    * 获取详情
    * */
   getDetail(id: string) {
-    getDefiniteDetail({ id }).then((res: any) => {
-      if (res.data.status === 200) {
-        this.formData = res.data.data[0];
-      }
-    });
+    // getDefiniteDetail({ id }).then((res: any) => {
+    //   if (res.data.status === 200) {
+    //     this.formData = res.data.data[0];
+    //   }
+    // });
   }
 
   /**
@@ -108,34 +108,34 @@ export default class PublicDialog extends Vue {
     (this.$refs.form as any).validate((valid: any) => {
       if (valid) {
         if (this.title === "编辑") {
-          updateDefinite(this.formData)
-              .then((res: any) => {
-                if (res.status === 200) {
-                  this.$message.success("编辑成功！");
-                  this.hideDialog();
-                  (this.$parent as any).getCommentList();
-                } else {
-                  this.$message.warning(res.message);
-                }
-              })
-              .catch((e: any) => {
-                throw e;
-              });
+          // updateDefinite(this.formData)
+          //     .then((res: any) => {
+          //       if (res.status === 200) {
+          //         this.$message.success("编辑成功！");
+          //         this.hideDialog();
+          //         (this.$parent as any).getCommentList();
+          //       } else {
+          //         this.$message.warning(res.message);
+          //       }
+          //     })
+          //     .catch((e: any) => {
+          //       throw e;
+          //     });
         }
         if (this.title === "新增") {
-          addDefinite(this.formData)
-              .then((res: any) => {
-                if (res.status === 200) {
-                  this.$message.success("新增成功！");
-                  this.hideDialog();
-                  (this.$parent as any).getCommentList();
-                } else {
-                  this.$message.warning(res.message);
-                }
-              })
-              .catch((e: any) => {
-                throw e;
-              });
+          // addDefinite(this.formData)
+          //     .then((res: any) => {
+          //       if (res.status === 200) {
+          //         this.$message.success("新增成功！");
+          //         this.hideDialog();
+          //         (this.$parent as any).getCommentList();
+          //       } else {
+          //         this.$message.warning(res.message);
+          //       }
+          //     })
+          //     .catch((e: any) => {
+          //       throw e;
+          //     });
         }
       } else {
         return false;

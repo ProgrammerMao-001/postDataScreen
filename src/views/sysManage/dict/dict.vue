@@ -14,17 +14,17 @@
 
         <div class="r-content-header-right">
           <el-button
-              icon="el-icon-search"
-              size="small"
-              @click="showSearchForm = !showSearchForm"
+            icon="el-icon-search"
+            size="small"
+            @click="showSearchForm = !showSearchForm"
           >
             {{ showSearchForm ? "隐藏" : "查询" }}
           </el-button>
           <el-button
-              icon="el-icon-plus"
-              type="primary"
-              size="small"
-              @click="showPublicDialog('新增', null)"
+            icon="el-icon-plus"
+            type="primary"
+            size="small"
+            @click="showPublicDialog('新增', null)"
           >
             新增
           </el-button>
@@ -34,10 +34,10 @@
       <!-- 搜索框 -->
       <div class="r-content-search-box" v-show="showSearchForm">
         <el-form
-            :inline="true"
-            :model="searchForm"
-            class=""
-            style="margin: 20px 0 0 20px"
+          :inline="true"
+          :model="searchForm"
+          class=""
+          style="margin: 20px 0 0 20px"
         >
           <el-form-item size="small" label="字典名:">
             <el-input v-model="searchForm.name"></el-input>
@@ -54,10 +54,10 @@
       <div style="width: 97%; margin: 0 auto">
         <div class="table">
           <el-table
-              stripe
-              border
-              :data="tableData.slice((pageNo - 1) * pageSize, pageNo * pageSize)"
-              style="width: 100%"
+            stripe
+            border
+            :data="tableData.slice((pageNo - 1) * pageSize, pageNo * pageSize)"
+            style="width: 100%"
           >
             <el-table-column type="index" label="序号" width="60">
               <template slot-scope="scope">
@@ -65,27 +65,31 @@
               </template>
             </el-table-column>
             <el-table-column show-overflow-tooltip prop="name" label="字典名" />
-            <el-table-column show-overflow-tooltip prop="namephone" label="备注"/>
+            <el-table-column
+              show-overflow-tooltip
+              prop="namephone"
+              label="备注"
+            />
             <el-table-column prop="" label="操作" min-width="120">
               <template slot-scope="scope">
                 <el-button
-                    type="text"
-                    @click="showPublicDialog('详情', scope.row)"
-                    size="small"
+                  type="text"
+                  @click="showPublicDialog('详情', scope.row)"
+                  size="small"
                 >
                   详情</el-button
                 >
                 <el-button
-                    type="text"
-                    @click="showPublicDialog('编辑', scope.row)"
-                    size="small"
+                  type="text"
+                  @click="showPublicDialog('编辑', scope.row)"
+                  size="small"
                 >
                   编辑</el-button
                 >
                 <el-button
-                    type="text"
-                    @click="deletePeople(scope.row)"
-                    size="small"
+                  type="text"
+                  @click="deletePeople(scope.row)"
+                  size="small"
                 >
                   删除</el-button
                 >
@@ -97,15 +101,15 @@
         <!-- 分页 -->
         <div>
           <el-pagination
-              background
-              style="text-align: right; margin-top: 15px"
-              @size-change="handleSizeChange"
-              @current-change="handleCurrentChange"
-              :current-page="pageNo"
-              :page-sizes="[5, 10, 20, 30, 50]"
-              :page-size="pageSize"
-              layout="total, sizes, prev, pager, next, jumper"
-              :total="tableData.length"
+            background
+            style="text-align: right; margin-top: 15px"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="pageNo"
+            :page-sizes="[5, 10, 20, 30, 50]"
+            :page-size="pageSize"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="tableData.length"
           >
           </el-pagination>
         </div>
@@ -117,7 +121,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
-import { deleteDefinite, getDefiniteListByName } from "@/api/definiteModule";
+// import { deleteDefinite, getDefiniteListByName } from "@/api/definiteModule";
 import dictDialog from "@/views/sysManage/dict/dictDialog.vue";
 
 @Component({
@@ -136,15 +140,15 @@ export default class RoleManage extends Vue {
 
   // 获取全部的角色列表
   getCommentList() {
-    getDefiniteListByName({
-      name: this.searchForm.name,
-      staticname: this.searchForm.staticname,
-    }).then((res: any) => {
-      if (res.status === 200) {
-        this.tableData = res.data.data;
-        this.total = this.tableData.length;
-      }
-    });
+    // getDefiniteListByName({
+    //   name: this.searchForm.name,
+    //   staticname: this.searchForm.staticname,
+    // }).then((res: any) => {
+    //   if (res.status === 200) {
+    //     this.tableData = res.data.data;
+    //     this.total = this.tableData.length;
+    //   }
+    // });
   }
 
   /**
@@ -165,15 +169,15 @@ export default class RoleManage extends Vue {
   // 搜索
   handleSearch() {
     console.log(this.searchForm);
-    getDefiniteListByName({
-      name: this.searchForm.name,
-      staticname: this.searchForm.staticname,
-    }).then((res: any) => {
-      if (res.status === 200) {
-        this.tableData = res.data.data;
-        this.total = this.tableData.length;
-      }
-    });
+    // getDefiniteListByName({
+    //   name: this.searchForm.name,
+    //   staticname: this.searchForm.staticname,
+    // }).then((res: any) => {
+    //   if (res.status === 200) {
+    //     this.tableData = res.data.data;
+    //     this.total = this.tableData.length;
+    //   }
+    // });
   }
 
   // 重置
@@ -202,28 +206,28 @@ export default class RoleManage extends Vue {
       cancelButtonText: "取消",
       type: "warning",
     })
-        .then(() => {
-          deleteDefinite({
-            id: data.id,
-          })
-              .then((res: any) => {
-                if (res.data.status === 200) {
-                  this.$message.success("删除成功！");
-                } else {
-                  this.$message.error("删除失败，请稍后再试！");
-                }
-                this.getCommentList();
-              })
-              .catch((e: any) => {
-                console.log(e);
-              });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消删除",
-          });
+      .then(() => {
+        // deleteDefinite({
+        //   id: data.id,
+        // })
+        //     .then((res: any) => {
+        //       if (res.data.status === 200) {
+        //         this.$message.success("删除成功！");
+        //       } else {
+        //         this.$message.error("删除失败，请稍后再试！");
+        //       }
+        //       this.getCommentList();
+        //     })
+        //     .catch((e: any) => {
+        //       console.log(e);
+        //     });
+      })
+      .catch(() => {
+        this.$message({
+          type: "info",
+          message: "已取消删除",
         });
+      });
   }
 
   created() {

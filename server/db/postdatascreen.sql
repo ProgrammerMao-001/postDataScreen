@@ -4,13 +4,13 @@ Navicat MySQL Data Transfer
 Source Server         : hello
 Source Server Version : 50505
 Source Host           : 127.0.0.1:3306
-Source Database       : liaoningepidemicmanagementplatform
+Source Database       : postdatascreen
 
 Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2023-03-11 18:57:15
+Date: 2024-02-24 14:29:00
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -159,19 +159,10 @@ CREATE TABLE `clocklist` (
 -- ----------------------------
 -- Records of clocklist
 -- ----------------------------
-INSERT INTO `clocklist` VALUES ('2023-05-25', 'b08ac22c-3f07-48ed-8f71-128defd5d4f3', '19852e5e-4f89-427f-8538-85e3cae30505');
-INSERT INTO `clocklist` VALUES ('2023-03-09', 'b08ac22c-3f07-48ed-8f71-128defd5d4f3', '391a3664-819c-48b3-8f5b-b2ea6da7feef');
-INSERT INTO `clocklist` VALUES ('2023-03-12', 'b08ac22c-3f07-48ed-8f71-128defd5d4f3', '54d2efd7-a1ae-4ae1-9825-75dc93c1d5ae');
-INSERT INTO `clocklist` VALUES ('2023-03-11', 'b08ac22c-3f07-48ed-8f71-128defd5d4f3', '570eba53-e972-4395-84b9-1bc4298492ae');
-INSERT INTO `clocklist` VALUES ('2023-03-03', 'b08ac22c-3f07-48ed-8f71-128defd5d4f3', '6868cbd4-5de6-4243-a581-89200d68841b');
-INSERT INTO `clocklist` VALUES ('2023-04-09', 'b08ac22c-3f07-48ed-8f71-128defd5d4f3', '8075aed3-c07f-408d-8051-6ef880aa2849');
-INSERT INTO `clocklist` VALUES ('2023-03-31', 'b08ac22c-3f07-48ed-8f71-128defd5d4f3', '8a351a9b-3950-4f16-94c0-d529ad0e7eb2');
-INSERT INTO `clocklist` VALUES ('2023-03-19', '456asd', '97391591-0af0-4b35-8661-eb04602c0b80');
-INSERT INTO `clocklist` VALUES ('2023-05-01', '456asd', 'ad1be7fd-b457-4362-9e91-cbe39b11ad72');
-INSERT INTO `clocklist` VALUES ('2023-03-17', '456asd', 'b1ed9bd9-df82-4b5d-9caa-2c2ab4c8adad');
-INSERT INTO `clocklist` VALUES ('2023-03-11', '456asd', 'bba810c1-7659-4093-9682-de5cc2f97822');
-INSERT INTO `clocklist` VALUES ('2023-03-19', 'b08ac22c-3f07-48ed-8f71-128defd5d4f3', 'd172a67f-fe5b-44a1-959d-687150b62816');
-INSERT INTO `clocklist` VALUES ('2023-03-31', '456asd', 'vddfsa');
+INSERT INTO `clocklist` VALUES ('2023-05-27', 'bc1d42a1-64bb-4dd3-97f1-38cb483ddda6', '83c1e340-88ba-4948-a13e-01bd5d9da2e2');
+INSERT INTO `clocklist` VALUES ('2024-02-21', '456asd', 'c7d3a770-4b09-44b8-8375-2e906c34a13c');
+INSERT INTO `clocklist` VALUES ('2023-10-27', '456asd', 'cabbf8ef-5ec5-49d4-b66b-237db2410a2e');
+INSERT INTO `clocklist` VALUES ('2023-05-27', '456asd', 'daf95e67-d0f3-46b7-88e1-5a5c67201354');
 
 -- ----------------------------
 -- Table structure for `definitelist`
@@ -182,19 +173,38 @@ CREATE TABLE `definitelist` (
   `name` varchar(600) DEFAULT NULL,
   `namephone` varchar(600) DEFAULT NULL,
   `namein` varchar(600) DEFAULT '',
+  `namestatusid` varchar(600) DEFAULT NULL,
+  `namestatus` varchar(600) DEFAULT NULL,
   `namewhere` varchar(600) DEFAULT '',
   `staticname` varchar(600) DEFAULT NULL,
   `staticphone` varchar(600) DEFAULT NULL,
   `staticin` varchar(600) DEFAULT NULL,
   `staticwhere` varchar(600) DEFAULT NULL,
+  `staticstatusid` varchar(600) DEFAULT NULL,
+  `staticstatus` varchar(600) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of definitelist
 -- ----------------------------
-INSERT INTO `definitelist` VALUES ('4a7f2a26-8e9f-4a8b-8f02-ea27b687c74a', '确诊人:', '15157526236', '确诊人隔离地点:\n', '确诊人居住地:\n', '密接人:', '12444523412', '密接人隔离地点:', '密接人居住地:\n');
-INSERT INTO `definitelist` VALUES ('b0fa1874-d469-48c9-82e7-5c058f71b0c9', 'eqwe', null, 'dsa as', 'd ad', 'sada', null, 'sd', 'asdas');
+
+-- ----------------------------
+-- Table structure for `dictlist`
+-- ----------------------------
+DROP TABLE IF EXISTS `dictlist`;
+CREATE TABLE `dictlist` (
+  `id` varchar(600) COLLATE utf8_bin NOT NULL,
+  `data` varchar(8000) COLLATE utf8_bin DEFAULT '',
+  `name` varchar(100) COLLATE utf8_bin DEFAULT NULL,
+  `remark` varchar(1000) COLLATE utf8_bin DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ----------------------------
+-- Records of dictlist
+-- ----------------------------
+INSERT INTO `dictlist` VALUES ('aaa', '{\n    \"errorCode\": \"SVCSTG.ALS.200.200\",\n    \"errorMessage\": \"Report success.\",\n    \"result\": null\n}', 'sys_test', '系统测试数据');
 
 -- ----------------------------
 -- Table structure for `hospitallist`
@@ -218,7 +228,7 @@ INSERT INTO `hospitallist` VALUES ('210400-2', '抚顺市中心医院', '234', '
 INSERT INTO `hospitallist` VALUES ('210400-1', '抚顺市第五医院', '14', '56', '74', '11');
 INSERT INTO `hospitallist` VALUES ('210500-3', '本溪市金山医院', '4123', '51', '3431', '12');
 INSERT INTO `hospitallist` VALUES ('210500-1', '本溪市第六人民医院', '12', '0', '23', '13');
-INSERT INTO `hospitallist` VALUES ('210500-6', '本溪县第三人民医院', '12', '0', '124', '14');
+INSERT INTO `hospitallist` VALUES ('210500-6', '本溪县第三人民医院', '12', '0', '24', '14');
 INSERT INTO `hospitallist` VALUES ('210600-2', '凤城市中医院', '124', '12', '234', '15');
 INSERT INTO `hospitallist` VALUES ('210600-3', '振安区医院', '41', '56', '23', '16');
 INSERT INTO `hospitallist` VALUES ('210700-2', '锦州医科大学附属第二医院', '124', '36', '1', '17');
@@ -266,7 +276,32 @@ CREATE TABLE `piclist` (
 -- ----------------------------
 -- Records of piclist
 -- ----------------------------
+INSERT INTO `piclist` VALUES ('1a3146e3-a729-4661-8349-3ad30ecf0705', '/uploads/file/20230527/file-1685155034491-aPngTest.png');
+INSERT INTO `piclist` VALUES ('24ef5ee0-dd36-40de-8733-abff8390a650', '/uploads/file/20231028/file-1698467026246-aXlsTest.xls');
+INSERT INTO `piclist` VALUES ('3315980d-b5b1-47f3-8f9f-8440c04c0058', '/uploads/file/2023044/file-1680621500871-csdn.png');
+INSERT INTO `piclist` VALUES ('3d50753c-6adf-4707-bc1a-c14cbd7c6938', '/uploads/file/20231028/file-1698466923212-aXlsTest.xls');
+INSERT INTO `piclist` VALUES ('470d143f-7750-4c52-9b91-cd5af2f6b094', '/uploads/file/20230527/file-1685155066292-3.jpg');
+INSERT INTO `piclist` VALUES ('48328797-943e-436a-999c-f49431a3d44e', '/uploads/file/20230527/file-1685157707001-eventReportNew.png');
+INSERT INTO `piclist` VALUES ('5659067f-f823-424d-811a-50c951583f02', '/uploads/file/20240224/file-1708704036704-3.jpg');
+INSERT INTO `piclist` VALUES ('5f5ab796-ff66-43e9-80f8-20f440d469ac', '/uploads/file/20231028/file-1698476018770-aDocxTest.docx');
+INSERT INTO `piclist` VALUES ('63269a62-efbc-4f98-a379-f3e703ed883f', '/uploads/file/20240221/file-1708528376738-aJpeTest1.jpg');
+INSERT INTO `piclist` VALUES ('6efae018-e38f-4d7f-9904-9ae9957d15c3', '/uploads/file/20231028/file-1698475892077-aDocTest.doc');
+INSERT INTO `piclist` VALUES ('7151fc92-3919-4072-8d27-b342ab338212', '/uploads/file/20231028/file-1698475948854-é³ä¹æ­æ¾ç³»ç»åå°.pdf');
+INSERT INTO `piclist` VALUES ('8ee9cdc2-8bc6-4951-8974-5c8755a48e7d', '/uploads/file/20231028/file-1698424268855-aZipTest.zip');
+INSERT INTO `piclist` VALUES ('955d061c-805d-4e60-89c1-fabc19a34f7d', '/uploads/file/20231028/file-1698424312583-aZipTest.zip');
+INSERT INTO `piclist` VALUES ('a06ca5ab-01dd-42d4-83c1-795cc7101d47', '/uploads/file/20230527/file-1685155078371-3.jpg');
+INSERT INTO `piclist` VALUES ('b4a708fc-630e-4f69-9df5-240a55c14b3d', '/uploads/file/2023044/file-1680621484935-3.jpg');
+INSERT INTO `piclist` VALUES ('c00b7d94-0608-4279-bce3-50303bb2462d', '/uploads/file/20240224/file-1708705733198-colorFlower1.jpeg');
+INSERT INTO `piclist` VALUES ('ca6fc96e-dbc5-47bb-863f-86e9a8f1801d', '/uploads/file/20231027/file-1698421221506-road.png');
+INSERT INTO `piclist` VALUES ('d4835ebe-6658-4665-a92e-51282dd2f071', '/uploads/file/20231028/file-1698424136646-aXlsxTest.xlsx');
+INSERT INTO `piclist` VALUES ('d6b0e8a9-ebba-480e-b419-a842bfbcfd4a', '/uploads/file/20230527/file-1685155308795-forkLiftLogo.png');
 INSERT INTO `piclist` VALUES ('da061db4-d7c4-40f1-87ce-ff6e0283f3fc', '/uploads/file/20230311/file-1678490998969-3.jpg');
+INSERT INTO `piclist` VALUES ('de99dfec-f49b-4550-9c8d-d4b88adbe925', '/uploads/file/20230527/file-1685155045647-3.jpg');
+INSERT INTO `piclist` VALUES ('df1304e4-a2d1-4d7f-8807-298e2b17ece9', '/uploads/file/20240223/file-1708701955763-aPngTest.png');
+INSERT INTO `piclist` VALUES ('e4e2cedc-b548-4a40-8bf6-490bbfb0a219', '/uploads/file/20240221/file-1708528393104-456.png');
+INSERT INTO `piclist` VALUES ('ee73a063-6cd3-4ccf-a470-c6d50104b810', '/uploads/file/20231028/file-1698423812985-aXlsTest.xls');
+INSERT INTO `piclist` VALUES ('f0da87c8-d124-4bff-839d-8f2ba6492333', '/uploads/file/20231028/file-1698466997782-aXlsTest.xls');
+INSERT INTO `piclist` VALUES ('f3b4afe8-b5f7-480b-a9e6-228d50bb87c2', '/uploads/file/20240221/file-1708528053966-3.jpg');
 INSERT INTO `piclist` VALUES ('fbc403aa-c37a-4af4-be1e-066bcfce9c48', '/uploads/file/20230311/file-1678522646063-girl.jpg');
 
 -- ----------------------------
@@ -304,13 +339,32 @@ CREATE TABLE `routerlist` (
 -- Records of routerlist
 -- ----------------------------
 INSERT INTO `routerlist` VALUES ('首页', '/home', 'el-icon-s-home', '123456njkafas', 'null', '管理员,用户');
-INSERT INTO `routerlist` VALUES ('个人中心', '/personalCenter', 'el-icon-user\r\n', '46GFSDOFOKPkop', 'null', '用户');
-INSERT INTO `routerlist` VALUES ('打卡', '/clockCard', 'el-icon-thumb', 'asdasdvas12312re', 'null', '管理员');
-INSERT INTO `routerlist` VALUES ('确诊人', '/userManage/confirmed', 'el-icon-s-claim', 'dasd1213asas', 'mfpafpfaf1', '管理员');
-INSERT INTO `routerlist` VALUES ('角色管理', '/roleManage', 'el-icon-takeaway-box', 'fasfa123fafa', 'null', '管理员');
-INSERT INTO `routerlist` VALUES ('用户', '/userManage/peopleManage', 'el-icon-user', 'fsf45fasf489vdsa489', 'mfpafpfaf1', '管理员');
-INSERT INTO `routerlist` VALUES ('人员管理', '/userManage/peopleManage', 'el-icon-s-open\r\n', 'mfpafpfaf1', 'null', '管理员');
-INSERT INTO `routerlist` VALUES ('疫苗信息', '/vaccineInformation', 'el-icon-document-checked', 'sadasvaasd', 'null', '管理员,用户');
+INSERT INTO `routerlist` VALUES ('个人中心', '/personalCenter', 'el-icon-user', '46GFSDOFOKPkop', 'null', '用户');
+INSERT INTO `routerlist` VALUES ('公司', '/dataManage/company', 'el-icon-office-building', 'aaacompan', 'dataaaaaa', '管理员,用户');
+INSERT INTO `routerlist` VALUES ('驾驶舱', '/dataScreen', 'el-icon-s-platform', 'daasacasdasdad', 'null', '管理员');
+INSERT INTO `routerlist` VALUES ('数据管理', '/dataManage', 'el-icon-tickets', 'dataaaaaa', 'null', '管理员,用户');
+INSERT INTO `routerlist` VALUES ('字典', '/sysManage/dict', 'el-icon-collection', 'dict13123123', 'mfpafpfaf1', '管理员');
+INSERT INTO `routerlist` VALUES ('用户', '/sysManage/user', 'el-icon-user', 'fsf45fasf489vdsa489', 'mfpafpfaf1', '管理员');
+INSERT INTO `routerlist` VALUES ('系统管理', '/userManage', 'el-icon-s-tools', 'mfpafpfaf1', 'null', '管理员');
+INSERT INTO `routerlist` VALUES ('岗位', '/dataManage/post', 'el-icon-suitcase-1', 'postassagasfsfasdas', 'dataaaaaa', '管理员,用户');
+INSERT INTO `routerlist` VALUES ('角色', '/sysManage/role', 'el-icon-s-custom', 'roleM12313', 'mfpafpfaf1', '管理员');
+
+-- ----------------------------
+-- Table structure for `statuslist`
+-- ----------------------------
+DROP TABLE IF EXISTS `statuslist`;
+CREATE TABLE `statuslist` (
+  `id` varchar(600) NOT NULL,
+  `status` varchar(600) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of statuslist
+-- ----------------------------
+INSERT INTO `statuslist` VALUES ('111', '已治愈');
+INSERT INTO `statuslist` VALUES ('222', '已死亡');
+INSERT INTO `statuslist` VALUES ('333', '治疗中');
 
 -- ----------------------------
 -- Table structure for `userlist`
@@ -330,5 +384,25 @@ CREATE TABLE `userlist` (
 -- ----------------------------
 -- Records of userlist
 -- ----------------------------
-INSERT INTO `userlist` VALUES ('admin', '123456', 'http://127.0.0.1:3000/api/getImg?url=/uploads/file/20230311/file-1678490998969-3.jpg', 'token-asdsad', '管理员', '1', '456asd');
-INSERT INTO `userlist` VALUES ('毛三仙', 'a1', 'http://127.0.0.1:3000/api/getImg?url=/uploads/file/20230311/file-1678490998969-3.jpg', 'token-9p3tb0mkses0000000', '用户', '2', 'b08ac22c-3f07-48ed-8f71-128defd5d4f3');
+INSERT INTO `userlist` VALUES ('阿帆', '1', null, null, '用户', '2', '13123123');
+INSERT INTO `userlist` VALUES ('撒发生', '1', null, null, '用户', '2', '21');
+INSERT INTO `userlist` VALUES ('公司壹', 'a123', 'https://img-blog.csdnimg.cn/img_convert/efc034d110fe11e1f82c86a4f3cd9377.jpeg', 'token-pci1s95z1kw0000000', '用户', '2', '302f3d54-0c50-409d-991a-45ebb0f971a7');
+INSERT INTO `userlist` VALUES ('admin', '123456', 'http://127.0.0.1:3003/api/getImg?url=/uploads/file/20240224/file-1708704036704-3.jpg', 'token-asdsad', '管理员', '1', '456asd');
+INSERT INTO `userlist` VALUES ('毛大仙', 'a123', 'http://127.0.0.1:3003/api/getImg?url=/uploads/file/20240224/file-1708705733198-colorFlower1.jpeg', 'token-78lfrh1oja000000000', '用户', '2', '6014d307-9278-4047-8446-8b066d200781');
+INSERT INTO `userlist` VALUES ('哈哈', 'a123456', 'http://127.0.0.1:3003/api/getImg?url=/uploads/file/20240224/file-1708704036704-3.jpg', 'token-7hifdpgrqnk00000000', '用户', '2', '88003824-2d1d-4ff9-a46e-3e0efab12d8b');
+INSERT INTO `userlist` VALUES ('f', 'a1', null, null, '用户', '2', 'a');
+INSERT INTO `userlist` VALUES ('呵呵呵', 'hehe123', 'http://127.0.0.1:3002/api/getImg?url=/uploads/file/20240221/file-1708528053966-3.jpg', 'token-9e9xsaieo640000000', '用户', '2', 'a1382bc7-bcf4-485a-8f13-9a4d24527407');
+INSERT INTO `userlist` VALUES ('ffff', 'ffff', null, null, '用户', '2', 'afgg');
+INSERT INTO `userlist` VALUES ('fff', 'f', null, null, '用户', '2', 'asasfasfasf');
+INSERT INTO `userlist` VALUES ('阿萨德', 'a1', null, null, '用户', '2', 'asdasdasd');
+INSERT INTO `userlist` VALUES ('asaa', 'a', null, null, '用户', '2', 'asdasdasda');
+INSERT INTO `userlist` VALUES ('asd ', 'a', null, null, '用户', '2', 'asdasdasdasd ');
+INSERT INTO `userlist` VALUES ('hyhyth', 'yyhyhy', null, null, '用户', '2', 'asdasdsad');
+INSERT INTO `userlist` VALUES ('毛三仙', 'a1', 'http://127.0.0.1:3002/api/getImg?url=/uploads/file/20230527/file-1685155078371-3.jpg', 'token-9p3tb0mkses0000000', '用户', '2', 'b08ac22c-3f07-48ed-8f71-128defd5d4f3');
+INSERT INTO `userlist` VALUES ('啊啊啊', 'a1', 'https://img-blog.csdnimg.cn/img_convert/efc034d110fe11e1f82c86a4f3cd9377.jpeg', 'token-h93zuf8b5tk0000000', '用户', '2', 'b635da01-b85a-457d-a3f1-f51013e07078');
+INSERT INTO `userlist` VALUES ('啊啊', 'a1', 'https://img-blog.csdnimg.cn/img_convert/efc034d110fe11e1f82c86a4f3cd9377.jpeg', 'token-1wmp9zt8f5pc000000', '用户', '2', 'c912781d-a3d9-4c3a-889d-25bead65ba97');
+INSERT INTO `userlist` VALUES ('gs', 'a', null, null, '用户', '2', 'g');
+INSERT INTO `userlist` VALUES ('a', 'a1', null, null, '用户', '2', 'gggg');
+INSERT INTO `userlist` VALUES ('af', 'a', null, null, '用户', '2', 'ggggaaa');
+INSERT INTO `userlist` VALUES ('asd ', '2', null, null, '用户', '2', 'gsggewg');
+INSERT INTO `userlist` VALUES ('g', 'g', null, null, '用户', '2', 'jtujyujuj');
