@@ -204,6 +204,7 @@
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { register, updateUser, getUserByUserName } from "@/api/userModule";
 // import { getCompanyList } from "@/api/companyModule"
+import postType from "@/utils/postType";
 @Component({
   components: {},
   filters: {
@@ -233,6 +234,7 @@ export default class PublicPage extends Vue {
   educationList: any = []; // 学历列表
   workExperienceList: any = []; // 工作经验列表
   companyList: any = []; // 企业列表
+  postTypeList: any = postType(); // 企业列表
 
   /**
    * @desc 返回主页
@@ -400,7 +402,7 @@ export default class PublicPage extends Vue {
     if (this.willPassData.type !== "新增用户") {
       this.getDetail();
     }
-    console.log(this.willPassData);
+    console.log(this.willPassData, this.postTypeList);
   }
 
   mounted() {
