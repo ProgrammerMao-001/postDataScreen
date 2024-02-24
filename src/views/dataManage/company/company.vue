@@ -137,7 +137,11 @@
         </div>
       </div>
     </div>
-    <companyPage v-if="showPage === 2" ref="companyPage" :passData="passData" />
+    <companyPage
+      v-if="showPage === 2"
+      ref="companyPage"
+      :willPassData="willPassData"
+    />
   </div>
 </template>
 
@@ -160,7 +164,7 @@ export default class RoleManage extends Vue {
   };
   showSearchForm: boolean = false;
   showPage: number = 1;
-  passData: any = {};
+  willPassData: any = {};
 
   // 获取全部的字典
   getTableData() {
@@ -219,10 +223,7 @@ export default class RoleManage extends Vue {
    **/
   showPublicPage(type: any, data: any) {
     this.showPage = 2;
-    this.passData = {
-      type,
-      data,
-    };
+    this.willPassData = { type, data };
   }
 
   backIndex() {
