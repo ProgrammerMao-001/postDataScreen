@@ -39,6 +39,7 @@
             <el-col :span="12">
               <el-form-item label="经营状态：" prop="username">
                 <el-select
+                  :disabled="willPassData.type === '详情'"
                   v-model="formData.username"
                   placeholder=""
                   size="small"
@@ -59,6 +60,7 @@
             <el-col :span="12">
               <el-form-item label="法定代表人：" prop="username">
                 <el-select
+                  :disabled="willPassData.type === '详情'"
                   v-model="formData.userName"
                   placeholder=""
                   size="small"
@@ -79,6 +81,7 @@
             <el-col :span="12">
               <el-form-item label="成立时间：" prop="username">
                 <el-date-picker
+                  :disabled="willPassData.type === '详情'"
                   v-model="formData.username"
                   type="date"
                   size="small"
@@ -158,6 +161,7 @@
             <el-col :span="12">
               <el-form-item label="所在省份：" prop="username">
                 <el-select
+                  :disabled="willPassData.type === '详情'"
                   v-model="formData.username"
                   placeholder=""
                   size="small"
@@ -181,7 +185,7 @@
                   disabled
                   placeholder="地图上选择位置后自动获取经纬度"
                   size="small"
-                  v-model="formData.position"
+                  v-model="formData.point"
                 >
                   <template slot="append">
                     <el-button
@@ -196,10 +200,10 @@
             </el-col>
 
             <el-col :span="24">
-              <el-form-item label="详细地址：" prop="username">
+              <el-form-item label="详细地址：" prop="address">
                 <el-input
                   :disabled="willPassData.type === '详情'"
-                  v-model="formData.username"
+                  v-model="formData.address"
                   type="textarea"
                 />
               </el-form-item>
@@ -210,7 +214,7 @@
     </div>
 
     <!-- 底部按钮 -->
-    <div class="main-view-btn">
+    <div class="main-view-btn" v-if="willPassData.type !== '详情'">
       <el-button size="small" icon="el-icon-back" @click="goBack"
         >返回
       </el-button>
@@ -222,17 +226,18 @@
         >保存
       </el-button>
     </div>
-
+    <mapDialog ref="mapDialog" @getPoint="getMapDialogPoint" />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import autoUploadComp from "@/components/autoUploadComp.vue";
+import mapDialog from "@/components/mapDialog.vue";
 import { register, updateUser, getUserByUserName } from "@/api/userModule";
 
 @Component({
-  components: { autoUploadComp },
+  components: { autoUploadComp, mapDialog },
   filters: {
     getTitle(value: string): string {
       if (value === "详情") {
@@ -281,6 +286,11 @@ export default class PublicPage extends Vue {
    */
   goBack() {
     (this.$parent as any).backIndex();
+  }
+
+  getMapDialogPoint(obj: any) {
+    this.$set(this.formData, "point", JSON.stringify(obj.point));
+    this.$set(this.formData, "address", obj.address);
   }
 
   /**
@@ -383,15 +393,12 @@ export default class PublicPage extends Vue {
    * @desc 账号类型 input框点击 出现弹窗
    */
   showMapDialog() {
-    console.log(this.formData.position, "点位")
-  }
-
-  /**
-   * @desc 获取 子组件弹窗传来的数据
-   */
-  getPassData(data: any) {
-    this.formData.role = data[0].name;
-    this.formData.roleid = data[0].id;
+    console.log(this.formData.position, "点位");
+    let passData = {
+      type: "选择位置",
+      data: this.formData.point ? JSON.parse(this.formData.point) : {},
+    };
+    (this as any).$refs.mapDialog.showDialog(passData);
   }
 
   /* 以下是图片上传相关的代码 */
@@ -452,7 +459,6 @@ export default class PublicPage extends Vue {
   max-height: calc(80vh - 20px);
 
   &-main {
-    border: 1px solid red;
     height: calc(80vh - 80px);
     overflow-y: auto;
   }
@@ -524,7 +530,7 @@ export default class PublicPage extends Vue {
 
 <style lang="scss" scoped>
 .el-form-item__content .el-input-group {
-  vertical-align: bottom !important;
+  vertical-align: baseline !important;
 }
 
 .el-input-group__append button.el-button {

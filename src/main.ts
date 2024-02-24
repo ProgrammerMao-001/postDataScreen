@@ -21,6 +21,11 @@ Vue.use(dataV);
 Vue.use(directive);
 
 Vue.config.productionTip = false;
+import BaiduMap from "vue-baidu-map";
+Vue.use(BaiduMap, {
+  // ak 是在百度地图开发者平台申请的密钥 详见 http://lbsyun.baidu.com/apiconsole/key */
+  ak: "GXn1gkhgbbWet55NCyKzjB7Hqfdh3gos",
+});
 /**
  * todo 路由发生变化修改页面title
  * 路由守卫
