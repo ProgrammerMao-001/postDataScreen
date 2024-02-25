@@ -17,7 +17,7 @@ $dialogBgColor1: rgba(13, 30, 45, .7);
 }
 
 .el-dialog__wrapper {
-  z-index: 99999 !important;
+  //z-index: 99999 !important;
 }
 
 ::v-deep .el-dialog__body {
@@ -37,10 +37,9 @@ $dialogBgColor1: rgba(13, 30, 45, .7);
 }
 
 
-::v-deep .el-table tr {
+::v-deep .el-table tr, tr:hover  {
   background: $dialogBgColor;
-  color: #fff !important;
-
+  //color: #fff !important;
 }
 
 ::v-deep .el-table th.el-table__cell {
