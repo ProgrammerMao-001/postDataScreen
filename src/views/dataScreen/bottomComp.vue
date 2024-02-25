@@ -15,37 +15,9 @@ export default class bottomComp extends Vue {}
 </script>
 
 <style lang="scss" scoped>
-$titleHeight: 34px;
-$bgColor: rgba(39, 77, 155, 0.1);
+@import "publicStyle";
 
-.boxContent {
-  width: 100%;
-  height: 100%;
-
-  &-public {
-    height: 50%;
-
-    &-title {
-      height: $titleHeight;
-      line-height: $titleHeight;
-      background: url("/public/img/dataScreen/boxTitle.png");
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
-      padding-left: $titleHeight;
-      color: #edf4ff;
-      font-weight: bold;
-      font-size: 14px;
-      text-shadow: 0 0.125rem 0.25rem rgba(10, 29, 67, 0.3),
-        0 0 0.25rem rgba(244, 251, 254, 0.72);
-    }
-
-    &-main {
-      height: calc(100% - #{$titleHeight});
-      background: url("/public/img/dataScreen/boxBg.png");
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
-      //background-color: $bgColor;
-    }
-  }
+.boxContent-public-title {
+  background: url("/public/img/dataScreen/bottomTitle.png");
 }
 </style>

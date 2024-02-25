@@ -8,24 +8,14 @@
     <baidu-map
       class="dataScreen-map"
       scroll-wheel-zoom
+      :mapType="mapType"
       :center="mapCenter"
       :zoom="mapZoom"
     >
-      <bm-map-type
-        style="
-          position: absolute;
-          z-index: 9999 !important;
-          border: 2px solid red;
-        "
-        :map-types="['BMAP_NORMAL_MAP', 'BMAP_HYBRID_MAP']"
-        :offset="mapTypeOffset"
-        anchor="BMAP_ANCHOR_TOP_RIGHT"
-      >
-      </bm-map-type>
     </baidu-map>
 
     <div class="dataScreen-top">
-      <img src="/img/dataScreen/topTitle.png" alt="" />
+      <topComp ref="topComp" />
     </div>
     <div class="dataScreen-left">
       <leftComp ref="leftComp" />
@@ -41,12 +31,13 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
+import topComp from "@/views/dataScreen/topComp.vue";
 import bottomComp from "@/views/dataScreen/bottomComp.vue";
 import leftComp from "@/views/dataScreen/leftComp.vue";
 import rightComp from "@/views/dataScreen/rightComp.vue";
 
 @Component({
-  components: { bottomComp, leftComp, rightComp },
+  components: { topComp, bottomComp, leftComp, rightComp },
 })
 export default class dataScreen extends Vue {
   mapCenter: any = {
@@ -54,10 +45,11 @@ export default class dataScreen extends Vue {
     lat: 39.915,
   }; // 地图中心点
   mapZoom: number = 9; // 地图缩放层级
-  mapTypeOffset: any = {
-    width: 440,
-    height: 98,
-  }; // 控件偏移值
+  mapType: string = "BMAP_HYBRID_MAP"; // 地图类型
+
+  changeMapType(type: any) {
+    this.mapType = type;
+  }
 }
 </script>
 
@@ -89,11 +81,6 @@ $boxHeight: calc(#{$height} - #{$topHeight} - #{$bottomHeight});
     position: absolute;
     top: 0;
     z-index: 9 !important;
-
-    img {
-      width: 100%;
-      height: $topHeight;
-    }
   }
 
   &-left {
