@@ -1,6 +1,8 @@
 <template>
   <div class="boxContent">
-    <div class="boxContent-public-title">职位分布情况</div>
+    <div class="boxContent-public-title">
+      职位分布情况
+    </div>
     <div class="boxContent-public-main"></div>
   </div>
 </template>
@@ -19,5 +21,7 @@ export default class bottomComp extends Vue {}
 
 .boxContent-public-title {
   background: url("/public/img/dataScreen/bottomTitle.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 </style>
