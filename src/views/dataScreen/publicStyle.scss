@@ -1,22 +1,5 @@
-<template>
-  <div class="boxContent">
-    <div class="boxContent-public-title">职位分布情况</div>
-    <div class="boxContent-public-main"></div>
-  </div>
-</template>
-
-<script lang="ts">
-import { Component, Prop, Vue, Watch } from "vue-property-decorator";
-
-@Component({
-  components: {},
-})
-export default class bottomComp extends Vue {}
-</script>
-
-<style lang="scss" scoped>
 $titleHeight: 34px;
-$bgColor: rgba(39, 77, 155, 0.1);
+$bgColor: rgba(39, 77, 155, .1);
 
 .boxContent {
   width: 100%;
@@ -35,8 +18,7 @@ $bgColor: rgba(39, 77, 155, 0.1);
       color: #edf4ff;
       font-weight: bold;
       font-size: 14px;
-      text-shadow: 0 0.125rem 0.25rem rgba(10, 29, 67, 0.3),
-        0 0 0.25rem rgba(244, 251, 254, 0.72);
+      text-shadow: 0 0.125rem 0.25rem rgba(10, 29, 67, 0.3), 0 0 0.25rem rgba(244, 251, 254, 0.72);
     }
 
     &-main {
@@ -48,4 +30,3 @@ $bgColor: rgba(39, 77, 155, 0.1);
     }
   }
 }
-</style>

@@ -6,48 +6,47 @@
 <template>
   <div class="dataScreen">
     <baidu-map
-        class="dataScreen-map"
-        scroll-wheel-zoom
-        :center="mapCenter"
-        :zoom="mapZoom"
+      class="dataScreen-map"
+      scroll-wheel-zoom
+      :center="mapCenter"
+      :zoom="mapZoom"
     >
       <bm-map-type
-          style="position: absolute;z-index: 9999 !important;border: 2px solid red"
-          :map-types="['BMAP_NORMAL_MAP', 'BMAP_HYBRID_MAP']"
-          :offset="mapTypeOffset"
-          anchor="BMAP_ANCHOR_TOP_RIGHT"
+        style="
+          position: absolute;
+          z-index: 9999 !important;
+          border: 2px solid red;
+        "
+        :map-types="['BMAP_NORMAL_MAP', 'BMAP_HYBRID_MAP']"
+        :offset="mapTypeOffset"
+        anchor="BMAP_ANCHOR_TOP_RIGHT"
       >
       </bm-map-type>
     </baidu-map>
 
     <div class="dataScreen-top">
-      <img src="/img/dataScreen/topTitle.png" alt=""/>
+      <img src="/img/dataScreen/topTitle.png" alt="" />
     </div>
     <div class="dataScreen-left">
-      <leftComp ref="leftComp"/>
+      <leftComp ref="leftComp" />
     </div>
     <div class="dataScreen-right">
-      <rightComp ref="rightComp"/>
+      <rightComp ref="rightComp" />
     </div>
     <div class="dataScreen-bottom">
-      <div class="dataScreen-bottom-main">
-        <bottomComp ref="bottomComp"/>
-      </div>
-      <div class="dataScreen-bottom-bg">
-        <img src="/img/dataScreen/bottomBg.png" alt=""/>
-      </div>
+      <bottomComp ref="bottomComp" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import {Component, Prop, Vue, Watch} from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import bottomComp from "@/views/dataScreen/bottomComp.vue";
 import leftComp from "@/views/dataScreen/leftComp.vue";
 import rightComp from "@/views/dataScreen/rightComp.vue";
 
 @Component({
-  components: {bottomComp, leftComp, rightComp},
+  components: { bottomComp, leftComp, rightComp },
 })
 export default class dataScreen extends Vue {
   mapCenter: any = {
@@ -99,8 +98,6 @@ $boxHeight: calc(#{$height} - #{$topHeight} - #{$bottomHeight});
 
   &-left {
     width: $boxWidth;
-    border: 1px solid green;
-    box-sizing: border-box;
     position: absolute;
     top: $topHeight;
     left: $margin;
@@ -108,8 +105,6 @@ $boxHeight: calc(#{$height} - #{$topHeight} - #{$bottomHeight});
   }
 
   &-right {
-    border: 1px solid green;
-    box-sizing: border-box;
     width: $boxWidth;
     height: $boxHeight;
     position: absolute;
@@ -118,26 +113,11 @@ $boxHeight: calc(#{$height} - #{$topHeight} - #{$bottomHeight});
   }
 
   &-bottom {
-    width: $width;
     height: $bottomHeight;
     position: absolute;
+    left: $margin;
+    right: $margin;
     bottom: 0;
-    display: flex;
-    flex-direction: column;
-
-    &-main {
-      width: calc(100% - 2 * #{$margin});
-      height: calc(#{$bottomHeight} - #{$bottomBgHeight});
-      border: 1px solid red;
-      margin: 0 auto;
-    }
-
-    &-bg {
-      img {
-        width: 100%;
-        height: $bottomBgHeight;
-      }
-    }
   }
 }
 
