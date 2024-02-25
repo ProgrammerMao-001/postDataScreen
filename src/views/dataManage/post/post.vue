@@ -72,9 +72,16 @@
             <el-table-column
               show-overflow-tooltip
               prop="recruitment_status"
-              label="招聘状态">
+              label="招聘状态"
+            >
               <template slot-scope="scope">
-                <span :style="{color: 'red'}"> {{ scope.row.recruitment_status }} </span>
+                <span
+                  :style="{
+                    color: makeParams(scope.row.recruitment_status, 'color'),
+                  }"
+                >
+                  {{ makeParams(scope.row.recruitment_status, "label") }}
+                </span>
               </template>
             </el-table-column>
             <el-table-column
@@ -158,6 +165,7 @@ export default class RoleManage extends Vue {
   showSearchForm: boolean = false;
   showPage: number = 1;
   willPassData: any = {};
+  statusList: any = []; // 招聘状态列表
 
   // 获取全部的字典
   getTableData() {
@@ -245,8 +253,24 @@ export default class RoleManage extends Vue {
       });
   }
 
+  getDictData() {
+    (this as any).getDict("recruitmentStatus").then((res: any) => {
+      let arr = res.data.data[0]?.data || "[]";
+      this.statusList = JSON.parse(arr);
+    });
+  }
+
+  makeParams(value: any, type: string) {
+    let obj = this.statusList.filter((item: any) => item.value == value)[0] || {
+      label: "",
+      color: "",
+    };
+    return obj[type];
+  }
+
   created() {
     this.getTableData();
+    this.getDictData();
   }
 }
 </script>

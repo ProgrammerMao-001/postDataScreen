@@ -228,9 +228,7 @@ export default class PublicPage extends Vue {
     post_type: [
       { required: true, message: "请选择职位类型", trigger: "change" },
     ],
-    avg_range: [
-      { required: true, message: "请输入平均薪资", trigger: "blur" },
-    ],
+    avg_range: [{ required: true, message: "请输入平均薪资", trigger: "blur" }],
     company_id: [
       { required: true, message: "请选择关联企业", trigger: "blur" },
     ],
@@ -289,7 +287,7 @@ export default class PublicPage extends Vue {
   addData() {
     addPost({
       ...this.formData,
-      post_type: JSON.stringify(this.formData.post_type)
+      post_type: JSON.stringify(this.formData.post_type),
     })
       .then((res: any) => {
         if (res.status === 200) {
@@ -311,7 +309,7 @@ export default class PublicPage extends Vue {
   editData() {
     updatePost({
       ...this.formData,
-      post_type: JSON.stringify(this.formData.post_type)
+      post_type: JSON.stringify(this.formData.post_type),
     })
       .then((res: any) => {
         if (res.status === 200) {
@@ -337,7 +335,11 @@ export default class PublicPage extends Vue {
       if (res.data.status === 200) {
         this.formData = res.data.data[0];
         if (this.formData.post_type) {
-          this.$set(this.formData, "post_type", JSON.parse(this.formData.post_type));
+          this.$set(
+            this.formData,
+            "post_type",
+            JSON.parse(this.formData.post_type)
+          );
         }
       }
     });
@@ -383,12 +385,12 @@ export default class PublicPage extends Vue {
 
   /* 企业选择变化时 */
   companyChange(e: any) {
-    let obj = this.companyList.filter((item: any) => item.id === e)[0]
-    this.$set(this.formData, "company_name", obj.name)
-    this.$set(this.formData, "company_address", obj.address)
-    this.$set(this.formData, "company_position", obj.position)
-    this.$set(this.formData, "company_province", obj.province)
-    this.$set(this.formData, "company_province_id", obj.province_id)
+    let obj = this.companyList.filter((item: any) => item.id === e)[0];
+    this.$set(this.formData, "company_name", obj.name);
+    this.$set(this.formData, "company_address", obj.address);
+    this.$set(this.formData, "company_position", obj.position);
+    this.$set(this.formData, "company_province", obj.province);
+    this.$set(this.formData, "company_province_id", obj.province_id);
   }
 
   created() {
