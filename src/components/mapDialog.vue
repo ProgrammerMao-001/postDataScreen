@@ -23,7 +23,7 @@
         </div>
         <baidu-map
           class="map"
-          :center="{ lng: 116.404, lat: 39.915 }"
+          :center="mapCenter"
           :zoom="15"
           :scroll-wheel-zoom="true"
           @click="choosePoint"
@@ -71,17 +71,16 @@ export default class PublicDialog extends Vue {
   showInfoWindow: boolean = false;
   markerInfo: any = "";
   canEdit: boolean = true;
-
+  mapCenter: any = { lng: 116.404, lat: 39.915 };
   /**
    * 弹窗打开事件
    * */
   showDialog(data: any) {
-    console.log(data, "data");
     this.title = data.type;
     this.dialogVisible = true;
     this.markerPoint = data.data;
+    this.mapCenter = this.markerPoint;
     this.canEdit = data.canEdit;
-    console.log(this.markerPoint, "markerPoint");
   }
 
   /**

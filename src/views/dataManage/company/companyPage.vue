@@ -146,18 +146,20 @@
                 />
               </el-form-item>
             </el-col>
-          </el-row>
-        </el-form>
-      </div>
+            <!--          </el-row>-->
+            <!--        </el-form>-->
+            <!--      </div>-->
 
-      <!-- 公司地址 -->
-      <div class="main-view-content">
-        <div class="main-view-content-header">公司地址</div>
-      </div>
+            <el-col :span="24">
+              <div class="main-view-content">
+                <div class="main-view-content-header">公司地址</div>
+              </div>
+            </el-col>
+            <!-- 公司地址 -->
 
-      <div class="main-view-main">
-        <el-form :model="formData" ref="form" label-width="150px" class="">
-          <el-row>
+            <!--      <div class="main-view-main">-->
+            <!--        <el-form :model="formData" ref="form" :rules="formRules" label-width="150px" class="">-->
+            <!--          <el-row>-->
             <el-col :span="12">
               <el-form-item label="所在省份：" prop="province_id">
                 <el-select
@@ -166,7 +168,6 @@
                   v-model="formData.province_id"
                   placeholder=""
                   size="small"
-                  clearable
                   filterable
                 >
                   <el-option
@@ -181,7 +182,7 @@
             </el-col>
 
             <el-col :span="12">
-              <el-form-item label="选择点位：" prop="username">
+              <el-form-item label="选择点位：" prop="position">
                 <el-input
                   disabled
                   placeholder="地图上选择位置后自动获取经纬度"
@@ -224,7 +225,7 @@
         type="primary"
         size="small"
         icon="el-icon-check"
-        @click="saveUserInfo"
+        @click="onsubmit"
         >保存
       </el-button>
     </div>
@@ -259,10 +260,21 @@ export default class PublicPage extends Vue {
   @Prop() willPassData: any;
   formData: any = {};
   formRules: any = {
+    name: [{ required: true, message: "请输入企业名称", trigger: "blur" }],
+    business_status: [
+      { required: true, message: "请选择经营状态", trigger: "blur" },
+    ],
+    user_id: [{ required: true, message: "请选择法定代表人", trigger: "blur" }],
+    intro: [{ required: true, message: "请输入公司简介", trigger: "blur" }],
+    business_scope: [
+      { required: true, message: "请输入经营范围", trigger: "blur" },
+    ],
+    province_id: [{ required: true, message: "请选择省份", trigger: "blur" }],
+    position: [{ required: true, message: "请选择点位", trigger: "blur" }],
     fileList: [
       {
         required: true,
-        // message: '请上传图片',
+        message: "请上传企业照片",
         trigger: "blur",
         validator: this.validateFileList,
       },
@@ -306,10 +318,9 @@ export default class PublicPage extends Vue {
   /**
    * @desc 点击 保存 按钮
    */
-  saveUserInfo() {
+  onsubmit() {
     (this.$refs.form as any).validate((valid: any) => {
       if (valid) {
-        console.log(this.fileList);
         if (this.willPassData.type === "新增") {
           setTimeout(() => {
             this.addData();
@@ -424,9 +435,7 @@ export default class PublicPage extends Vue {
   }
 
   getProvinceName(e: any) {
-    let res = this.provinceList.filter((item: any) => {
-      return item.id === e;
-    })[0];
+    let res = this.provinceList.filter((item: any) => item.value == e)[0];
     this.formData.province = res.label;
   }
 
