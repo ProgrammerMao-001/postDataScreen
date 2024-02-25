@@ -213,9 +213,15 @@ export default class PublicPage extends Vue {
   formData: any = {};
   formRules: any = {
     name: [{ required: true, message: "请输入岗位名称", trigger: "blur" }],
-    post_type: [{ required: true, message: "请选择职位类型", trigger: "change" }],
-    salary_range: [{ required: true, message: "请输入薪资范围", trigger: "blur" },],
-    company_id: [{ required: true, message: "请选择关联企业", trigger: "blur" }],
+    post_type: [
+      { required: true, message: "请选择职位类型", trigger: "change" },
+    ],
+    salary_range: [
+      { required: true, message: "请输入薪资范围", trigger: "blur" },
+    ],
+    company_id: [
+      { required: true, message: "请选择关联企业", trigger: "blur" },
+    ],
   };
   provinceList: any = []; // 省份列表
 
@@ -348,12 +354,11 @@ export default class PublicPage extends Vue {
     });
   }
 
-
   /* 获取企业列表 */
   getCompanyList() {
     getCompanyListByPrams({}).then((res: any) => {
       this.companyList = res.data.data || [];
-      console.log(this.companyList, "企业列表")
+      console.log(this.companyList, "企业列表");
     });
   }
 
