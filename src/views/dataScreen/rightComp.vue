@@ -31,7 +31,11 @@ export default class rightComp extends Vue {
   box2Data: any = {
     data: [],
     total: 0,
-  }; // 岗位列表
+  };
+  box1Data: any = {
+    xAxisData: [],
+    dataList: [],
+  }
   initRBox2() {
     this.option = {
       backgroundColor: "",
@@ -196,8 +200,20 @@ export default class rightComp extends Vue {
       const provinceResponse = await (this as any).getDict("province");
       let arr = provinceResponse.data.data[0].data || "[]";
       this.provinceList = JSON.parse(arr);
-      console.log(this.provinceList);
-      console.log(this.postList, "postList1");
+      this.box1Data.xAxisData = this.provinceList.map((item: any) => item.label)
+
+      /* 岗位列表 */
+      const postListResponse: any = await getPostListByPrams({name: undefined});
+      let postList = postListResponse.data.data;
+      /* 获取 互联网/AI行业 类型的数据 */
+      let aiArr = postList.filter((obj: any) => {
+        if (obj.post_type) {
+          let arr = JSON.parse(obj.post_type)
+          return arr[0] == 1010000
+        }
+      })
+      console.log(aiArr, "aiArr1");
+
 
       await this.initRBox1();
     } catch (error) {
@@ -209,15 +225,12 @@ export default class rightComp extends Vue {
   initRBox1() {
     const yearCount = 7;
     const categoryCount = 30;
-    const xAxisData = []; // ['category0', 'category1', 'category2'...] length: 30
-    const legendData: any = []; //  ['trend', '2010', '2011', ...] length: 8
+    const xAxisData = []; // ['category0', 'category1', 'category2'...] length: 30 [省份数据]
+    const legendData: any = []; //  ['trend', '2010', '2011', ...] length: 8 [互联网行业的职位类型...]
     const dataList = []; // [[category0 - category28的2010年的数据: 长度30 ], [] , [] ...] length: 8 - 1
-    legendData.push("trend");
-    const encodeY = [];
+    legendData.push("trend", "后端开发", "前端/移动开发", "测试", "运维/技术支持", "人工智能", "销售技术支持", "数据", "技术项目管理", "高端技术职位", "其他技术职位");
     for (var i = 0; i < yearCount; i++) {
-      legendData.push(2010 + i + "");
       dataList.push([]);
-      encodeY.push(1 + i);
     }
     for (var i = 0; i < categoryCount; i++) {
       var val = Math.random() * 1000;
