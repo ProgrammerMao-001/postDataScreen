@@ -18,6 +18,7 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { getPostListByPrams } from "@/api/postModule";
+import postType from "@/utils/postType";
 
 @Component({
   components: {},
@@ -35,7 +36,7 @@ export default class rightComp extends Vue {
   box1Data: any = {
     xAxisData: [],
     dataList: [],
-  }
+  };
   initRBox2() {
     this.option = {
       backgroundColor: "",
@@ -200,20 +201,54 @@ export default class rightComp extends Vue {
       const provinceResponse = await (this as any).getDict("province");
       let arr = provinceResponse.data.data[0].data || "[]";
       this.provinceList = JSON.parse(arr);
-      this.box1Data.xAxisData = this.provinceList.map((item: any) => item.label)
-
+      let provinceArr: any = this.provinceList.map((item: any) => item.label);
+      this.box1Data.xAxisData = provinceArr;
       /* 岗位列表 */
-      const postListResponse: any = await getPostListByPrams({name: undefined});
+      const postListResponse: any = await getPostListByPrams({
+        name: undefined,
+      });
       let postList = postListResponse.data.data;
-      /* 获取 互联网/AI行业 类型的数据 */
+      /* 获取 互联网/AI行业 类型的岗位数据 */
       let aiArr = postList.filter((obj: any) => {
         if (obj.post_type) {
-          let arr = JSON.parse(obj.post_type)
-          return arr[0] == 1010000
+          let arr = JSON.parse(obj.post_type);
+          return arr[0] == 1010000;
         }
-      })
-      console.log(aiArr, "aiArr1");
+      });
+      /* 获取 互联网/AI行业 的字典数据 */
+      let aiDict: any = postType()[0].subLevelModelList.map((item: any) => {
+        return { label: item.name, value: item.code };
+      });
 
+      /* 获取最终的二维数组即rBox1数据 */
+      // 初始化结果数组，长度为 aiDict 的长度，每个项的长度为 provinceArr 的长度，初始值为 0
+      const result = new Array(aiDict.length)
+        .fill(0)
+        .map(() => new Array(provinceArr.length).fill(0));
+
+      // 遍历 aiArr 中的每个数据项，统计各个省份对应的后端开发和前端/移动开发的数量
+      aiArr.forEach((item: any) => {
+        const provinceIndex = provinceArr.indexOf(item.company_province);
+        if (provinceIndex !== -1) {
+          const postTypes = JSON.parse(item.post_type);
+          postTypes.forEach((postType: any) => {
+            const postIndex = aiDict.findIndex(
+              (dict: any) => dict.value === postType
+            );
+            if (postIndex !== -1) {
+              result[postIndex][provinceIndex]++;
+            }
+          });
+        }
+      });
+
+      // 调整结果数组顺序以匹配 aiDict 的技术职位顺序
+      const rearrangedResult = aiDict.map(
+        (dict: any, index: any) => result[index]
+      );
+
+      console.log(rearrangedResult);
+      this.box1Data.dataList = rearrangedResult;
 
       await this.initRBox1();
     } catch (error) {
@@ -223,29 +258,22 @@ export default class rightComp extends Vue {
   }
 
   initRBox1() {
-    const yearCount = 7;
-    const categoryCount = 30;
-    const xAxisData = []; // ['category0', 'category1', 'category2'...] length: 30 [省份数据]
-    const legendData: any = []; //  ['trend', '2010', '2011', ...] length: 8 [互联网行业的职位类型...]
-    const dataList = []; // [[category0 - category28的2010年的数据: 长度30 ], [] , [] ...] length: 8 - 1
-    legendData.push("trend", "后端开发", "前端/移动开发", "测试", "运维/技术支持", "人工智能", "销售技术支持", "数据", "技术项目管理", "高端技术职位", "其他技术职位");
-    for (var i = 0; i < yearCount; i++) {
-      dataList.push([]);
-    }
-    for (var i = 0; i < categoryCount; i++) {
-      var val = Math.random() * 1000;
-      xAxisData.push("category" + i);
-      for (var j = 0; j < dataList.length; j++) {
-        var value: any =
-          j === 0
-            ? (this as any).$echarts.number.round(val, 2)
-            : (this as any).$echarts.number.round(
-                Math.max(0, dataList[j - 1][i] + (Math.random() - 0.5) * 200),
-                2
-              );
-        dataList[j].push(value);
-      }
-    }
+    // const xAxisData = []; // ['category0', 'category1', 'category2'...] length: 30 [省份数据] 33
+    const legendData: any = []; //  ['trend', '2010', '2011', ...] length: 8 [互联网行业的职位类型...] 10 + 1
+    // const dataList = []; // [[category0 - category28的2010年的数据: 长度30 ], [] , [] ...] length: 8 - 1 => 10
+    legendData.push(
+      "trend",
+      "后端开发",
+      "前端/移动开发",
+      "测试",
+      "运维/技术支持",
+      "人工智能",
+      "销售技术支持",
+      "数据",
+      "技术项目管理",
+      "高端技术职位",
+      "其他技术职位"
+    );
     let option: any = {
       tooltip: {
         trigger: "axis",
@@ -261,8 +289,8 @@ export default class rightComp extends Vue {
       dataZoom: [
         {
           type: "slider",
-          start: 50,
-          end: 70,
+          start: 0,
+          end: 30,
           height: 10,
           bottom: 20,
           textStyle: {
@@ -271,14 +299,14 @@ export default class rightComp extends Vue {
         },
         {
           type: "inside",
-          start: 50,
-          end: 70,
+          start: 0,
+          end: 30,
         },
       ],
       xAxis: [
         {
           type: "category",
-          data: xAxisData,
+          data: this.box1Data.xAxisData,
           axisLine: {
             show: true,
             lineStyle: {
@@ -321,7 +349,7 @@ export default class rightComp extends Vue {
         },
       ],
       series: [
-        ...dataList.map(function (data, index) {
+        ...this.box1Data.dataList.map(function (data: any, index: any) {
           return {
             type: "bar",
             animation: false,
@@ -334,8 +362,6 @@ export default class rightComp extends Vue {
         }),
       ],
     };
-
-    console.log(xAxisData, legendData, dataList);
 
     this.myChart = (this as any).$echarts.init(
       document.getElementById("rBox1")

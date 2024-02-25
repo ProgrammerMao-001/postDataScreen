@@ -118,7 +118,7 @@
             />
             <el-table-column
               show-overflow-tooltip
-              prop="company_address"
+              prop="company_province"
               label="工作地址"
             />
             <el-table-column prop="" label="操作" min-width="120">
