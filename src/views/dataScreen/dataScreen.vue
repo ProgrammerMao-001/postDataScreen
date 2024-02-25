@@ -56,7 +56,7 @@ export default class dataScreen extends Vue {
   mapZoom: number = 9; // 地图缩放层级
   mapTypeOffset: any = {
     width: 440,
-    height: 128,
+    height: 98,
   }; // 控件偏移值
 }
 </script>
@@ -99,7 +99,7 @@ $boxHeight: calc(#{$height} - #{$topHeight} - #{$bottomHeight});
   &-left {
     width: $boxWidth;
     position: absolute;
-    top: $topHeight;
+    top: calc(#{$topHeight} - #{$margin} * 2);
     left: $margin;
     height: $boxHeight;
   }
@@ -108,7 +108,7 @@ $boxHeight: calc(#{$height} - #{$topHeight} - #{$bottomHeight});
     width: $boxWidth;
     height: $boxHeight;
     position: absolute;
-    top: $topHeight;
+    top: calc(#{$topHeight} - #{$margin} * 2);
     right: $margin;
   }
 
@@ -117,7 +117,7 @@ $boxHeight: calc(#{$height} - #{$topHeight} - #{$bottomHeight});
     position: absolute;
     left: $margin;
     right: $margin;
-    bottom: 0;
+    bottom: $margin;
   }
 }
 
