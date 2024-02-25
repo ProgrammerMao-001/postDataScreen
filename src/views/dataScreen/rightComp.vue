@@ -2,7 +2,9 @@
   <div class="boxContent">
     <div class="boxContent-public">
       <div class="boxContent-public-title">职位需求情况</div>
-      <div class="boxContent-public-main"></div>
+      <div class="boxContent-public-main">
+        <div id="rBox1"></div>
+      </div>
     </div>
 
     <div class="boxContent-public">
@@ -24,6 +26,7 @@ export default class rightComp extends Vue {
   option: any = {};
   myChart: any = null;
   educationList: any = []; // 学历列表
+  provinceList: any = []; // 省份列表
   postList: any = []; // 岗位列表
   box2Data: any = {
     data: [],
@@ -124,7 +127,7 @@ export default class rightComp extends Vue {
     });
   }
 
-  /* 获取rBox2数据 */
+  /* 获取rBox2数据 (不同学历的岗位数)*/
   async getRBox2Data() {
     try {
       /* 学历列表 */
@@ -177,18 +180,33 @@ export default class rightComp extends Vue {
         0
       );
 
-      console.log(this.box2Data, "box2Data");
+      // console.log(this.box2Data, "box2Data");
       await this.initRBox2();
       // console.log(transformedData, "transformedData") [{name: '初中及以下', value: 0}, ...]
     } catch (error) {
       // 处理错误
-      console.error("Error fetching data:", error);
+      console.error("Error fetching data2:", error);
     }
   }
 
+  /* 获取rBox1数据 (分析不同地区的不同职位的总数【互联网/AI行业】。如：在浙江、湖南等后端开发、人工智能等的岗位数) */
+  async getRBox1Data() {
+    try {
+      /* 省份列表 */
+      const provinceResponse = await (this as any).getDict("province");
+      let arr = provinceResponse.data.data[0].data || "[]";
+      this.provinceList = JSON.parse(arr);
+      console.log(this.provinceList)
+      console.log(this.postList, "postList1")
+    } catch (error) {
+      // 处理错误
+      console.error("Error fetching data1:", error);
+    }
+  }
   created() {}
 
   mounted() {
+    this.getRBox1Data();
     this.getRBox2Data();
   }
 }
@@ -197,7 +215,7 @@ export default class rightComp extends Vue {
 <style lang="scss" scoped>
 @import "publicStyle";
 
-#rBox2 {
+#rBox1, #rBox2 {
   width: 100%;
   height: 100%;
 }
