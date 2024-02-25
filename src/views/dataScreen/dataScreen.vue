@@ -24,7 +24,7 @@
         >
           <bm-label
             v-if="item.showMarker"
-            :content="item.address"
+            :content="item.name"
             :labelStyle="{}"
             :offset="{ width: -35, height: 30 }"
           >
