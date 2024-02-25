@@ -71,6 +71,14 @@
             />
             <el-table-column
               show-overflow-tooltip
+              prop="recruitment_status"
+              label="招聘状态">
+              <template slot-scope="scope">
+                <span :style="{color: 'red'}"> {{ scope.row.recruitment_status }} </span>
+              </template>
+            </el-table-column>
+            <el-table-column
+              show-overflow-tooltip
               prop="salary_range"
               label="薪资范围"
             />

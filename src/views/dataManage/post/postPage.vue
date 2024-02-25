@@ -46,6 +46,7 @@
                   :options="postTypeList"
                   :props="cascaderProps"
                   filterable
+                  clearable
                 ></el-cascader>
               </el-form-item>
             </el-col>
@@ -111,12 +112,22 @@
             </el-col>
 
             <el-col :span="12">
-              <!--   todo 自动计算平均薪资    -->
               <el-form-item label="薪资范围：" prop="salary_range">
                 <el-input
                   :disabled="willPassData.type === '详情'"
                   v-model="formData.salary_range"
                   placeholder="格式如：20-40K·16薪(·16薪 可省略，默认为12)"
+                  size="small"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+
+            <el-col :span="12">
+              <el-form-item label="平均薪资：" prop="avg_range">
+                <el-input
+                  :disabled="willPassData.type === '详情'"
+                  v-model="formData.avg_range"
+                  placeholder="格式如：40K"
                   size="small"
                 ></el-input>
               </el-form-item>
@@ -144,6 +155,7 @@
               <el-form-item label="企业名称：" prop="company_id">
                 <el-select
                   :disabled="willPassData.type === '详情'"
+                  @change="companyChange"
                   v-model="formData.company_id"
                   placeholder=""
                   size="small"
@@ -216,8 +228,8 @@ export default class PublicPage extends Vue {
     post_type: [
       { required: true, message: "请选择职位类型", trigger: "change" },
     ],
-    salary_range: [
-      { required: true, message: "请输入薪资范围", trigger: "blur" },
+    avg_range: [
+      { required: true, message: "请输入平均薪资", trigger: "blur" },
     ],
     company_id: [
       { required: true, message: "请选择关联企业", trigger: "blur" },
@@ -257,12 +269,12 @@ export default class PublicPage extends Vue {
       if (valid) {
         if (this.willPassData.type === "新增") {
           setTimeout(() => {
-            // this.addData();
+            this.addData();
           }, 100);
         }
         if (this.willPassData.type === "编辑") {
           setTimeout(() => {
-            // this.editData();
+            this.editData();
           }, 100);
         }
       } else {
@@ -276,10 +288,8 @@ export default class PublicPage extends Vue {
    */
   addData() {
     addPost({
-      username: this.formData.username,
-      password: this.formData.password,
-      role: this.formData.role ? this.formData.role : "用户",
-      roleid: this.formData.roleid ? this.formData.roleid : "2",
+      ...this.formData,
+      post_type: JSON.stringify(this.formData.post_type)
     })
       .then((res: any) => {
         if (res.status === 200) {
@@ -300,15 +310,10 @@ export default class PublicPage extends Vue {
    */
   editData() {
     updatePost({
-      id: this.willPassData.data.id,
-      username: this.formData.username,
-      password: this.formData.password,
-      token: this.formData.token,
-      role: this.formData.role ? this.formData.role : "用户", // 如果没有选择用户类型则默认为普通用户
-      roleid: this.formData.roleid ? this.formData.roleid : "2",
+      ...this.formData,
+      post_type: JSON.stringify(this.formData.post_type)
     })
       .then((res: any) => {
-        console.log("res", res);
         if (res.status === 200) {
           this.$message.success("新增成功！");
           this.goBack();
@@ -331,20 +336,11 @@ export default class PublicPage extends Vue {
     }).then((res: any) => {
       if (res.data.status === 200) {
         this.formData = res.data.data[0];
+        if (this.formData.post_type) {
+          this.$set(this.formData, "post_type", JSON.parse(this.formData.post_type));
+        }
       }
     });
-  }
-
-  /**
-   * @desc 账号类型 input框点击 出现弹窗
-   */
-  showMapDialog() {
-    console.log(this.formData.position, "点位");
-    let passData = {
-      type: "选择位置",
-      data: this.formData.point ? JSON.parse(this.formData.point) : {},
-    };
-    (this as any).$refs.mapDialog.showDialog(passData);
   }
 
   getProvinceList() {
@@ -358,7 +354,6 @@ export default class PublicPage extends Vue {
   getCompanyList() {
     getCompanyListByPrams({}).then((res: any) => {
       this.companyList = res.data.data || [];
-      console.log(this.companyList, "企业列表");
     });
   }
 
@@ -386,11 +381,20 @@ export default class PublicPage extends Vue {
     });
   }
 
+  /* 企业选择变化时 */
+  companyChange(e: any) {
+    let obj = this.companyList.filter((item: any) => item.id === e)[0]
+    this.$set(this.formData, "company_name", obj.name)
+    this.$set(this.formData, "company_address", obj.address)
+    this.$set(this.formData, "company_position", obj.position)
+    this.$set(this.formData, "company_province", obj.province)
+    this.$set(this.formData, "company_province_id", obj.province_id)
+  }
+
   created() {
     if (this.willPassData.type !== "新增") {
       this.getDetail();
     }
-    console.log(this.willPassData, this.postTypeList);
   }
 
   mounted() {
