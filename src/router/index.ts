@@ -85,7 +85,7 @@ const routes: Array<RouteConfig> = [
         path: "/dataScreen",
         name: "DataScreen",
         meta: {
-          title: "个人中心",
+          title: "驾驶舱",
         },
         component: () =>
           import(
