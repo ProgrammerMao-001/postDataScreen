@@ -6,56 +6,69 @@
 <template>
   <div class="dataScreen">
     <baidu-map
-      class="dataScreen-map"
-      scroll-wheel-zoom
-      :center="mapCenter"
-      :zoom="mapZoom"
+        class="dataScreen-map"
+        scroll-wheel-zoom
+        :center="mapCenter"
+        :zoom="mapZoom"
     >
       <bm-map-type
-        :map-types="['BMAP_NORMAL_MAP', 'BMAP_HYBRID_MAP']"
-        :offset="mapTypeOffset"
-        anchor="BMAP_ANCHOR_TOP_RIGHT"
+          style="position: absolute;z-index: 9999 !important;border: 2px solid red"
+          :map-types="['BMAP_NORMAL_MAP', 'BMAP_HYBRID_MAP']"
+          :offset="mapTypeOffset"
+          anchor="BMAP_ANCHOR_TOP_RIGHT"
       >
       </bm-map-type>
     </baidu-map>
 
     <div class="dataScreen-top">
-      <img src="/img/dataScreen/topTitle.png" alt="" />
+      <img src="/img/dataScreen/topTitle.png" alt=""/>
     </div>
-    <div class="dataScreen-left"></div>
-    <div class="dataScreen-right"></div>
+    <div class="dataScreen-left">
+      <leftComp ref="leftComp"/>
+    </div>
+    <div class="dataScreen-right">
+      <rightComp ref="rightComp"/>
+    </div>
     <div class="dataScreen-bottom">
-      <div class="dataScreen-bottom-main"></div>
+      <div class="dataScreen-bottom-main">
+        <bottomComp ref="bottomComp"/>
+      </div>
       <div class="dataScreen-bottom-bg">
-        <img src="/img/dataScreen/bottomBg.png" alt="" />
+        <img src="/img/dataScreen/bottomBg.png" alt=""/>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from "vue-property-decorator";
+import {Component, Prop, Vue, Watch} from "vue-property-decorator";
+import bottomComp from "@/views/dataScreen/bottomComp.vue";
+import leftComp from "@/views/dataScreen/leftComp.vue";
+import rightComp from "@/views/dataScreen/rightComp.vue";
 
 @Component({
-  components: {},
+  components: {bottomComp, leftComp, rightComp},
 })
-export default class TsComp1 extends Vue {
+export default class dataScreen extends Vue {
   mapCenter: any = {
     lng: 116.404,
     lat: 39.915,
   }; // 地图中心点
   mapZoom: number = 9; // 地图缩放层级
-  mapTypeOffset: any = {}; // 控件偏移值
+  mapTypeOffset: any = {
+    width: 440,
+    height: 128,
+  }; // 控件偏移值
 }
 </script>
 
 <style lang="scss" scoped>
 $margin: 20px; // 边距
 $width: 100vw;
-$boxWidth: 500px;
+$boxWidth: 400px;
 $height: 100vh;
-$topHeight: 150px;
-$bottomHeight: 260px;
+$topHeight: 128px;
+$bottomHeight: 250px;
 $bottomBgHeight: 30px;
 $boxHeight: calc(#{$height} - #{$topHeight} - #{$bottomHeight});
 
@@ -67,11 +80,11 @@ $boxHeight: calc(#{$height} - #{$topHeight} - #{$bottomHeight});
     width: 100%;
     height: 100%;
     position: absolute;
+    top: 0;
+    left: 0;
   }
 
   &-top {
-    border: 1px solid red;
-    box-sizing: border-box;
     width: $width;
     height: $topHeight;
     position: absolute;
