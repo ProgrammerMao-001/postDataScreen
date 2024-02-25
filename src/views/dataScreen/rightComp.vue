@@ -196,12 +196,142 @@ export default class rightComp extends Vue {
       const provinceResponse = await (this as any).getDict("province");
       let arr = provinceResponse.data.data[0].data || "[]";
       this.provinceList = JSON.parse(arr);
-      console.log(this.provinceList)
-      console.log(this.postList, "postList1")
+      console.log(this.provinceList);
+      console.log(this.postList, "postList1");
+
+      await this.initRBox1();
     } catch (error) {
       // 处理错误
       console.error("Error fetching data1:", error);
     }
+  }
+
+  initRBox1() {
+    const yearCount = 7;
+    const categoryCount = 30;
+    const xAxisData = []; // ['category0', 'category1', 'category2'...] length: 30
+    const legendData: any = []; //  ['trend', '2010', '2011', ...] length: 8
+    const dataList = []; // [[category0 - category28的2010年的数据: 长度30 ], [] , [] ...] length: 8 - 1
+    legendData.push("trend");
+    const encodeY = [];
+    for (var i = 0; i < yearCount; i++) {
+      legendData.push(2010 + i + "");
+      dataList.push([]);
+      encodeY.push(1 + i);
+    }
+    for (var i = 0; i < categoryCount; i++) {
+      var val = Math.random() * 1000;
+      xAxisData.push("category" + i);
+      for (var j = 0; j < dataList.length; j++) {
+        var value: any =
+          j === 0
+            ? (this as any).$echarts.number.round(val, 2)
+            : (this as any).$echarts.number.round(
+                Math.max(0, dataList[j - 1][i] + (Math.random() - 0.5) * 200),
+                2
+              );
+        dataList[j].push(value);
+      }
+    }
+    let option: any = {
+      tooltip: {
+        trigger: "axis",
+      },
+      // legend: {
+      //   data: legendData
+      // },
+      grid: {
+        top: "14%",
+        bottom: "24%",
+        left: "14%",
+      },
+      dataZoom: [
+        {
+          type: "slider",
+          start: 50,
+          end: 70,
+          height: 10,
+          bottom: 20,
+          textStyle: {
+            color: "#fff", //滚动条两边字体样式
+          },
+        },
+        {
+          type: "inside",
+          start: 50,
+          end: 70,
+        },
+      ],
+      xAxis: [
+        {
+          type: "category",
+          data: xAxisData,
+          axisLine: {
+            show: true,
+            lineStyle: {
+              color: "#fff",
+              width: 0,
+              type: "solid",
+            },
+          },
+          axisTick: {
+            show: false,
+          },
+          axisLabel: {
+            show: true, // 是否显示刻度标签，默认显示
+            fontSize: 12,
+          },
+        },
+      ],
+      yAxis: [
+        {
+          type: "value",
+          axisLabel: {
+            // formatter: function () {
+            //   return "";
+            // },
+          },
+          axisTick: {
+            show: false,
+          },
+          axisLine: {
+            show: false,
+            lineStyle: {
+              color: "#fff",
+              width: 1,
+              type: "solid",
+            },
+          },
+          splitLine: {
+            show: false,
+          }, // y轴分割线
+        },
+      ],
+      series: [
+        ...dataList.map(function (data, index) {
+          return {
+            type: "bar",
+            animation: false,
+            name: legendData[index + 1],
+            itemStyle: {
+              opacity: 0.5,
+            },
+            data: data,
+          };
+        }),
+      ],
+    };
+
+    console.log(xAxisData, legendData, dataList);
+
+    this.myChart = (this as any).$echarts.init(
+      document.getElementById("rBox1")
+    ); // 图标初始化
+    this.myChart.setOption(option); // 渲染页面
+    /* ECharts动态效果 */
+    window.addEventListener("resize", () => {
+      this.myChart.resize();
+    });
   }
   created() {}
 
@@ -215,7 +345,8 @@ export default class rightComp extends Vue {
 <style lang="scss" scoped>
 @import "publicStyle";
 
-#rBox1, #rBox2 {
+#rBox1,
+#rBox2 {
   width: 100%;
   height: 100%;
 }
