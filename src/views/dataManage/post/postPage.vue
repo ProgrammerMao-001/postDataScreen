@@ -46,7 +46,6 @@
                   :options="postTypeList"
                   :props="cascaderProps"
                   filterable
-                  clearable
                 ></el-cascader>
               </el-form-item>
             </el-col>
@@ -58,7 +57,6 @@
                   v-model="formData.recruitment_status"
                   placeholder=""
                   size="small"
-                  clearable
                   filterable
                 >
                   <el-option
@@ -79,7 +77,6 @@
                   v-model="formData.education"
                   placeholder=""
                   size="small"
-                  clearable
                   filterable
                 >
                   <el-option
@@ -100,7 +97,6 @@
                   v-model="formData.work_life"
                   placeholder=""
                   size="small"
-                  clearable
                   filterable
                 >
                   <el-option
@@ -130,6 +126,7 @@
               <el-form-item label="职位描述：" prop="desc">
                 <el-input
                   :disabled="willPassData.type === '详情'"
+                  :rows="6"
                   v-model="formData.desc"
                   type="textarea"
                 />
@@ -150,13 +147,12 @@
                   v-model="formData.company_id"
                   placeholder=""
                   size="small"
-                  clearable
                   filterable
                 >
                   <el-option
                     v-for="item in companyList"
                     :key="item.id"
-                    :label="item.username"
+                    :label="item.name"
                     :value="item.id"
                   >
                   </el-option>
@@ -188,7 +184,7 @@
         type="primary"
         size="small"
         icon="el-icon-check"
-        @click="saveUserInfo"
+        @click="onsubmit"
         >保存
       </el-button>
     </div>
@@ -197,6 +193,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
+import { getCompanyListByPrams } from "@/api/companyModule";
 import { getPostDetail, addPost, updatePost } from "@/api/postModule";
 import postType from "@/utils/postType";
 @Component({
@@ -214,15 +211,19 @@ import postType from "@/utils/postType";
 export default class PublicPage extends Vue {
   @Prop() willPassData: any;
   formData: any = {};
-  formRules: any = {};
+  formRules: any = {
+    name: [{ required: true, message: "请输入岗位名称", trigger: "blur" }],
+    post_type: [{ required: true, message: "请选择职位类型", trigger: "change" }],
+    salary_range: [{ required: true, message: "请输入薪资范围", trigger: "blur" },],
+    company_id: [{ required: true, message: "请选择关联企业", trigger: "blur" }],
+  };
   provinceList: any = []; // 省份列表
-  businessStatusList: any = []; // 经营状态列表
 
   recruitStatusList: any = []; // 招聘状态列表
   educationList: any = []; // 学历列表
   workExperienceList: any = []; // 工作经验列表
   companyList: any = []; // 企业列表
-  postTypeList: any = postType(); // 企业列表
+  postTypeList: any = postType(); // 职位类型列表
   cascaderProps: any = {
     children: "subLevelModelList",
     label: "name",
@@ -245,7 +246,7 @@ export default class PublicPage extends Vue {
   /**
    * @desc 点击 保存 按钮
    */
-  saveUserInfo() {
+  onsubmit() {
     (this.$refs.form as any).validate((valid: any) => {
       if (valid) {
         if (this.willPassData.type === "新增") {
@@ -347,18 +348,13 @@ export default class PublicPage extends Vue {
     });
   }
 
-  getBusinessStatusList() {
-    (this as any).getDict("businessStatus").then((res: any) => {
-      let arr = res.data.data[0]?.data || "[]";
-      this.businessStatusList = JSON.parse(arr);
-    });
-  }
 
   /* 获取企业列表 */
   getCompanyList() {
-    // getCompanyList({ role: "" }).then((res: any) => {
-    //   this.companyList = res.data.data || [];
-    // });
+    getCompanyListByPrams({}).then((res: any) => {
+      this.companyList = res.data.data || [];
+      console.log(this.companyList, "企业列表")
+    });
   }
 
   /* 获取招聘状态列表 */
@@ -394,7 +390,6 @@ export default class PublicPage extends Vue {
 
   mounted() {
     this.getProvinceList();
-    this.getBusinessStatusList();
 
     this.getCompanyList();
     this.getRecruitStatusList();
