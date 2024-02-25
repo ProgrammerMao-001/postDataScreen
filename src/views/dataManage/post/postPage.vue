@@ -27,20 +27,22 @@
         >
           <el-row :gutter="24">
             <el-col :span="12">
-              <el-form-item label="岗位名称：" prop="username">
+              <el-form-item label="岗位名称：" prop="name">
                 <el-input
                   :disabled="willPassData.type === '详情'"
-                  v-model="formData.username"
+                  v-model="formData.name"
                   size="small"
                 ></el-input>
               </el-form-item>
             </el-col>
 
             <el-col :span="12">
-              <el-form-item label="职位类型：" prop="username">
+              <el-form-item label="职位类型：" prop="post_type">
                 <el-cascader
                   size="small"
                   placeholder=""
+                  v-model="formData.post_type"
+                  :disabled="willPassData.type === '详情'"
                   :options="postTypeList"
                   :props="cascaderProps"
                   filterable
@@ -50,10 +52,10 @@
             </el-col>
 
             <el-col :span="12">
-              <el-form-item label="招聘状态：" prop="username">
+              <el-form-item label="招聘状态：" prop="recruitment_status">
                 <el-select
                   :disabled="willPassData.type === '详情'"
-                  v-model="formData.userName"
+                  v-model="formData.recruitment_status"
                   placeholder=""
                   size="small"
                   clearable
@@ -71,10 +73,10 @@
             </el-col>
 
             <el-col :span="12">
-              <el-form-item label="学历：" prop="username">
+              <el-form-item label="学历：" prop="education">
                 <el-select
                   :disabled="willPassData.type === '详情'"
-                  v-model="formData.username"
+                  v-model="formData.education"
                   placeholder=""
                   size="small"
                   clearable
@@ -92,10 +94,10 @@
             </el-col>
 
             <el-col :span="12">
-              <el-form-item label="工作年限：" prop="username">
+              <el-form-item label="工作年限：" prop="work_life">
                 <el-select
                   :disabled="willPassData.type === '详情'"
-                  v-model="formData.userName"
+                  v-model="formData.work_life"
                   placeholder=""
                   size="small"
                   clearable
@@ -113,42 +115,39 @@
             </el-col>
 
             <el-col :span="12">
-              <!--   todo 自动计算平均薪资           -->
-              <el-form-item label="薪资范围：" prop="username">
+              <!--   todo 自动计算平均薪资    -->
+              <el-form-item label="薪资范围：" prop="salary_range">
                 <el-input
                   :disabled="willPassData.type === '详情'"
-                  v-model="formData.username"
+                  v-model="formData.salary_range"
+                  placeholder="格式如：20-40K·16薪(·16薪 可省略，默认为12)"
                   size="small"
                 ></el-input>
               </el-form-item>
             </el-col>
 
             <el-col :span="24">
-              <el-form-item label="职位描述：" prop="username">
+              <el-form-item label="职位描述：" prop="desc">
                 <el-input
                   :disabled="willPassData.type === '详情'"
-                  v-model="formData.username"
+                  v-model="formData.desc"
                   type="textarea"
                 />
               </el-form-item>
             </el-col>
-          </el-row>
-        </el-form>
-      </div>
 
-      <!-- 公司信息 -->
-      <div class="main-view-content">
-        <div class="main-view-content-header">公司信息</div>
-      </div>
+            <!-- 公司信息 -->
+            <el-col :span="24">
+              <div class="main-view-content">
+                <div class="main-view-content-header">公司信息</div>
+              </div>
+            </el-col>
 
-      <div class="main-view-main">
-        <el-form :model="formData" ref="form" label-width="150px" class="">
-          <el-row>
-            <el-col :span="12">
-              <el-form-item label="企业名称：" prop="username">
+            <el-col :span="24">
+              <el-form-item label="企业名称：" prop="company_id">
                 <el-select
                   :disabled="willPassData.type === '详情'"
-                  v-model="formData.userName"
+                  v-model="formData.company_id"
                   placeholder=""
                   size="small"
                   clearable
@@ -166,8 +165,13 @@
             </el-col>
 
             <el-col :span="24">
-              <el-form-item label="工作地址：" prop="address">
-                {{ formData.username }}
+              <el-form-item label="工作地址：" prop="company_address">
+                <el-input
+                  v-model="formData.company_address"
+                  placeholder=""
+                  disabled=""
+                  type="textarea"
+                ></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -193,8 +197,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
-import { register, updateUser, getUserByUserName } from "@/api/userModule";
-// import { getCompanyList } from "@/api/companyModule"
+import { getPostDetail, addPost, updatePost } from "@/api/postModule";
 import postType from "@/utils/postType";
 @Component({
   components: {},
@@ -210,16 +213,10 @@ import postType from "@/utils/postType";
 })
 export default class PublicPage extends Vue {
   @Prop() willPassData: any;
-  formData: any = {
-    username: "",
-    password: "",
-    role: "", // 非必填，不填默认为 用户
-    roleid: "", // 非必填，不填默认为 用户 id(2)
-  };
+  formData: any = {};
   formRules: any = {};
   provinceList: any = []; // 省份列表
   businessStatusList: any = []; // 经营状态列表
-  userList: any = []; // 用户列表
 
   recruitStatusList: any = []; // 招聘状态列表
   educationList: any = []; // 学历列表
@@ -251,14 +248,14 @@ export default class PublicPage extends Vue {
   saveUserInfo() {
     (this.$refs.form as any).validate((valid: any) => {
       if (valid) {
-        if (this.willPassData.type === "新增用户") {
+        if (this.willPassData.type === "新增") {
           setTimeout(() => {
-            // this.addUser();
+            // this.addData();
           }, 100);
         }
-        if (this.willPassData.type === "编辑用户") {
+        if (this.willPassData.type === "编辑") {
           setTimeout(() => {
-            // this.editUser();
+            // this.editData();
           }, 100);
         }
       } else {
@@ -268,10 +265,10 @@ export default class PublicPage extends Vue {
   }
 
   /**
-   * 新增用户
+   * 新增岗位
    */
-  addUser() {
-    register({
+  addData() {
+    addPost({
       username: this.formData.username,
       password: this.formData.password,
       role: this.formData.role ? this.formData.role : "用户",
@@ -292,10 +289,10 @@ export default class PublicPage extends Vue {
   }
 
   /**
-   * 编辑用户
+   * 编辑岗位
    */
-  editUser() {
-    updateUser({
+  editData() {
+    updatePost({
       id: this.willPassData.data.id,
       username: this.formData.username,
       password: this.formData.password,
@@ -322,14 +319,13 @@ export default class PublicPage extends Vue {
    * @desc 获取详情的接口
    */
   getDetail() {
-    // getUserDetail({
-    //   id: this.willPassData.data.id,
-    // }).then((res: any) => {
-    //   if (res.data.status === 200) {
-    //     console.log(res.data.data);
-    //     this.formData = res.data.data[0];
-    //   }
-    // });
+    getPostDetail({
+      id: this.willPassData.data.id,
+    }).then((res: any) => {
+      if (res.data.status === 200) {
+        this.formData = res.data.data[0];
+      }
+    });
   }
 
   /**
@@ -355,12 +351,6 @@ export default class PublicPage extends Vue {
     (this as any).getDict("businessStatus").then((res: any) => {
       let arr = res.data.data[0]?.data || "[]";
       this.businessStatusList = JSON.parse(arr);
-    });
-  }
-
-  getUserList() {
-    getUserByUserName({ role: "" }).then((res: any) => {
-      this.userList = res.data.data || [];
     });
   }
 
@@ -396,14 +386,13 @@ export default class PublicPage extends Vue {
   }
 
   created() {
-    if (this.willPassData.type !== "新增用户") {
+    if (this.willPassData.type !== "新增") {
       this.getDetail();
     }
     console.log(this.willPassData, this.postTypeList);
   }
 
   mounted() {
-    this.getUserList();
     this.getProvinceList();
     this.getBusinessStatusList();
 

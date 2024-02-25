@@ -71,25 +71,19 @@
             />
             <el-table-column
               show-overflow-tooltip
-              prop="name"
+              prop="salary_range"
               label="薪资范围"
             />
             <el-table-column
               show-overflow-tooltip
-              prop="name"
-              label="招聘状态"
+              prop="company_name"
+              label="企业名称"
             />
             <el-table-column
               show-overflow-tooltip
-              prop="remark"
-              label="职位类型"
+              prop="company_address"
+              label="工作地址"
             />
-            <el-table-column
-              show-overflow-tooltip
-              prop="remark"
-              label="所需经验"
-            />
-            <el-table-column show-overflow-tooltip prop="remark" label="学历" />
             <el-table-column prop="" label="操作" min-width="120">
               <template slot-scope="scope">
                 <i
@@ -139,7 +133,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
-import { getDictListByPrams, deleteDict } from "@/api/dictModule";
+import { getPostListByPrams, deletePost } from "@/api/postModule";
 import postPage from "@/views/dataManage/post/postPage.vue";
 @Component({
   components: { postPage },
@@ -159,7 +153,7 @@ export default class RoleManage extends Vue {
 
   // 获取全部的字典
   getTableData() {
-    getDictListByPrams({
+    getPostListByPrams({
       name: this.searchForm.name,
       remark: this.searchForm.remark,
     }).then((res: any) => {
@@ -185,16 +179,7 @@ export default class RoleManage extends Vue {
 
   // 搜索
   handleSearch() {
-    console.log(this.searchForm);
-    getDictListByPrams({
-      name: this.searchForm.name,
-      remark: this.searchForm.remark,
-    }).then((res: any) => {
-      if (res.status === 200) {
-        this.tableData = res.data.data;
-        this.total = this.tableData.length;
-      }
-    });
+    this.getTableData();
   }
 
   // 重置
@@ -229,20 +214,20 @@ export default class RoleManage extends Vue {
       type: "warning",
     })
       .then(() => {
-        // deleteDict({
-        //   id: data.id,
-        // })
-        //   .then((res: any) => {
-        //     if (res.data.status === 200) {
-        //       this.$message.success("删除成功！");
-        //     } else {
-        //       this.$message.error("删除失败，请稍后再试！");
-        //     }
-        //     this.getTableData();
-        //   })
-        //   .catch((e: any) => {
-        //     console.log(e);
-        //   });
+        deletePost({
+          id: data.id,
+        })
+          .then((res: any) => {
+            if (res.data.status === 200) {
+              this.$message.success("删除成功！");
+            } else {
+              this.$message.error("删除失败，请稍后再试！");
+            }
+            this.getTableData();
+          })
+          .catch((e: any) => {
+            console.log(e);
+          });
       })
       .catch(() => {
         this.$message({
