@@ -69,6 +69,18 @@
               prop="name"
               label="岗位名称"
             />
+
+            <el-table-column
+                show-overflow-tooltip
+                prop="post_type"
+                label="职位类型"
+                width="350"
+            >
+              <template slot-scope="scope">
+                {{ makeParams1(scope.row.post_type) }}
+              </template>
+            </el-table-column>
+
             <el-table-column
               show-overflow-tooltip
               prop="recruitment_status"
@@ -149,6 +161,8 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { getPostListByPrams, deletePost } from "@/api/postModule";
+import postType from "@/utils/postType";
+import findNamesByIds from "@/utils/findNameByIds";
 import postPage from "@/views/dataManage/post/postPage.vue";
 @Component({
   components: { postPage },
@@ -266,6 +280,10 @@ export default class RoleManage extends Vue {
       color: "",
     };
     return obj[type];
+  }
+
+  makeParams1(value: any) {
+    return findNamesByIds(postType(), value).join("，");
   }
 
   created() {
