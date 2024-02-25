@@ -85,8 +85,8 @@ export default class dataScreen extends Vue {
 
   getIconStyle(item: any) {
     let size: object = {
-      width: 30,
-      height: 30,
+      width: 40,
+      height: 40,
     };
     let url =
       item.photos ||

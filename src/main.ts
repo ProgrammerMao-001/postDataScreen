@@ -19,6 +19,9 @@ Vue.prototype.$axios = axios;
 Vue.use(ElementUI);
 Vue.use(dataV);
 Vue.use(directive);
+// import Echarts from 'echarts'
+import * as echarts from "echarts";
+Vue.prototype.$echarts = echarts;
 
 Vue.config.productionTip = false;
 import BaiduMap from "vue-baidu-map";

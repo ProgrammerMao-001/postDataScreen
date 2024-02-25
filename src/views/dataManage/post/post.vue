@@ -71,13 +71,23 @@
             />
 
             <el-table-column
-                show-overflow-tooltip
-                prop="post_type"
-                label="职位类型"
-                width="350"
+              show-overflow-tooltip
+              prop="post_type"
+              label="职位类型"
+              width="350"
             >
               <template slot-scope="scope">
                 {{ makeParams1(scope.row.post_type) }}
+              </template>
+            </el-table-column>
+
+            <el-table-column
+              show-overflow-tooltip
+              prop="education"
+              label="学历"
+            >
+              <template slot-scope="scope">
+                {{ makeParams2(scope.row.education, "label") }}
               </template>
             </el-table-column>
 
@@ -174,18 +184,17 @@ export default class RoleManage extends Vue {
   total: any = 0;
   searchForm: any = {
     name: "",
-    remark: "",
   };
   showSearchForm: boolean = false;
   showPage: number = 1;
   willPassData: any = {};
   statusList: any = []; // 招聘状态列表
+  educationList: any = []; // 学历列表
 
   // 获取全部的字典
   getTableData() {
     getPostListByPrams({
       name: this.searchForm.name,
-      remark: this.searchForm.remark,
     }).then((res: any) => {
       if (res.status === 200) {
         this.tableData = res.data.data;
@@ -215,7 +224,6 @@ export default class RoleManage extends Vue {
   // 重置
   handleRest() {
     this.$set(this.searchForm, "name", "");
-    this.$set(this.searchForm, "remark", "");
     this.getTableData();
     this.pageNo = 1;
     this.pageSize = 10;
@@ -272,10 +280,24 @@ export default class RoleManage extends Vue {
       let arr = res.data.data[0]?.data || "[]";
       this.statusList = JSON.parse(arr);
     });
+    (this as any).getDict("education").then((res: any) => {
+      let arr = res.data.data[0]?.data || "[]";
+      this.educationList = JSON.parse(arr);
+    });
   }
 
   makeParams(value: any, type: string) {
     let obj = this.statusList.filter((item: any) => item.value == value)[0] || {
+      label: "",
+      color: "",
+    };
+    return obj[type];
+  }
+
+  makeParams2(value: any, type: string) {
+    let obj = this.educationList.filter(
+      (item: any) => item.value == value
+    )[0] || {
       label: "",
       color: "",
     };
