@@ -7,7 +7,7 @@
           <li
             v-for="(item, index) in companyList"
             :key="index"
-            @click="chooseCompany(item)"
+            @click.stop="chooseCompany(item)"
           >
             <div class="item-left">
               <span class="item-left-title">{{ item.name }}</span>

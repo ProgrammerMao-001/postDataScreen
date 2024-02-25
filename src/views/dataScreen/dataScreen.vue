@@ -6,27 +6,27 @@
 <template>
   <div class="dataScreen">
     <baidu-map
-      class="dataScreen-map"
-      scroll-wheel-zoom
-      :mapType="mapType"
-      :center="mapCenter"
-      :zoom="mapZoom"
+        class="dataScreen-map"
+        scroll-wheel-zoom
+        :mapType="mapType"
+        :center="mapCenter"
+        :zoom="mapZoom"
     >
       <bml-marker-clusterer :averageCenter="true">
         <bm-marker
-          v-for="item in companyList"
-          :key="item.id"
-          :position="JSON.parse(item.position)"
-          :icon="iconStyle"
-          @mouseover="markerOver(item)"
-          @mouseout="markerOut(item)"
-          @click="showCompanyDialog(item)"
+            v-for="item in companyList"
+            :key="item.id"
+            :position="JSON.parse(item.position)"
+            :icon="getIconStyle(item)"
+            @mouseover="markerOver(item)"
+            @mouseout="markerOut(item)"
+            @click="showCompanyDialog(item)"
         >
           <bm-label
-            v-if="item.showMarker"
-            :content="item.address"
-            :labelStyle="{}"
-            :offset="{ width: -35, height: 30 }"
+              v-if="item.showMarker"
+              :content="item.address"
+              :labelStyle="{}"
+              :offset="{ width: -35, height: 30 }"
           >
           </bm-label>
         </bm-marker>
@@ -34,32 +34,34 @@
     </baidu-map>
 
     <div class="dataScreen-top">
-      <topComp ref="topComp" />
+      <topComp ref="topComp"/>
     </div>
     <div class="dataScreen-left">
-      <leftComp ref="leftComp" />
+      <leftComp ref="leftComp"/>
     </div>
     <div class="dataScreen-right">
-      <rightComp ref="rightComp" />
+      <rightComp ref="rightComp"/>
     </div>
     <div class="dataScreen-bottom">
-      <bottomComp ref="bottomComp" />
+      <bottomComp ref="bottomComp"/>
     </div>
+    <companyDetailDialog ref="companyDetailDialog"/>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from "vue-property-decorator";
+import {Component, Prop, Vue, Watch} from "vue-property-decorator";
 import topComp from "@/views/dataScreen/topComp.vue";
 import bottomComp from "@/views/dataScreen/bottomComp.vue";
 import leftComp from "@/views/dataScreen/leftComp.vue";
 import rightComp from "@/views/dataScreen/rightComp.vue";
-import { BmlMarkerClusterer } from "vue-baidu-map";
+import {BmlMarkerClusterer} from "vue-baidu-map";
+import companyDetailDialog from "@/views/dataScreen/companyDetailDialog.vue";
 
-import { getCompanyListByPrams } from "@/api/companyModule";
+import {getCompanyListByPrams} from "@/api/companyModule";
 
 @Component({
-  components: { topComp, bottomComp, leftComp, rightComp, BmlMarkerClusterer },
+  components: {topComp, bottomComp, leftComp, rightComp, BmlMarkerClusterer, companyDetailDialog},
 })
 export default class dataScreen extends Vue {
   mapCenter: any = {
@@ -69,16 +71,22 @@ export default class dataScreen extends Vue {
   mapZoom: number = 9; // 地图缩放层级
   mapType: string = "BMAP_HYBRID_MAP"; // 地图类型
   companyList: any = []; // 公司列表
-  iconStyle: any = {
-    url: "http://data-screen.fangdafu.com/data-screen/img/base/houseDaFu/city.png",
-    size: {
-      width: 40,
-      height: 40,
-    },
-  };
 
   changeMapType(type: any) {
     this.mapType = type;
+  }
+
+  getIconStyle(item: any) {
+    let size: object = {
+      width: 30,
+      height: 30,
+    }
+    let url = item.photos || "http://data-screen.fangdafu.com/data-screen/img/base/houseDaFu/city.png"
+    return {
+      url,
+      size,
+      opts: {imageSize: size,}
+    };
   }
 
   getCompanyList() {
@@ -106,13 +114,18 @@ export default class dataScreen extends Vue {
     console.log(item, "点击了");
     this.mapCenter = JSON.parse(item.position);
     this.mapZoom = 15;
+    (this.$refs.companyDetailDialog as any).showDialog({
+      data: item,
+      type: "详情"
+    });
   }
 
   created() {
     this.getCompanyList();
   }
 
-  mounted() {}
+  mounted() {
+  }
 }
 </script>
 
