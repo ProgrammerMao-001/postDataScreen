@@ -81,7 +81,6 @@ $margin: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  cursor: pointer;
 
   &-left {
     width: $width;
