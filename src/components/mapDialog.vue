@@ -47,7 +47,7 @@
         </baidu-map>
       </div>
 
-      <span slot="footer">
+      <span slot="footer" v-if="canEdit">
         <el-button @click="hideDialog" size="small">取 消</el-button>
         <el-button type="primary" @click="onSubmit" size="small"
           >确 定</el-button
@@ -70,6 +70,7 @@ export default class PublicDialog extends Vue {
   markerPoint: any = {};
   showInfoWindow: boolean = false;
   markerInfo: any = "";
+  canEdit: boolean = true;
 
   /**
    * 弹窗打开事件
@@ -79,6 +80,7 @@ export default class PublicDialog extends Vue {
     this.title = data.type;
     this.dialogVisible = true;
     this.markerPoint = data.data;
+    this.canEdit = data.canEdit;
     console.log(this.markerPoint, "markerPoint");
   }
 

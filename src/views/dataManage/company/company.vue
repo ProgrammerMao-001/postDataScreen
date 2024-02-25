@@ -233,20 +233,20 @@ export default class RoleManage extends Vue {
       type: "warning",
     })
       .then(() => {
-        // deleteDict({
-        //   id: data.id,
-        // })
-        //   .then((res: any) => {
-        //     if (res.data.status === 200) {
-        //       this.$message.success("删除成功！");
-        //     } else {
-        //       this.$message.error("删除失败，请稍后再试！");
-        //     }
-        //     this.getTableData();
-        //   })
-        //   .catch((e: any) => {
-        //     console.log(e);
-        //   });
+        deleteCompany({
+          id: data.id,
+        })
+          .then((res: any) => {
+            if (res.data.status === 200) {
+              this.$message.success("删除成功！");
+            } else {
+              this.$message.error("删除失败，请稍后再试！");
+            }
+            this.getTableData();
+          })
+          .catch((e: any) => {
+            console.log(e);
+          });
       })
       .catch(() => {
         this.$message({

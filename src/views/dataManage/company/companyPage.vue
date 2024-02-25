@@ -186,14 +186,15 @@
                   disabled
                   placeholder="地图上选择位置后自动获取经纬度"
                   size="small"
-                  v-model="formData.point"
+                  v-model="formData.position"
                 >
                   <template slot="append">
                     <el-button
                       size="small"
                       icon="el-icon-location"
                       @click="showMapDialog"
-                      >选择
+                    >
+                      {{ willPassData.type !== "详情" ? "选择" : "查看" }}
                     </el-button>
                   </template>
                 </el-input>
@@ -298,7 +299,7 @@ export default class PublicPage extends Vue {
   }
 
   getMapDialogPoint(obj: any) {
-    this.$set(this.formData, "point", JSON.stringify(obj.point));
+    this.$set(this.formData, "position", JSON.stringify(obj.point));
     this.$set(this.formData, "address", obj.address);
   }
 
@@ -392,8 +393,9 @@ export default class PublicPage extends Vue {
   showMapDialog() {
     console.log(this.formData.position, "点位");
     let passData = {
-      type: "选择位置",
-      data: this.formData.point ? JSON.parse(this.formData.point) : {},
+      type: this.willPassData.type === "详情" ? "查看位置" : "选择位置",
+      data: this.formData.position ? JSON.parse(this.formData.position) : {},
+      canEdit: this.willPassData.type !== "详情",
     };
     (this as any).$refs.mapDialog.showDialog(passData);
   }
@@ -408,7 +410,7 @@ export default class PublicPage extends Vue {
   getFileList(data: any) {}
 
   getFullPath(data: any) {
-    this.formData.picurl = data.url;
+    this.formData.photos = data.url;
     this.fileList.push(data);
   }
 
