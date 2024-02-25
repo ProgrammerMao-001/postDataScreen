@@ -15,12 +15,29 @@ exports.getPostList = (req, res) => {
 }
 
 // GET 查询数据
-// 需要传入的参数 =》 岗位名称：name（不传则默认所有数据）
+// 需要传入的参数 =》 岗位名称：name，企业id：company_id（不传则默认所有数据）
+// exports.getPostListByPrams = (req, res) => {
+//     let sql = 'SELECT * FROM postlist';
+//     let obj = req.query;
+//     if (!obj) sql = 'SELECT name FROM postlist'
+//     if (obj.name) sql = `SELECT * FROM postlist WHERE name LIKE "%${obj.name}%"`
+//     db.query(sql, (err, data, fields) => {
+//         if (err) {
+//             return res.send('错误：' + err.message)
+//         }
+//         res.send({
+//             status: 200, message: "success", data
+//         });
+//     })
+// }
+
 exports.getPostListByPrams = (req, res) => {
     let sql = 'SELECT * FROM postlist';
     let obj = req.query;
-    if (!obj) sql = 'SELECT name FROM postlist'
-    if (obj.name) sql = `SELECT * FROM postlist WHERE name LIKE "%${obj.name}%"`
+    if (!obj) sql = 'SELECT name,company_id FROM postlist'
+    if (obj.company_id && !obj.name) sql = `SELECT * FROM postlist WHERE company_id = "${obj.company_id}"`
+    if (obj.name && !obj.company_id) sql = `SELECT * FROM postlist WHERE name LIKE "%${obj.name}%"`
+    if (obj.company_id && obj.name) sql = `SELECT * FROM postlist WHERE name LIKE "%${obj.name}%" AND company_id = "${obj.company_id}"`
     db.query(sql, (err, data, fields) => {
         if (err) {
             return res.send('错误：' + err.message)
@@ -78,21 +95,6 @@ exports.addPost = (req, res) => {
 }
 
 // POST 编辑
-// id
-// name
-// intro
-// user_name
-// user_id
-// founded
-// business_status
-// address
-// position
-// province
-// province_id
-// social_code
-// registration_authority
-// business_scope
-// photos
 exports.updatePost = (req, res) => {
     let sql = 'UPDATE postlist SET name = ?, `salary_range` = ?, `avg_range` = ?, `desc` = ?, `recruitment_status` = ?, `post_type` = ?, `company_name` = ?, `company_id` = ?, `company_address` = ?, `company_position` = ?, `company_province` = ?, `company_province_id` = ?, `education` = ?, `work_life` = ? where `id` = ?'
     let arr = [

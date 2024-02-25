@@ -2,23 +2,26 @@
   <div class="boxContent">
     <div class="boxContent-public-title">公司分布情况</div>
     <div class="boxContent-public-main">
-      <vue-seamless-scroll :data="companyList" class="warp">
-        <ul class="item">
-          <li
+      <vue-seamless-scroll
+        :data="companyList"
+        :class-option="classOption"
+        class="warp"
+      >
+        <div class="warp-item">
+          <div
+            class="warp-item-li"
             v-for="(item, index) in companyList"
-            :key="index"
-            @click.stop="chooseCompany(item)"
+            :key="item.id"
+            @click="chooseCompany(item)"
           >
-            <div class="item-left">
-              <span class="item-left-title">{{ item.name }}</span>
+            <div class="warp-item-left">
+              <span class="warp-item-left-title">{{ item.name }}</span>
               <em class="">（{{ item.address }}）</em>
             </div>
 
-            <div class="item-right">
-              {{ item.intro }}
-            </div>
-          </li>
-        </ul>
+            <div class="warp-item-right" v-html="item.intro"></div>
+          </div>
+        </div>
       </vue-seamless-scroll>
     </div>
   </div>
@@ -35,7 +38,9 @@ import vueSeamlessScroll from "vue-seamless-scroll";
 })
 export default class bottomComp extends Vue {
   companyList: any = []; // 公司列表
-
+  classOption: any = {
+    step: 0.5,
+  };
   getCompanyList() {
     getCompanyListByPrams({}).then((res: any) => {
       this.companyList = res.data.data;
@@ -70,12 +75,11 @@ export default class bottomComp extends Vue {
     height: 100%;
     overflow: hidden;
 
-    ul {
-      list-style: none;
+    &-item {
       padding: 0;
       margin: 0 auto;
 
-      li {
+      &-li {
         padding: 0 10px;
         height: 30px;
         line-height: 30px;
@@ -85,31 +89,28 @@ export default class bottomComp extends Vue {
         color: #fff;
         cursor: pointer;
 
-        .item {
-          &-left {
-            width: 40%;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-
-            &-title {
-              color: #39ccf5;
-            }
-          }
-
-          &-right {
-            width: 56%;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            text-align: right;
-          }
-        }
-
         &:hover {
           border: 1px solid #39ccf5;
           box-sizing: border-box;
         }
+      }
+      &-left {
+        width: 40%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &-title {
+          color: #39ccf5;
+        }
+      }
+
+      &-right {
+        width: 56%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: right;
       }
     }
   }
