@@ -1,0 +1,52 @@
+/**
+* @description: 大屏用的 暗黑的弹窗样式
+* */
+
+$dialogBgColor: rgba(13, 30, 45, .9);
+$dialogBgColor1: rgba(13, 30, 45, .7);
+
+::v-deep .el-dialog__header {
+  border-bottom: none;
+  padding: 20px 20px 0;
+
+}
+
+::v-deep .el-dialog {
+  background: $dialogBgColor;
+  box-shadow: 0 2px 4px rgba(27, 204, 245, .8), 0 0 10px rgba(7, 127, 154, 0.8);
+}
+
+.el-dialog__wrapper {
+  z-index: 99999 !important;
+}
+
+::v-deep .el-dialog__body {
+}
+
+
+::v-deep .el-form-item__label {
+  color: #fff !important;
+}
+
+::v-deep .el-form-item__content {
+  color: rgba(237,244,255,.8) !important;
+}
+
+::v-deep .el-dialog__title, ::v-deep .el-icon-close {
+  color: #fff !important;
+}
+
+
+::v-deep .el-table tr {
+  background: $dialogBgColor;
+  color: #fff !important;
+
+}
+
+::v-deep .el-table th.el-table__cell {
+   background-color: $dialogBgColor1 !important;
+ }
+
+::v-deep .el-table__body-wrapper {
+  background-color: $dialogBgColor !important;
+}

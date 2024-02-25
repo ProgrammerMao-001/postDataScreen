@@ -6,7 +6,7 @@
   <el-dialog
     :title="title"
     :visible.sync="dialogVisible"
-    width="60%"
+    width="800px"
     v-el-drag-dialog
     :close-on-click-modal="false"
     :before-close="hideDialog"
@@ -133,14 +133,14 @@ export default class companyDetailDialog extends Vue {
 
 <style lang="scss" scoped>
 @import "~@/assets/styles/colorMap";
-
+@import "detailDialog";
 ::v-deep .el-dialog {
   min-width: 700px !important;
 }
 
 ::v-deep .el-dialog__body {
-  padding: 0 20px 20px !important;
-  max-height: 70vh;
+  //padding: 0 20px 20px !important;
+  max-height: 66vh;
   overflow-y: auto;
 }
 </style>
