@@ -30,18 +30,19 @@ export default class leftComp extends Vue {
   }
 
   getLBox1Data() {
-    let postTypeArr = []
+    let postTypeArr: any = [] // [{label: "后端开发", value: "1000020"}, {label: "前端/移动开发", value: "1000030"}...]
     postType()[0].subLevelModelList.forEach((item: any) => {
       this.lBox1Data.xData.push(item.name)
-      this.lBox1Data.yData.push(0)
       postTypeArr.push({
         label: item.name,
-        value: item.code
+        value: item.code,
+        num: 0
       })
     })
-
+    this.lBox1Data.yData = postTypeArr.map((num: any) => num.num)
     getPostListByPrams({}).then((res: any) => {
-      console.log(res.data.data, "res")
+      console.log(JSON.stringify(postTypeArr), "postTypeArr")
+      console.log(JSON.stringify(res.data.data), "res")
     })
 
   }
