@@ -32,7 +32,7 @@ export default class leftComp extends Vue {
 
   lBox2Data: any = {
     xData: [], // ["后端开发", "前端/移动开发", "测试"]
-    yData: [123, 450, 770, 203, 255, 188, 156], // [11, 60, 20]
+    yData: [], // [11, 60, 20]
   };
 
   getLBoxData() {
@@ -43,6 +43,7 @@ export default class leftComp extends Vue {
         label: item.name,
         value: item.code,
         num: 0,
+        avgArr: [], // 平均薪资
       });
     });
     getPostListByPrams({})
@@ -79,12 +80,43 @@ export default class leftComp extends Vue {
         }
         // 调用函数计算数量并输出结果
         const countedJobTypesArray = countJobTypes(res.data.data, postTypeArr);
-        this.lBox1Data.xData = countedJobTypesArray.map((num: any) => num.label);
-        this.lBox2Data.xData = countedJobTypesArray.map((num: any) => num.label);
+        this.lBox1Data.xData = countedJobTypesArray.map(
+          (num: any) => num.label
+        );
+        this.lBox2Data.xData = countedJobTypesArray.map(
+          (num: any) => num.label
+        );
         this.lBox1Data.yData = countedJobTypesArray.map((num: any) => num.num);
 
         /* 计算平均薪资 */
-        console.log(JSON.stringify(res.data.data), JSON.stringify(postTypeArr), "123")
+        function mapAverageRanges(resData: any, postTypeArr: any) {
+          // 遍历职位数据数组
+          resData.forEach((job: any) => {
+            const jobPostTypes = JSON.parse(job.post_type);
+            // 遍历职位类型映射数组
+            jobPostTypes.forEach((value: any) => {
+              const matchingPostType = postTypeArr.find(
+                (postType: any) => postType.value === value
+              );
+
+              // 如果找到匹配项，则将平均薪资范围添加到avgArr中
+              if (matchingPostType) {
+                matchingPostType.avgArr.push(job.avg_range);
+              }
+            });
+          });
+
+          return postTypeArr;
+        }
+        let resAvgArr: any = mapAverageRanges(res.data.data, postTypeArr);
+        resAvgArr.forEach((item: any, index: any) => {
+          item.avg =
+            item.avgArr.length > 0
+              ? item.avgArr.reduce((a: any, b: any) => a + b, 0) /
+                item.avgArr.length
+              : 0;
+        });
+        this.lBox2Data.yData = resAvgArr.map((num: any) => num.avg);
       })
       .finally(() => {
         this.initLBox1();
@@ -198,7 +230,7 @@ export default class leftComp extends Vue {
 
   initBox2() {
     let option = {
-      backgroundColor: '',
+      backgroundColor: "",
       title: {
         text: "平均薪资",
         textStyle: {
@@ -210,65 +242,81 @@ export default class leftComp extends Vue {
         left: "left",
       },
       tooltip: {
-        trigger: 'axis',
+        trigger: "axis",
         axisPointer: {
-          type: 'shadow'
+          type: "shadow",
         },
-        formatter: "{b}：{c}" + "K"
+        formatter: "{b}：{c}" + "K",
       },
       grid: {
         top: "18%",
         bottom: "15%",
       },
-      xAxis: [{
-        type: 'category',
-        data: this.lBox2Data.xData,
-        axisLine: {
-          lineStyle: {
-            color: 'rgba(255,255,255,0.12)'
-          }
-        },
-        axisLabel: {
-          margin: 10,
-          color: '#e2e9ff',
-          textStyle: {
-            fontSize: 14
+      xAxis: [
+        {
+          type: "category",
+          data: this.lBox2Data.xData,
+          axisLine: {
+            lineStyle: {
+              color: "rgba(255,255,255,0.12)",
+            },
+          },
+          axisLabel: {
+            margin: 10,
+            color: "#e2e9ff",
+            textStyle: {
+              fontSize: 14,
+            },
           },
         },
-      }],
-      yAxis: [{
-        axisLabel: {
-          formatter: '{value}',
-          color: '#e2e9ff',
+      ],
+      yAxis: [
+        {
+          axisLabel: {
+            formatter: "{value}",
+            color: "#e2e9ff",
+          },
+          axisLine: {
+            show: false,
+          },
+          splitLine: {
+            lineStyle: {
+              color: "rgba(255,255,255,0.12)",
+            },
+          },
         },
-        axisLine: {
-          show: false
+      ],
+      series: [
+        {
+          type: "bar",
+          data: this.lBox2Data.yData,
+          barWidth: "20px",
+          itemStyle: {
+            normal: {
+              color: new (this as any).$echarts.graphic.LinearGradient(
+                0,
+                0,
+                0,
+                1,
+                [
+                  {
+                    offset: 0,
+                    color: "rgba(0,244,255,.5)", // 0% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: "rgba(42,132,136,0.5)", // 100% 处的颜色
+                  },
+                ],
+                false
+              ),
+              barBorderRadius: [8, 8, 0, 0],
+              shadowColor: "rgba(0,160,221,.8)",
+              shadowBlur: 4,
+            },
+          },
         },
-        splitLine: {
-          lineStyle: {
-            color: 'rgba(255,255,255,0.12)'
-          }
-        }
-      }],
-      series: [{
-        type: 'bar',
-        data: this.lBox2Data.yData,
-        barWidth: '20px',
-        itemStyle: {
-          normal: {
-            color: new (this as any).$echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-              offset: 0,
-              color: 'rgba(0,244,255,.5)' // 0% 处的颜色
-            }, {
-              offset: 1,
-              color: 'rgba(42,132,136,0.5)' // 100% 处的颜色
-            }], false),
-            barBorderRadius: [8, 8, 0, 0],
-            shadowColor: 'rgba(0,160,221,.8)',
-            shadowBlur: 4,
-          }
-        },
-      }]
+      ],
     };
 
     let myChart = (this as any).$echarts.init(document.getElementById("lBox2")); // 图标初始化
