@@ -127,7 +127,7 @@
                 <el-input
                   :disabled="willPassData.type === '详情'"
                   v-model="formData.avg_range"
-                  placeholder="格式如：40K"
+                  placeholder="请填写数字（单位为K【千元】）如： 8.5"
                   size="small"
                 ></el-input>
               </el-form-item>

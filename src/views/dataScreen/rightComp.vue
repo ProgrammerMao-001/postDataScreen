@@ -247,7 +247,7 @@ export default class rightComp extends Vue {
         (dict: any, index: any) => result[index]
       );
 
-      console.log(rearrangedResult);
+      // console.log(rearrangedResult);
       this.box1Data.dataList = rearrangedResult;
 
       await this.initRBox1();
@@ -275,6 +275,16 @@ export default class rightComp extends Vue {
       "其他技术职位"
     );
     let option: any = {
+      title: {
+        text: "岗位数",
+        textStyle: {
+          align: "left",
+          color: "#fff",
+          fontSize: 12,
+        },
+        top: "5%",
+        left: "left",
+      },
       tooltip: {
         trigger: "axis",
       },
@@ -282,7 +292,7 @@ export default class rightComp extends Vue {
       //   data: legendData
       // },
       grid: {
-        top: "14%",
+        top: "18%",
         bottom: "24%",
         left: "14%",
       },
@@ -327,6 +337,7 @@ export default class rightComp extends Vue {
       yAxis: [
         {
           type: "value",
+          minInterval: 1,
           axisLabel: {
             // formatter: function () {
             //   return "";
