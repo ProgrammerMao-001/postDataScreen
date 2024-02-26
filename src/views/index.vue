@@ -52,7 +52,6 @@ export default class Index extends Vue {
   getPostList() {
     getPostListByPrams({}).then((res: any) => {
       this.postList = res.data.data;
-      console.log(this.postList, "123")
     });
   }
 
