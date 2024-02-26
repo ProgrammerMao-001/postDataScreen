@@ -153,6 +153,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import { getPicCode, login } from "@/api/userModule";
 import registerDialog from "@/views/loginOrRegister/registerDialog.vue";
+import { getCompanyListByPrams } from "@/api/companyModule";
 
 @Component({
   components: { registerDialog },
@@ -316,10 +317,11 @@ export default class Login extends Vue {
         .then((res: any) => {
           if (res.status === 200) {
             localStorage.setItem("userInfo", JSON.stringify(res.userInfo));
-            this.$router.push("/home");
             this.isLoading = false;
             this.$message.success("登陆成功");
             this.$store.dispatch("loginModule/getUserInfo");
+            this.getCompanyArr(res); // 获取公司列表
+            this.$router.push("/home");
           }
           if (res.status === 101404) {
             (this.$refs.username as any).focus(); // 聚焦
@@ -386,6 +388,21 @@ export default class Login extends Vue {
    */
   goRegister() {
     (this.$refs.registerDialog as any).showDialog();
+  }
+
+  /* 获取企业列表 */
+  getCompanyArr(res: any) {
+    // console.log(res.userInfo.id, "user_id")
+    getCompanyListByPrams({ user_id: res.userInfo.id }).then((res: any) => {
+      if (res.data?.data && res.data.data.length > 0) {
+        let arr = res.data.data?.map((obj: any) => obj.id);
+        localStorage.setItem("companyArr", JSON.stringify(arr));
+        this.$store.dispatch("loginModule/getCompanyArr", JSON.stringify(arr));
+      } else {
+        localStorage.setItem("companyArr", JSON.stringify([]));
+        this.$store.dispatch("loginModule/getCompanyArr", JSON.stringify([]));
+      }
+    });
   }
 }
 </script>

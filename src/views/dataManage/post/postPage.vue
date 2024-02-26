@@ -354,7 +354,10 @@ export default class PublicPage extends Vue {
 
   /* 获取企业列表 */
   getCompanyList() {
-    getCompanyListByPrams({}).then((res: any) => {
+    let userInfo = JSON.parse((localStorage as any).getItem("userInfo"));
+    getCompanyListByPrams({
+      user_id: userInfo.roleid == 2 ? userInfo.id : null, // 1:管理员 2:普通用户
+    }).then((res: any) => {
       this.companyList = res.data.data || [];
     });
   }

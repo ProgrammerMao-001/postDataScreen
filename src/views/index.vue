@@ -6,24 +6,40 @@
     </div>
 
     <div class="main-view-content">
-      <span class="title" @click="$router.push('/dataManage/company')" title="点击进入公司管理"> 公司： </span>
+      <span
+        class="title"
+        @click="$router.push('/dataManage/company')"
+        title="点击进入公司管理"
+      >
+        公司：
+      </span>
       <div class="box">
         <el-tag
-            v-for="item in companyList"
-            :key="item.id"
-            :type="['0', '1'].includes(item.business_status) ? 'success' : 'danger'">
+          v-for="item in companyList"
+          :key="item.id"
+          :type="
+            ['0', '1'].includes(item.business_status) ? 'success' : 'danger'
+          "
+        >
           {{ item.name }}
         </el-tag>
       </div>
     </div>
 
     <div class="main-view-content">
-      <span class="title" @click="$router.push('/dataManage/post')" title="点击进入岗位管理"> 岗位： </span>
+      <span
+        class="title"
+        @click="$router.push('/dataManage/post')"
+        title="点击进入岗位管理"
+      >
+        岗位：
+      </span>
       <div class="box">
         <el-tag
-            v-for="item in postList"
-            :key="item.id"
-            :type="['0'].includes(item.recruitment_status) ? 'success' : 'danger'">
+          v-for="item in postList"
+          :key="item.id"
+          :type="['0'].includes(item.recruitment_status) ? 'success' : 'danger'"
+        >
           {{ item.name }}
         </el-tag>
       </div>
@@ -32,7 +48,7 @@
 </template>
 
 <script lang="ts">
-import {Component, Prop, Vue, Watch} from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { getCompanyListByPrams } from "@/api/companyModule";
 import { getPostListByPrams } from "@/api/postModule";
 
@@ -40,8 +56,8 @@ import { getPostListByPrams } from "@/api/postModule";
   components: {},
 })
 export default class Index extends Vue {
-  companyList: any = []
-  postList: any = []
+  companyList: any = [];
+  postList: any = [];
 
   getCompanyList() {
     getCompanyListByPrams({}).then((res: any) => {
@@ -56,8 +72,8 @@ export default class Index extends Vue {
   }
 
   created() {
-    this.getCompanyList()
-    this.getPostList()
+    this.getCompanyList();
+    this.getPostList();
   }
 }
 </script>

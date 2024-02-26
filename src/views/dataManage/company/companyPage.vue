@@ -452,9 +452,19 @@ export default class PublicPage extends Vue {
     });
   }
 
+  getUser() {
+    let userInfo = JSON.parse((localStorage as any).getItem("userInfo"));
+    if (userInfo) {
+      this.formData.user_id = userInfo.id;
+      this.formData.user_name = userInfo.username;
+    }
+  }
+
   created() {
     if (this.willPassData.type !== "新增") {
       this.getDetail();
+    } else {
+      this.getUser();
     }
     console.log(this.willPassData);
   }

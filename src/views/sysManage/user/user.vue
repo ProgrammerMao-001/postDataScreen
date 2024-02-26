@@ -55,7 +55,12 @@
 
             <el-form-item size="small">
               <el-button-group>
-                <el-button type="primary" @click="onSearchForm">搜索</el-button>
+                <el-button
+                  style="margin-right: 10px"
+                  type="primary"
+                  @click="onSearchForm"
+                  >搜索</el-button
+                >
                 <el-button type="" @click="onRestForm"> 重置</el-button>
               </el-button-group>
             </el-form-item>

@@ -172,7 +172,9 @@ export default class RoleManage extends Vue {
 
   // 获取公司数据
   getTableData() {
+    let userInfo = JSON.parse((localStorage as any).getItem("userInfo"));
     getCompanyListByPrams({
+      user_id: userInfo.roleid == 2 ? userInfo.id : null, // 1:管理员 2:普通用户
       name: this.searchForm.name,
       business_status: this.searchForm.business_status,
     }).then((res: any) => {

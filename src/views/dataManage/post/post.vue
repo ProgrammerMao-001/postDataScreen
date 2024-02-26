@@ -173,6 +173,7 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { getPostListByPrams, deletePost } from "@/api/postModule";
 import postType from "@/utils/postType";
 import findNamesByIds from "@/utils/findNameByIds";
+import flattenDeep from "@/utils/flattenDeep";
 import postPage from "@/views/dataManage/post/postPage.vue";
 @Component({
   components: { postPage },
@@ -193,14 +194,43 @@ export default class RoleManage extends Vue {
 
   // 获取全部的字典
   getTableData() {
-    getPostListByPrams({
-      name: this.searchForm.name,
-    }).then((res: any) => {
-      if (res.status === 200) {
-        this.tableData = res.data.data;
-        this.total = this.tableData.length;
+    var userInfo = JSON.parse((localStorage as any).getItem("userInfo"));
+    var companyArr: any = JSON.parse(
+      (localStorage as any).getItem("companyArr")
+    );
+    var helpTableData: any = [];
+
+    if (userInfo.roleid == 1) {
+      /* 管理员 */
+      getPostListByPrams({
+        company_id: null, // 1:管理员 2:普通用户
+        name: this.searchForm.name,
+      }).then((res: any) => {
+        if (res.status === 200) {
+          this.tableData = res.data.data;
+          this.total = this.tableData.length;
+        }
+      });
+    } else if (userInfo.roleid == 2) {
+      /* 用户 */
+      if (companyArr.length > 0) {
+        companyArr.forEach((item: any, index: any) => {
+          getPostListByPrams({
+            company_id: item, // 1:管理员 2:普通用户
+            name: this.searchForm.name,
+          })
+            .then((res: any) => {
+              if (res.status === 200) {
+                helpTableData[index] = res.data.data;
+              }
+            })
+            .finally(() => {
+              this.tableData = flattenDeep(helpTableData);
+              this.total = this.tableData.length;
+            });
+        });
       }
-    });
+    }
   }
 
   /**

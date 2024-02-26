@@ -15,23 +15,59 @@ exports.getCompanyList = (req, res) => {
 }
 
 // GET 查询数据
-// 需要传入的参数 =》 企业名称：name、经营状态：business_status（都不传则默认所有数据）
+// 需要传入的参数 =》 企业名称：name、经营状态：business_status、用户id：user_id（都不传则默认所有数据）
 exports.getCompanyListByPrams = (req, res) => {
     let sql = 'SELECT * FROM companylist';
     let obj = req.query;
-    if (!obj) sql = 'SELECT name,remark FROM companylist'
-    if (obj.business_status && !obj.name) sql = `SELECT * FROM companylist WHERE business_status = "${obj.business_status}"`
-    if (obj.name && !obj.business_status) sql = `SELECT * FROM companylist WHERE name LIKE "%${obj.name}%"`
-    if (obj.business_status && obj.name) sql = `SELECT * FROM companylist WHERE name LIKE "%${obj.name}%" AND business_status = "${obj.business_status}"`
+    let conditions = [];
+
+    // 检查并处理各个查询参数
+    if (obj.business_status) {
+        conditions.push(`business_status = "${obj.business_status}"`);
+    }
+    if (obj.name) {
+        conditions.push(`name LIKE "%${obj.name}%"`);
+    }
+    if (obj.user_id) {
+        conditions.push(`user_id = "${obj.user_id}"`);
+    }
+
+    // 根据是否存在查询条件生成最终的SQL语句
+    if (conditions.length > 0) {
+        sql = `SELECT * FROM companylist WHERE ${conditions.join(' AND ')}`;
+    } else if (!obj) {
+        sql = 'SELECT name,remark FROM companylist';
+    }
+
     db.query(sql, (err, data, fields) => {
         if (err) {
-            return res.send('错误：' + err.message)
+            return res.send('错误：' + err.message);
         }
         res.send({
-            status: 200, message: "success", data
+            status: 200,
+            message: "success",
+            data
         });
     })
 }
+
+// 旧版本查询如下：
+// exports.getCompanyListByPrams = (req, res) => {
+//     let sql = 'SELECT * FROM companylist';
+//     let obj = req.query;
+//     if (!obj) sql = 'SELECT name,remark FROM companylist'
+//     if (obj.business_status && !obj.name) sql = `SELECT * FROM companylist WHERE business_status = "${obj.business_status}"`
+//     if (obj.name && !obj.business_status) sql = `SELECT * FROM companylist WHERE name LIKE "%${obj.name}%"`
+//     if (obj.business_status && obj.name) sql = `SELECT * FROM companylist WHERE name LIKE "%${obj.name}%" AND business_status = "${obj.business_status}"`
+//     db.query(sql, (err, data, fields) => {
+//         if (err) {
+//             return res.send('错误：' + err.message)
+//         }
+//         res.send({
+//             status: 200, message: "success", data
+//         });
+//     })
+// }
 
 
 // POST 新增
