@@ -30,9 +30,12 @@ export default class leftComp extends Vue {
     yData: [], // [11, 60, 20]
   };
 
-  lBox2Data: any = {};
+  lBox2Data: any = {
+    xData: [], // ["后端开发", "前端/移动开发", "测试"]
+    yData: [123, 450, 770, 203, 255, 188, 156], // [11, 60, 20]
+  };
 
-  getLBox1Data() {
+  getLBoxData() {
     let postTypeArr: any = []; // [{label: "后端开发", value: "1000020"}, {label: "前端/移动开发", value: "1000030"}...]
     postType()[0].subLevelModelList.forEach((item: any) => {
       // this.lBox1Data.xData.push(item.name)
@@ -76,13 +79,16 @@ export default class leftComp extends Vue {
         }
         // 调用函数计算数量并输出结果
         const countedJobTypesArray = countJobTypes(res.data.data, postTypeArr);
-        this.lBox1Data.xData = countedJobTypesArray.map(
-          (num: any) => num.label
-        );
+        this.lBox1Data.xData = countedJobTypesArray.map((num: any) => num.label);
+        this.lBox2Data.xData = countedJobTypesArray.map((num: any) => num.label);
         this.lBox1Data.yData = countedJobTypesArray.map((num: any) => num.num);
+
+        /* 计算平均薪资 */
+        console.log(JSON.stringify(res.data.data), JSON.stringify(postTypeArr), "123")
       })
       .finally(() => {
         this.initLBox1();
+        this.initBox2();
       });
   }
 
@@ -157,7 +163,7 @@ export default class leftComp extends Vue {
                 colorStops: [
                   {
                     offset: 0,
-                    color: "#A9F387", // 0% 处的颜色
+                    color: "#38bcf3", // 0% 处的颜色
                   },
                   {
                     offset: 1,
@@ -192,121 +198,77 @@ export default class leftComp extends Vue {
 
   initBox2() {
     let option = {
-      backgroundColor: "",
-      tooltip: {
-        trigger: "axis",
-        axisPointer: {
-          type: "shadow",
+      backgroundColor: '',
+      title: {
+        text: "平均薪资",
+        textStyle: {
+          align: "left",
+          color: "#fff",
+          fontSize: 12,
         },
+        top: "5%",
+        left: "left",
+      },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow'
+        },
+        formatter: "{b}：{c}" + "K"
       },
       grid: {
-        top: "15%",
-        right: "3%",
-        left: "5%",
-        bottom: "12%",
+        top: "18%",
+        bottom: "15%",
       },
-      xAxis: [
-        {
-          type: "category",
-          data: [
-            "工作票",
-            "操作票",
-            "抢修",
-            "用电调查",
-            "设备巡视",
-            "现场勘查",
-            "到岗到位",
-          ],
-          axisLine: {
-            lineStyle: {
-              color: "rgba(255,255,255,0.12)",
-            },
-          },
-          axisLabel: {
-            margin: 10,
-            color: "#e2e9ff",
-            textStyle: {
-              fontSize: 14,
-            },
+      xAxis: [{
+        type: 'category',
+        data: this.lBox2Data.xData,
+        axisLine: {
+          lineStyle: {
+            color: 'rgba(255,255,255,0.12)'
+          }
+        },
+        axisLabel: {
+          margin: 10,
+          color: '#e2e9ff',
+          textStyle: {
+            fontSize: 14
           },
         },
-      ],
-      yAxis: [
-        {
-          axisLabel: {
-            formatter: "{value}",
-            color: "#e2e9ff",
-          },
-          axisLine: {
-            show: false,
-          },
-          splitLine: {
-            lineStyle: {
-              color: "rgba(255,255,255,0.12)",
-            },
-          },
+      }],
+      yAxis: [{
+        axisLabel: {
+          formatter: '{value}',
+          color: '#e2e9ff',
         },
-      ],
-      series: [
-        {
-          type: "bar",
-          data: [300, 450, 770, 203, 255, 188, 156],
-          barWidth: "20px",
-          itemStyle: {
-            normal: {
-              color: new (this as any).$echarts.graphic.LinearGradient(
-                0,
-                0,
-                0,
-                1,
-                [
-                  {
-                    offset: 0,
-                    color: "rgba(0,244,255,1)", // 0% 处的颜色
-                  },
-                  {
-                    offset: 1,
-                    color: "rgba(0,77,167,1)", // 100% 处的颜色
-                  },
-                ],
-                false
-              ),
-              barBorderRadius: [30, 30, 30, 30],
-              shadowColor: "rgba(0,160,221,1)",
-              shadowBlur: 4,
-            },
-          },
-          label: {
-            normal: {
-              show: true,
-              lineHeight: 30,
-              width: 80,
-              height: 30,
-              backgroundColor: "rgba(0,160,221,0.1)",
-              borderRadius: 200,
-              position: ["-8", "-60"],
-              distance: 1,
-              formatter: ["    {d|●}", " {a|{c}}     \n", "    {b|}"].join(","),
-              rich: {
-                d: {
-                  color: "#3CDDCF",
-                },
-                a: {
-                  color: "#fff",
-                  align: "center",
-                },
-                b: {
-                  width: 1,
-                  height: 30,
-                  borderWidth: 1,
-                  borderColor: "#234e6c",
-                  align: "left",
-                },
-              },
-            },
-          },
+        axisLine: {
+          show: false
         },
-      ],
+        splitLine: {
+          lineStyle: {
+            color: 'rgba(255,255,255,0.12)'
+          }
+        }
+      }],
+      series: [{
+        type: 'bar',
+        data: this.lBox2Data.yData,
+        barWidth: '20px',
+        itemStyle: {
+          normal: {
+            color: new (this as any).$echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+              offset: 0,
+              color: 'rgba(0,244,255,.5)' // 0% 处的颜色
+            }, {
+              offset: 1,
+              color: 'rgba(42,132,136,0.5)' // 100% 处的颜色
+            }], false),
+            barBorderRadius: [8, 8, 0, 0],
+            shadowColor: 'rgba(0,160,221,.8)',
+            shadowBlur: 4,
+          }
+        },
+      }]
     };
 
     let myChart = (this as any).$echarts.init(document.getElementById("lBox2")); // 图标初始化
@@ -318,8 +280,7 @@ export default class leftComp extends Vue {
   }
 
   mounted() {
-    this.getLBox1Data();
-    this.initBox2();
+    this.getLBoxData();
   }
 }
 </script>
