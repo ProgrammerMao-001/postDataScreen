@@ -313,7 +313,7 @@ export default class PublicPage extends Vue {
     })
       .then((res: any) => {
         if (res.status === 200) {
-          this.$message.success("新增成功！");
+          this.$message.success("编辑成功！");
           this.goBack();
           (this.$parent as any).getTableData();
         } else {

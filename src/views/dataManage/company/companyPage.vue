@@ -367,7 +367,7 @@ export default class PublicPage extends Vue {
       .then((res: any) => {
         console.log("res", res);
         if (res.status === 200) {
-          this.$message.success("新增成功！");
+          this.$message.success("编辑成功！");
           this.goBack();
         } else {
           this.$message.warning(res.message);
