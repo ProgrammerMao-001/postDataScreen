@@ -19,7 +19,7 @@
           >
             <div class="aside-font">
               <div v-show="!isOpenFlag" class="aside-font-border"></div>
-              <span v-show="!isOpenFlag"> 疫&nbsp;情&nbsp;防&nbsp;控 </span>
+              <span v-show="!isOpenFlag"> 信&nbsp;息&nbsp;分&nbsp;析 </span>
               <i
                 style="cursor: pointer"
                 @click="isOpen"
