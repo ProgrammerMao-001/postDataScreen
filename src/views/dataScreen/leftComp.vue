@@ -16,17 +16,34 @@
 
 <script lang="ts">
 import {Component, Prop, Vue, Watch} from "vue-property-decorator";
+import { getPostListByPrams } from "@/api/postModule";
+import postType from "@/utils/postType";
+
 
 @Component({
   components: {},
 })
 export default class leftComp extends Vue {
   lBox1Data: any = {
-    xData: [],
-    yData: [],
+    xData: [], // ["后端开发", "前端/移动开发", "测试"]
+    yData: [], // [11, 60, 20]
   }
 
   getLBox1Data() {
+    let postTypeArr = []
+    postType()[0].subLevelModelList.forEach((item: any) => {
+      this.lBox1Data.xData.push(item.name)
+      this.lBox1Data.yData.push(0)
+      postTypeArr.push({
+        label: item.name,
+        value: item.code
+      })
+    })
+
+    getPostListByPrams({}).then((res: any) => {
+      console.log(res.data.data, "res")
+    })
+
   }
 
   initLBox1() {
@@ -41,7 +58,7 @@ export default class leftComp extends Vue {
       xAxis: [
         {
           type: "category",
-          data: ["2019-01", "2019-02", "2019-03", "2019-04", "2019-05", "2019-06"],
+          data: this.lBox1Data.xData,
           axisLine: {
             lineStyle: {
               color: "#fff",
@@ -76,9 +93,9 @@ export default class leftComp extends Vue {
       ],
       series: [
         {
-          name: "课时",
+          name: "岗位数",
           type: "line",
-          data: [23, 60, 20, 36, 23, 85],
+          data: this.lBox1Data.yData,
           lineStyle: {
             normal: {
               width: 2, // 线条粗细
@@ -124,6 +141,7 @@ export default class leftComp extends Vue {
   }
 
   mounted() {
+    this.getLBox1Data()
     this.initLBox1()
   }
 }
