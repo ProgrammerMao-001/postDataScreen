@@ -1,6 +1,5 @@
 <!--
  * @Description: 用户 页面
- * @Author: mhf
  * @Date: 2024/2/23 23:18
 -->
 <template>
@@ -150,7 +149,6 @@ export default class TsComp extends Vue {
   /**
    * @Event 显示/隐藏左侧
    * @description:
-   * @author: mhf
    * @time: 2024-02-23 23:23:27
    **/
   isClose() {
@@ -160,7 +158,6 @@ export default class TsComp extends Vue {
   /**
    * @Event 查询
    * @description:
-   * @author: mhf
    * @time: 2024-02-23 23:23:21
    **/
   onSearchForm() {
@@ -170,7 +167,7 @@ export default class TsComp extends Vue {
   /**
    * @Event 重置
    * @description:
-   * @author: mhf
+
    * @time: 2024-02-23 23:23:16
    **/
   onRestForm() {
@@ -187,7 +184,7 @@ export default class TsComp extends Vue {
   /**
    * @Event 获取表格数据
    * @description:
-   * @author: mhf
+
    * @time: 2024-02-23 23:23:11
    **/
   getTableData() {
@@ -207,7 +204,7 @@ export default class TsComp extends Vue {
   /**
    * @Event 分页切换事件
    * @description:
-   * @author: mhf
+
    * @time: 2024-02-23 23:23:02
    **/
   handleSizeChange(val: any) {
@@ -218,7 +215,7 @@ export default class TsComp extends Vue {
   /**
    * @Event 分页切换事件
    * @description:
-   * @author: mhf
+
    * @time: 2024-02-23 23:22:47
    **/
   handleCurrentChange(val: any) {
@@ -228,7 +225,7 @@ export default class TsComp extends Vue {
   /**
    * @Event 表格 编辑、新增用户
    * @description:
-   * @author: mhf
+
    * @time: 2024-02-23 23:22:42
    **/
   showPublicPageMethod(data: any, type: string) {
@@ -242,7 +239,7 @@ export default class TsComp extends Vue {
   /**
    * @Event 返回当前页面
    * @description:
-   * @author: mhf
+
    * @time: 2024-02-23 23:22:34
    **/
   backIndex() {
@@ -252,7 +249,7 @@ export default class TsComp extends Vue {
   /**
    * @Event 表格 删除用户
    * @description:
-   * @author: mhf
+
    * @time: 2024-02-23 23:22:27
    **/
   deleteUser(data: any) {
@@ -288,7 +285,7 @@ export default class TsComp extends Vue {
   /**
    * @Event 获取父组件（树）勾选上的值
    * @description:
-   * @author: mhf
+
    * @time: 2024-02-23 23:22:13
    **/
   getData(data: any) {

@@ -1,6 +1,6 @@
 <!--
  * @Description: 岗位 页面
- * @Author: mhf
+
  * @Date: 2024/2/24 0:11
 -->
 <template>
@@ -262,7 +262,7 @@ export default class RoleManage extends Vue {
   /**
    * @Event 新增，编辑，详情的公共弹窗
    * @description:
-   * @author: mhf
+
    * @time: 2024-02-24 15:13:40
    **/
   showPublicPage(type: any, data: any) {

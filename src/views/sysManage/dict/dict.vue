@@ -1,6 +1,6 @@
 <!--
  * @Description: 字典 页面
- * @Author: mhf
+
  * @Date: 2024/2/23 23:16
 -->
 <template>
@@ -184,7 +184,7 @@ export default class RoleManage extends Vue {
   /**
    * @Event 新增，编辑，详情的公共弹窗
    * @description:
-   * @author: mhf
+
    * @time: 2024-02-24 15:13:40
    **/
   showPublicDialog(type: any, data: any) {
