@@ -51,6 +51,7 @@
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { getCompanyListByPrams } from "@/api/companyModule";
 import { getPostListByPrams } from "@/api/postModule";
+import flattenDeep from "@/utils/flattenDeep";
 
 @Component({
   components: {},
@@ -60,15 +61,47 @@ export default class Index extends Vue {
   postList: any = [];
 
   getCompanyList() {
-    getCompanyListByPrams({}).then((res: any) => {
+    let userInfo = JSON.parse((localStorage as any).getItem("userInfo"));
+    getCompanyListByPrams({
+      user_id: userInfo.roleid == 2 ? userInfo.id : null, // 1:管理员 2:普通用户
+    }).then((res: any) => {
       this.companyList = res.data.data;
     });
   }
 
   getPostList() {
-    getPostListByPrams({}).then((res: any) => {
-      this.postList = res.data.data;
-    });
+    var userInfo = JSON.parse((localStorage as any).getItem("userInfo"));
+    var companyArr: any = JSON.parse(
+      (localStorage as any).getItem("companyArr")
+    );
+    var helpTableData: any = [];
+    if (userInfo.roleid == 1) {
+      /* 管理员 */
+      getPostListByPrams({
+        company_id: null, // 1:管理员 2:普通用户
+      }).then((res: any) => {
+        if (res.status === 200) {
+          this.postList = res.data.data;
+        }
+      });
+    } else if (userInfo.roleid == 2) {
+      /* 用户 */
+      if (companyArr.length > 0) {
+        companyArr.forEach((item: any, index: any) => {
+          getPostListByPrams({
+            company_id: item, // 1:管理员 2:普通用户
+          })
+            .then((res: any) => {
+              if (res.status === 200) {
+                helpTableData[index] = res.data.data;
+              }
+            })
+            .finally(() => {
+              this.postList = flattenDeep(helpTableData);
+            });
+        });
+      }
+    }
   }
 
   created() {
