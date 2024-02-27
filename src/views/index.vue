@@ -13,6 +13,13 @@
       >
         公司：
       </span>
+      <span>
+        <countTo
+          :startVal="0"
+          :endVal="companyTotal"
+          :duration="1000"
+        ></countTo>
+      </span>
       <div class="box">
         <el-tag
           v-for="item in companyList"
@@ -34,6 +41,9 @@
       >
         岗位：
       </span>
+      <span>
+        <countTo :startVal="0" :endVal="postTotal" :duration="1000"></countTo>
+      </span>
       <div class="box">
         <el-tag
           v-for="item in postList"
@@ -52,13 +62,17 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { getCompanyListByPrams } from "@/api/companyModule";
 import { getPostListByPrams } from "@/api/postModule";
 import flattenDeep from "@/utils/flattenDeep";
+// @ts-ignore
+import countTo from "vue-count-to";
 
 @Component({
-  components: {},
+  components: { countTo },
 })
 export default class Index extends Vue {
   companyList: any = [];
   postList: any = [];
+  companyTotal: any = 0;
+  postTotal: any = 0;
 
   getCompanyList() {
     let userInfo = JSON.parse((localStorage as any).getItem("userInfo"));
@@ -67,6 +81,7 @@ export default class Index extends Vue {
     })
       .then((res: any) => {
         this.companyList = res.data.data;
+        this.companyTotal = res.data.data.length || 0;
       })
       .finally(() => {
         this.getPostList(this.companyList.map((item: any) => item.id));
@@ -83,13 +98,14 @@ export default class Index extends Vue {
       }).then((res: any) => {
         if (res.status === 200) {
           this.postList = res.data.data;
+          this.postTotal = res.data.data.length || 0;
         }
       });
     } else if (userInfo.roleid == 2) {
+      this.postTotal = 0;
       var companyArr: any = JSON.parse(
         (localStorage as any).getItem("companyArr")
       );
-      console.log(companyArr, "companyArr");
       if (!companyArr && !Array.isArray(companyArr)) {
         companyArr = helpCompanyArr;
       }
@@ -107,6 +123,7 @@ export default class Index extends Vue {
             })
             .finally(() => {
               this.postList = flattenDeep(helpTableData);
+              this.postTotal = this.postList.length;
             });
         });
       }

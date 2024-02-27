@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2024-02-26 21:04:06
+Date: 2024-02-27 11:06:19
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -41,10 +41,15 @@ CREATE TABLE `companylist` (
 -- ----------------------------
 -- Records of companylist
 -- ----------------------------
+INSERT INTO `companylist` VALUES ('12', '0db140e9-a251-43c0-bc0d-6699b62a8fe3', '1', '毛三仙', '69dc220f-ec12-48f7-86b2-6cdf34455d3a', null, '0', '辽宁省沈阳市大东区', '{\"lng\":123.496104,\"lat\":41.85909}', '辽宁', '101070000', null, null, '1', null);
 INSERT INTO `companylist` VALUES ('成都房联云码科技有限公司 ', '16d5c5ef-9026-413b-924a-3f1ba04670e6', '成都房联云码科技有限公司成立于2009年12月，注册资金4000万元，是目前全国唯一一家能够提供全房地产产业链智慧房产系统的软件企业，全国唯一一家由公司为政府投资研发智慧房产系统并以增值服务实现营利的房产软件企业。\n公司现已获得“国家高新技术企业”证书、软件企业认定和软件产品登记（“双软认证”），拥有涉房地产相关计算机软件著作权60余项，公司拥有信息、咨询、技术、服务等各类人员近300人，平均年龄27.8岁，办公地位于软件园C区，是一个现代的、年轻的、创新的技术+运营型企业。\n公司研发的基于数据仓库技术的房产电子政务管理系统已经通过成都市重大创新产品奖励专项资金的审核，被列入“中国制造2025四川行动资金项目（产业技术研究与开发）”名单。\n公司以软件技术为支撑，以移动互联网为渠道，以国家房地产政策解读为引导，以先进的智慧房产整体解决方案为基础，提供了以房产交易、数据应用、金融创新和物业社区管理为核心的不动产全生命周期服务，汇集了房产各项行业应用和公众服务，实现了不动产全产业链的资源整合。\n本着创新驱动发展、科技服务民生的精神，成都房联云码科技有限公司努力践行企业社会责任，不断将便捷、安全、智慧的产品和服务推向房地产行业的各个领域，目前已有“智慧房产”平台、“房银通”平台、金融服务平台、房产金融大数据分析平台、银行直贷服务、权证代办服务、地产魔方大数据平台、物业ERP、成都透明房产网等系统和服务。房联云码为不断满足人们日益增长的房产服务，在移动互联网时代，不忘初心，砥砺前行。', '胡树', 'a6fe7a9a-c0e8-4374-8b53-24d92385d32a', '2024-02-13', '0', '四川省成都市武侯区世纪城南路天府软件园-C座', '{\"lng\":104.079186,\"lat\":30.546203}', '四川', '101270000', '915101006962782614', '成都高新区市场监督管理局', '许可项目：职业中介活动；劳务派遣服务；测绘服务；建设工程勘察（依法须经批准的项目，经相关部门批准后方可开展经营活动，具体经营项目以相关部门批准文件或许可证件为准）一般项目：软件开发；软件销售；计算机软硬件及辅助设备零售；计算机软硬件及辅助设备批发；信息系统集成服务；信息技术咨询服务；信息咨询服务（不含许可类信息咨询服务）；房地产咨询；房地产经纪；物业管理；计算机及通讯设备租赁；广告设计、代理；会议及展览服务；接受金融机构委托从事信息技术和流程外包服务（不含金融信息服务）；劳务服务（不含劳务派遣）；人力资源服务（不含职业中介活动、劳务派遣服务）；地理遥感信息服务；档案整理服务（除依法须经批准的项目外，凭营业执照依法自主开展经营活动）。', 'https://img.bosszhipin.com/beijin/mcs/chatphoto/20190408/40939647cf04a587fbcb28be71c56eed8fa6662323ebd59e06926ee07151fbbd.jpg?x-oss-process=image/resize,w_120,limit_0');
 INSERT INTO `companylist` VALUES ('京东科技控股股份有限公司', '302f3d54-0c50-409d-991a-45ebb0f971a7', '京东科技集团是京东集团旗下专注于以技术为产业服务的业务子集团，致力于为企业、金融机构、政府等各类客户提供全价值链的技术性产品与解决方案。依托人工智能、大数据、云计算、物联网等前沿科技能力，京东科技打造出了面向不同行业的产品和解决方案，以此帮助全社会各行业企业降低供应链成本，提升运营效率，成为值得产业信赖的数字合作伙伴。\r\n融合了原京东数科及云与AI两大技术业务板块，京东科技现已成为整个京东集团对外提供技术服务的核心输出平台，拥有丰富的产业理解力、深厚的风险管理能力、用户运营能力和企业服务能力，能面向不同行业为客户提供行业应用、产品开发与产业数字化服务。截至2020年6月末，在政府及其他客户服务领域，京东科技服务了超过40家城市公共服务机构，在全国建立了50多个城市云服务基地，此外也建立了庞大的线下物联网营销平台，拥有自营和联盟媒体点位数超过1,500万，覆盖全国超过300座城市以及6亿多人次；在金融机构服务领域，京东科技已为包括银行、保险、基金、信托、证券公司在内的超600家各类金融机构提供了多层次数字化解决方案；在商户与企业服务领域，已为超100万家小微商户、超20万家中小企业、超700家大型商业中心等提供了包括业务和技术在内的数字化解决方案。\r\n目前京东科技拥有1万多名员工，其中70%以上为研发和专业人员，并且拥有多位入选IEEE Fellow的科学家。截止2020年底，集团累计申请专利3540个，在AAAI、IJCAI、CVPR、KDD、NeurIPS、ICML、ACL、ICASSP等国际AI顶级会议上共发表相关论文近350篇，并已在多项国际性学术赛事中斩获19项世界第一，与美国斯坦福大学、中国科技大学等多所国内外高校合作建立人工智能实验室，充分展开产学研一体化实践。在国际独立权威调研机构Forrester最新发布的《中国预测分析与机器学习解决方案厂商评测2020Q4》中，京东科技首次参评便跻身“卓越表现者”领域，京东NeuHub人工智能开放平台累计调用量已高达万亿次。\r\n依托京东集团整体深厚的生态平台与长期积累的技术实力，京东科技参与了多个国家级重大科研项目：入选人工智能“国家队”——科技部国家人工智能开放创新平台名单，承担起建设国家“新一代智能供应链人工智能开放创新平台”的重任；牵头承担科技部国家重点研发计划项目“国家中心城市数据管控与知识萃取技术和系统应用”、“国家新区数字孪生系统与融合网络计算体系建设”、工信部公共服务平台建设项目“面向人工智能创新应用先导区的应用场景公共服务平台建设”等多个国家级科研项目。', '李娅云', 'a642a063-9ef6-4fda-96b2-bb19cb4ca2b0', '2012-09-05 ', '0', '北京市通州区京东集团总部', '{\"lng\":116.569634,\"lat\":39.792377}', '北京', '101010000', '91110302053604529E', '北京经济技术开发区市场监督管理局', '企业总部管理；投资管理；资产管理；企业管理咨询、投资咨询；公共关系服务；版权代理；接受金融机构委托从事金融信息技术服务外包；接受金融机构委托从事金融业务流程外包；接受金融机构委托从事金融知识流程外包；技术推广服务；企业形象策划；市场调查；企业管理；计算机技术培训（不得面向全国招生）；财务咨询（不得开展审计、验资、查账、评估、会计咨询、代理记账等需专项审批的业务，不得出具相应的审计报告、验资报告、查账报告、评估报告等文字材料）；设计、制作、代理、发布广告；会议服务；承办展览展示活动；数据处理（数据处理中的银行卡中心、PUE值在1.5以上的云计算数据中心除外）；销售电子产品；设备租赁；劳务服务；贸易代理；互联网信息服务；经营电信业务。（“1、未经有关部门批准，不得以公开方式募集资金；2、不得公开开展证券类产品和金融衍生品交易活动；3、不得发放贷款；4、不得对所投资企业以外的其他企业提供担保；5、不得向投资者承诺投资本金不受损失或者承诺最低收益”；市场主体依法自主选择经营项目，开展经营活动；依法须经批准的项目，经相关部门批准后依批准的内容开展经营活动；不得从事国家和本市产业政策禁止和限制类项目的经营活动。）', 'https://img.bosszhipin.com/beijin/mcs/banner/03e20c586edcc2a1f2b9ec79de83368acfcd208495d565ef66e7dff9f98764da.png?x-oss-process=image/resize,w_120,limit_0');
+INSERT INTO `companylist` VALUES ('大仙111', '48555e3c-467e-4bc9-8721-004cbca050e5', '大仙大仙大仙大仙大仙', '毛大仙', '6014d307-9278-4047-8446-8b066d200781', null, '0', '吉林省吉林市丰满区', '{\"lng\":126.633248,\"lat\":43.842318}', '吉林', '101060000', null, null, '大仙', null);
+INSERT INTO `companylist` VALUES ('毛大企业', '54a3aad6-066a-4027-847f-87b7482f5a9d', '公司简介：123123', '毛大仙', '6014d307-9278-4047-8446-8b066d200781', '', '1', '北京市东城区内金水桥故宫博物院', '{\"lng\":116.402509,\"lat\":39.920894}', '北京', '101010000', '', '', '经营范围：\n', 'http://127.0.0.1:3003/api/getImg?url=/uploads/file/20240227/file-1708999084211-456.png');
 INSERT INTO `companylist` VALUES ('京东科技控股股份有限公司（江苏）', '752f72b5-ee2b-4f7f-b905-af8f58bc73f0', '京东科技集团是京东集团旗下专注于以技术为产业服务的业务子集团，致力于为企业、金融机构、政府等各类客户提供全价值链的技术性产品与解决方案。依托人工智能、大数据、云计算、物联网等前沿科技能力，京东科技打造出了面向不同行业的产品和解决方案，以此帮助全社会各行业企业降低供应链成本，提升运营效率，成为值得产业信赖的数字合作伙伴。\n融合了原京东数科及云与AI两大技术业务板块，京东科技现已成为整个京东集团对外提供技术服务的核心输出平台，拥有丰富的产业理解力、深厚的风险管理能力、用户运营能力和企业服务能力，能面向不同行业为客户提供行业应用、产品开发与产业数字化服务。截至2020年6月末，在政府及其他客户服务领域，京东科技服务了超过40家城市公共服务机构，在全国建立了50多个城市云服务基地，此外也建立了庞大的线下物联网营销平台，拥有自营和联盟媒体点位数超过1,500万，覆盖全国超过300座城市以及6亿多人次；在金融机构服务领域，京东科技已为包括银行、保险、基金、信托、证券公司在内的超600家各类金融机构提供了多层次数字化解决方案；在商户与企业服务领域，已为超100万家小微商户、超20万家中小企业、超700家大型商业中心等提供了包括业务和技术在内的数字化解决方案。\n目前京东科技拥有1万多名员工，其中70%以上为研发和专业人员，并且拥有多位入选IEEE Fellow的科学家。截止2020年底，集团累计申请专利3540个，在AAAI、IJCAI、CVPR、KDD、NeurIPS、ICML、ACL、ICASSP等国际AI顶级会议上共发表相关论文近350篇，并已在多项国际性学术赛事中斩获19项世界第一，与美国斯坦福大学、中国科技大学等多所国内外高校合作建立人工智能实验室，充分展开产学研一体化实践。在国际独立权威调研机构Forrester最新发布的《中国预测分析与机器学习解决方案厂商评测2020Q4》中，京东科技首次参评便跻身“卓越表现者”领域，京东NeuHub人工智能开放平台累计调用量已高达万亿次。\n依托京东集团整体深厚的生态平台与长期积累的技术实力，京东科技参与了多个国家级重大科研项目：入选人工智能“国家队”——科技部国家人工智能开放创新平台名单，承担起建设国家“新一代智能供应链人工智能开放创新平台”的重任；牵头承担科技部国家重点研发计划项目“国家中心城市数据管控与知识萃取技术和系统应用”、“国家新区数字孪生系统与融合网络计算体系建设”、工信部公共服务平台建设项目“面向人工智能创新应用先导区的应用场景公共服务平台建设”等多个国家级科研项目。', '李娅云', 'a642a063-9ef6-4fda-96b2-bb19cb4ca2b0', '', '0', '江苏省泰州市泰兴市姚曾线延令食品科技', '{\"lng\":120.083344,\"lat\":32.18073}', '江苏', '101190000', null, '北京经济技术开发区市场监督管理局', '企业总部管理；投资管理；资产管理；企业管理咨询、投资咨询；公共关系服务；版权代理；接受金融机构委托从事金融信息技术服务外包；接受金融机构委托从事金融业务流程外包；接受金融机构委托从事金融知识流程外包；技术推广服务；企业形象策划；市场调查；企业管理；计算机技术培训（不得面向全国招生）；财务咨询（不得开展审计、验资、查账、评估、会计咨询、代理记账等需专项审批的业务，不得出具相应的审计报告、验资报告、查账报告、评估报告等文字材料）；设计、制作、代理、发布广告；会议服务；承办展览展示活动；数据处理（数据处理中的银行卡中心、PUE值在1.5以上的云计算数据中心除外）；销售电子产品；设备租赁；劳务服务；贸易代理；互联网信息服务；经营电信业务。（“1、未经有关部门批准，不得以公开方式募集资金；2、不得公开开展证券类产品和金融衍生品交易活动；3、不得发放贷款；4、不得对所投资企业以外的其他企业提供担保；5、不得向投资者承诺投资本金不受损失或者承诺最低收益”；市场主体依法自主选择经营项目，开展经营活动；依法须经批准的项目，经相关部门批准后依批准的内容开展经营活动；不得从事国家和本市产业政策禁止和限制类项目的经营活动。）', 'https://img.bosszhipin.com/beijin/mcs/banner/03e20c586edcc2a1f2b9ec79de83368acfcd208495d565ef66e7dff9f98764da.png?x-oss-process=image/resize,w_120,limit_0');
 INSERT INTO `companylist` VALUES ('企业名称：', 'c23d44ae-94e4-420c-a7f2-e3ba44090494', '司简介：', '撒发生', '21', '2024-02-20', '2', '台湾省宜兰县新南路72-1号新南村', '{\"lng\":121.815224,\"lat\":24.723481}', '台湾', '101340000', '信用', '登记机关：', '经营范围', 'http://127.0.0.1:3003/api/getImg?url=/uploads/file/20240226/file-1708917057816-aJpgTest.jpg');
+INSERT INTO `companylist` VALUES ('贸大1', 'd75f40a3-6805-442d-8d4e-6ab92f42ead0', '司简介：', '毛大仙', '6014d307-9278-4047-8446-8b066d200781', '2024-02-20', '2', '北京市东城区北京站东街临乙27号北京站(地铁站)', '{\"lng\":116.434039,\"lat\":39.911071}', '北京', '101010000', '123124G52523', '登记机关123', '经营范围', '');
+INSERT INTO `companylist` VALUES ('企业', 'e6883541-7307-4253-ada6-0fa317e4b595', '公司简', '毛二仙', '92b8f79d-89f8-4ee0-bdec-8b5e51dc4dbc', '2024-02-13', '0', '辽宁省葫芦岛市龙港区龙湾大街15号市府广场', '{\"lng\":120.844257,\"lat\":40.71725}', '辽宁', '101070000', '代码', '登记机关', '经营范围', 'http://127.0.0.1:3003/api/getImg?url=/uploads/file/20240226/file-1708963176189-forklist3.png');
 
 -- ----------------------------
 -- Table structure for `dictlist`
@@ -81,7 +86,9 @@ CREATE TABLE `piclist` (
 -- Records of piclist
 -- ----------------------------
 INSERT INTO `piclist` VALUES ('04169bce-2162-4c23-8532-24942f04b340', '/uploads/file/20240225/file-1708864840876-3.jpg');
+INSERT INTO `piclist` VALUES ('04f7038d-e7fd-4bc5-858f-686e8dcf2e93', '/uploads/file/20240226/file-1708963030706-profile.jpg');
 INSERT INTO `piclist` VALUES ('0a6cf1a8-bd87-4915-8926-21f3e6990c77', '/uploads/file/20240225/file-1708838554936-123.png');
+INSERT INTO `piclist` VALUES ('1788bdd7-35c4-43f3-9a3f-4bcb94dca49f', '/uploads/file/20240227/file-1708999084211-456.png');
 INSERT INTO `piclist` VALUES ('1a3146e3-a729-4661-8349-3ad30ecf0705', '/uploads/file/20230527/file-1685155034491-aPngTest.png');
 INSERT INTO `piclist` VALUES ('24ef5ee0-dd36-40de-8733-abff8390a650', '/uploads/file/20231028/file-1698467026246-aXlsTest.xls');
 INSERT INTO `piclist` VALUES ('252bff0a-b68e-4e4e-8742-2c6ce7a347ec', '/uploads/file/20240224/file-1708782801859-aPngTest.png');
@@ -105,6 +112,8 @@ INSERT INTO `piclist` VALUES ('a06ca5ab-01dd-42d4-83c1-795cc7101d47', '/uploads/
 INSERT INTO `piclist` VALUES ('ad59691e-79e3-4aa6-b6f6-0e3d66465b99', '/uploads/file/20240226/file-1708893744242-3.jpg');
 INSERT INTO `piclist` VALUES ('b4a708fc-630e-4f69-9df5-240a55c14b3d', '/uploads/file/2023044/file-1680621484935-3.jpg');
 INSERT INTO `piclist` VALUES ('c00b7d94-0608-4279-bce3-50303bb2462d', '/uploads/file/20240224/file-1708705733198-colorFlower1.jpeg');
+INSERT INTO `piclist` VALUES ('c1f49603-6716-4b9c-8377-e08e468b75ca', '/uploads/file/20240226/file-1708963176189-forklist3.png');
+INSERT INTO `piclist` VALUES ('c2fd4d78-3d19-4a77-902b-232c30c01ad3', '/uploads/file/20240227/file-1708998488656-3.jpg');
 INSERT INTO `piclist` VALUES ('ca6fc96e-dbc5-47bb-863f-86e9a8f1801d', '/uploads/file/20231027/file-1698421221506-road.png');
 INSERT INTO `piclist` VALUES ('d4835ebe-6658-4665-a92e-51282dd2f071', '/uploads/file/20231028/file-1698424136646-aXlsxTest.xlsx');
 INSERT INTO `piclist` VALUES ('d6b0e8a9-ebba-480e-b419-a842bfbcfd4a', '/uploads/file/20230527/file-1685155308795-forkLiftLogo.png');
@@ -149,8 +158,15 @@ CREATE TABLE `postlist` (
 -- ----------------------------
 -- Records of postlist
 -- ----------------------------
+INSERT INTO `postlist` VALUES ('099d5f18-8c6b-4c00-904e-20433236216a', '岗位名称：', null, '10', null, null, '[1010000,1000040,100301]', '企业', 'e6883541-7307-4253-ada6-0fa317e4b595', '辽宁省葫芦岛市龙港区龙湾大街15号市府广场', '{\"lng\":120.844257,\"lat\":40.71725}', '101070000', '辽宁', '1', null);
 INSERT INTO `postlist` VALUES ('243c42f7-7425-42a3-bcd0-0c049e547a22', '初级Java工程师（大同）', '6-9K·13薪', '8.125', '您负责的工作内容：\n 1、负责公司产品的后端java开发，需求进行合理分析；\n 2、协助实现项目的后端架构、代码，完成前后端对接；\n 3、持续优化相关产品的质量、性能、用户体验；\n 4、负责公司产品持续优化。\n我们需要您具备：\n 1、计算机相关专业，本科及以上学历；\n 2、1年及以上Java B/S架构系统设计和开发经验；\n 3、熟悉MySQL或ORACLE数据库，SQL查询语言，了解相关应用服务器配置，熟练掌握linux系统下相关服务器软件安装维护工作；\n 4、熟练掌握MVC架构体系，掌握SpringMVC，Mybatis等开源框架；\n 5、兼备Ajax，javascript，jquery，html相关技术优先考虑；\n 6、具有良好的规范意识和编程风格、团队合作精神，工作态度敬业务实。', '0', '[1010000,1000020,100101]', '成都房联云码科技有限公司 ', '16d5c5ef-9026-413b-924a-3f1ba04670e6', '四川省成都市武侯区世纪城南路天府软件园-C座', '{\"lng\":104.079186,\"lat\":30.546203}', '101270000', '四川', '4', '4');
+INSERT INTO `postlist` VALUES ('34c30335-03d7-4007-9d8e-1630cac7efee', '岗位名', null, '14', null, '0', '[1020000,2600432,110107]', '毛大企业', '54a3aad6-066a-4027-847f-87b7482f5a9d', '北京市东城区内金水桥故宫博物院', '{\"lng\":116.402509,\"lat\":39.920894}', '101010000', '北京', '4', null);
+INSERT INTO `postlist` VALUES ('4cae95b7-4fac-4b9d-8e0f-c0cf4547b0bd', 'q1', null, '11', null, null, '[1010000,1000050,100403]', '12', '0db140e9-a251-43c0-bc0d-6699b62a8fe3', '辽宁省沈阳市大东区', '{\"lng\":123.496104,\"lat\":41.85909}', '101070000', '辽宁', null, null);
+INSERT INTO `postlist` VALUES ('5df2f0ff-28ea-4aae-ae02-a4bd2a4134de', '岗位', null, '10', null, '0', '[1010000,1000030,100901]', '企业', 'e6883541-7307-4253-ada6-0fa317e4b595', '辽宁省葫芦岛市龙港区龙湾大街15号市府广场', '{\"lng\":120.844257,\"lat\":40.71725}', '101070000', '辽宁', '1', null);
+INSERT INTO `postlist` VALUES ('62815c7f-92dc-4f77-af6c-8812ff578f59', '岗位名称', null, '11', '21', '0', '[1010000,1000130,100104]', '大仙111', '48555e3c-467e-4bc9-8721-004cbca050e5', '吉林省吉林市丰满区', '{\"lng\":126.633248,\"lat\":43.842318}', '101060000', '吉林', '1', '0');
+INSERT INTO `postlist` VALUES ('771b61e6-353d-4673-9180-774e034c6a8c', '岗位1', null, '11', null, '1', '[1010000,1000020,100109]', '12', '0db140e9-a251-43c0-bc0d-6699b62a8fe3', '辽宁省沈阳市大东区', '{\"lng\":123.496104,\"lat\":41.85909}', '101070000', '辽宁', '0', '0');
 INSERT INTO `postlist` VALUES ('7f9e911a-60ba-4762-9603-a0a899d81fe5', '岗位名称：', '20-28K', '24', '职位描述：\n', '1', '[1010000,1000030,100901]', '京东科技控股股份有限公司（江苏）', '752f72b5-ee2b-4f7f-b905-af8f58bc73f0', '江苏省泰州市泰兴市姚曾线延令食品科技', '{\"lng\":120.083344,\"lat\":32.18073}', '101190000', '江苏', '1', '2');
+INSERT INTO `postlist` VALUES ('a50c83fc-de2c-4b85-89e0-f080bfd0803e', '岗位名称123', '', '11', '', '1', '[1010000,1000040,100301]', '大仙111', '48555e3c-467e-4bc9-8721-004cbca050e5', '吉林省吉林市丰满区', '{\"lng\":126.633248,\"lat\":43.842318}', '101060000', '吉林', '1', '0');
 INSERT INTO `postlist` VALUES ('c6983d71-d384-4d94-87e5-61e5642bf1ec', '人工智能岗', null, '10', null, '0', '[1010000,1000130,101306]', '京东科技控股股份有限公司（江苏）', '752f72b5-ee2b-4f7f-b905-af8f58bc73f0', '江苏省泰州市泰兴市姚曾线延令食品科技', '{\"lng\":120.083344,\"lat\":32.18073}', '101190000', '江苏', '2', '0');
 INSERT INTO `postlist` VALUES ('c834f1c9-e1b1-4c6f-b033-93b40418334a', '京东科技-产品经理（偏数据策略及分析）', '20-40K·16薪', '80', '工作内容： \r\n1.搭建并完善基金全面、精细的数据监控体系，提升基金线上销售平台整体数据运营效率。 \r\n2.根据实时数据反馈，制定相应完善数据平台能力，驱动业务效率提升。 \r\n3. 理解数据分析应用场景并抽象为数据产品需求，制定数据模型的产品化策略，推动数据产品的落地；\r\n任职资格： \r\n1.本科及以上学历，5年以上数据分析及产品设计相关经验，参与过基金、券商等金融机构的数据服务相关系统建设的优先。 \r\n2.熟悉统计学理论，熟练常用统计方法，建立分析模型。熟练使用SQL等工具，能够独立完成数据探查输出分析结果，高效使用逻辑与数据有效沟通。 \r\n4.良好的数据分析能力和数据敏感度，具备较强的跨团队合作，协调沟通能力，较强的内驱力，能够持续在业务方向上进行探索与尝试。 \r\n5. 参与或主导过数据体系或报表体系的搭建，有较好的业务抽象能力和系统设计能力。', '0', '[1020000,1000160,110101]', '京东科技控股股份有限公司', '302f3d54-0c50-409d-991a-45ebb0f971a7', '北京市北京经济技术开发区科创十一街18号C座2层221室', '1000160', '101010100', '北京', '4', '5');
 
@@ -217,29 +233,30 @@ CREATE TABLE `userlist` (
 -- ----------------------------
 -- Records of userlist
 -- ----------------------------
-INSERT INTO `userlist` VALUES ('阿帆', '1', null, null, '用户', '2', '13123123');
-INSERT INTO `userlist` VALUES ('撒发生', '1', null, null, '用户', '2', '21');
-INSERT INTO `userlist` VALUES ('公司壹', 'a1231', 'https://img-blog.csdnimg.cn/img_convert/efc034d110fe11e1f82c86a4f3cd9377.jpeg', 'token-pci1s95z1kw0000000', '用户', '2', '302f3d54-0c50-409d-991a-45ebb0f971a7');
+INSERT INTO `userlist` VALUES ('阿帆', 'a123', null, null, '用户', '2', '13123123');
+INSERT INTO `userlist` VALUES ('撒发生', 'a123', null, null, '用户', '2', '21');
+INSERT INTO `userlist` VALUES ('公司壹', 'a123', 'https://img-blog.csdnimg.cn/img_convert/efc034d110fe11e1f82c86a4f3cd9377.jpeg', 'token-pci1s95z1kw0000000', '用户', '2', '302f3d54-0c50-409d-991a-45ebb0f971a7');
 INSERT INTO `userlist` VALUES ('admin', '123456', 'http://127.0.0.1:3003/api/getImg?url=/uploads/file/20240224/file-1708704036704-3.jpg', 'token-asdsad', '管理员', '1', '456asd');
 INSERT INTO `userlist` VALUES ('毛大仙', 'a123', 'http://127.0.0.1:3003/api/getImg?url=/uploads/file/20240224/file-1708705733198-colorFlower1.jpeg', 'token-78lfrh1oja000000000', '用户', '2', '6014d307-9278-4047-8446-8b066d200781');
-INSERT INTO `userlist` VALUES ('用户啊', 'aa1', 'http://127.0.0.1:3003/api/getImg?url=/uploads/file/20240224/file-1708757203582-3.jpg', 'token-whzs41w6mkg0000000', '用户', '2', '736c1a53-5456-4212-8dc8-c03be6c10824');
-INSERT INTO `userlist` VALUES ('哈哈', 'a123456', 'http://127.0.0.1:3003/api/getImg?url=/uploads/file/20240224/file-1708704036704-3.jpg', 'token-7hifdpgrqnk00000000', '用户', '2', '88003824-2d1d-4ff9-a46e-3e0efab12d8b');
-INSERT INTO `userlist` VALUES ('辑用户', 'a1', '', '', '用户', '2', 'a');
-INSERT INTO `userlist` VALUES ('呵呵呵', 'hehe123', 'http://127.0.0.1:3002/api/getImg?url=/uploads/file/20240221/file-1708528053966-3.jpg', 'token-9e9xsaieo640000000', '用户', '2', 'a1382bc7-bcf4-485a-8f13-9a4d24527407');
-INSERT INTO `userlist` VALUES ('李娅云', 'a123456', 'http://127.0.0.1:3003/api/getImg?url=/uploads/file/20240225/file-1708800580234-profile.jpg', 'token-2s83fe892rw0000000', '用户', '2', 'a642a063-9ef6-4fda-96b2-bb19cb4ca2b0');
-INSERT INTO `userlist` VALUES ('胡树', 'a123456', 'http://127.0.0.1:3003/api/getImg?url=/uploads/file/20240226/file-1708893744242-3.jpg', 'token-ndzyx04p4jk000000', '用户', '2', 'a6fe7a9a-c0e8-4374-8b53-24d92385d32a');
-INSERT INTO `userlist` VALUES ('ffff', 'ffff', null, null, '用户', '2', 'afgg');
-INSERT INTO `userlist` VALUES ('fff', 'f', null, null, '用户', '2', 'asasfasfasf');
-INSERT INTO `userlist` VALUES ('阿萨德', 'a1', null, null, '用户', '2', 'asdasdasd');
-INSERT INTO `userlist` VALUES ('asaa', 'a', null, null, '用户', '2', 'asdasdasda');
-INSERT INTO `userlist` VALUES ('asd ', 'a', null, null, '用户', '2', 'asdasdasdasd ');
-INSERT INTO `userlist` VALUES ('hyhyth', 'yyhyhy', null, null, '用户', '2', 'asdasdsad');
-INSERT INTO `userlist` VALUES ('毛三仙', 'a1', 'http://127.0.0.1:3002/api/getImg?url=/uploads/file/20230527/file-1685155078371-3.jpg', 'token-9p3tb0mkses0000000', '用户', '2', 'b08ac22c-3f07-48ed-8f71-128defd5d4f3');
-INSERT INTO `userlist` VALUES ('啊啊啊', 'a1', 'https://img-blog.csdnimg.cn/img_convert/efc034d110fe11e1f82c86a4f3cd9377.jpeg', 'token-h93zuf8b5tk0000000', '用户', '2', 'b635da01-b85a-457d-a3f1-f51013e07078');
-INSERT INTO `userlist` VALUES ('用户名', 'add1', 'http://127.0.0.1:3003/api/getImg?url=/uploads/file/20240224/file-1708757175757-aJpeTest1.jpg', 'token-1dy8kly36ji800000000', '用户', '2', 'c834f1c9-e1b1-4c6f-b033-93b40418334a');
-INSERT INTO `userlist` VALUES ('啊啊', 'a1', 'https://img-blog.csdnimg.cn/img_convert/efc034d110fe11e1f82c86a4f3cd9377.jpeg', 'token-1wmp9zt8f5pc000000', '用户', '2', 'c912781d-a3d9-4c3a-889d-25bead65ba97');
-INSERT INTO `userlist` VALUES ('gs', 'a', null, null, '用户', '2', 'g');
-INSERT INTO `userlist` VALUES ('a', 'a1', null, null, '用户', '2', 'gggg');
-INSERT INTO `userlist` VALUES ('af', 'a', null, null, '用户', '2', 'ggggaaa');
-INSERT INTO `userlist` VALUES ('asd ', '2', null, null, '用户', '2', 'gsggewg');
-INSERT INTO `userlist` VALUES ('g', 'g', null, null, '用户', '2', 'jtujyujuj');
+INSERT INTO `userlist` VALUES ('毛三仙', 'a123', 'https://pic.imgdb.cn/item/65dd4c909f345e8d0332c3f1.jpg', 'token-3sikdjgrqvu00000000', '用户', '2', '69dc220f-ec12-48f7-86b2-6cdf34455d3a');
+INSERT INTO `userlist` VALUES ('用户啊', 'a123', 'http://127.0.0.1:3003/api/getImg?url=/uploads/file/20240224/file-1708757203582-3.jpg', 'token-whzs41w6mkg0000000', '用户', '2', '736c1a53-5456-4212-8dc8-c03be6c10824');
+INSERT INTO `userlist` VALUES ('哈哈', 'a123', 'http://127.0.0.1:3003/api/getImg?url=/uploads/file/20240224/file-1708704036704-3.jpg', 'token-7hifdpgrqnk00000000', '用户', '2', '88003824-2d1d-4ff9-a46e-3e0efab12d8b');
+INSERT INTO `userlist` VALUES ('毛二仙', 'a123', 'http://127.0.0.1:3003/api/getImg?url=/uploads/file/20240226/file-1708963030706-profile.jpg', 'token-6hdvedlakt800000000', '管理员', '1', '92b8f79d-89f8-4ee0-bdec-8b5e51dc4dbc');
+INSERT INTO `userlist` VALUES ('辑用户', 'a123', '', '', '用户', '2', 'a');
+INSERT INTO `userlist` VALUES ('呵呵呵', 'a123', 'http://127.0.0.1:3002/api/getImg?url=/uploads/file/20240221/file-1708528053966-3.jpg', 'token-9e9xsaieo640000000', '用户', '2', 'a1382bc7-bcf4-485a-8f13-9a4d24527407');
+INSERT INTO `userlist` VALUES ('李娅云', 'a123', 'http://127.0.0.1:3003/api/getImg?url=/uploads/file/20240225/file-1708800580234-profile.jpg', 'token-2s83fe892rw0000000', '用户', '2', 'a642a063-9ef6-4fda-96b2-bb19cb4ca2b0');
+INSERT INTO `userlist` VALUES ('胡树', 'a123', 'http://127.0.0.1:3003/api/getImg?url=/uploads/file/20240226/file-1708893744242-3.jpg', 'token-ndzyx04p4jk000000', '用户', '2', 'a6fe7a9a-c0e8-4374-8b53-24d92385d32a');
+INSERT INTO `userlist` VALUES ('ffff', 'a123', null, null, '用户', '2', 'afgg');
+INSERT INTO `userlist` VALUES ('fff', 'a123', null, null, '用户', '2', 'asasfasfasf');
+INSERT INTO `userlist` VALUES ('阿萨德', 'a123', null, null, '用户', '2', 'asdasdasd');
+INSERT INTO `userlist` VALUES ('asaa', 'a123', null, null, '用户', '2', 'asdasdasda');
+INSERT INTO `userlist` VALUES ('asd ', 'a123', null, null, '用户', '2', 'asdasdasdasd ');
+INSERT INTO `userlist` VALUES ('hyhyth', 'a123', null, null, '用户', '2', 'asdasdsad');
+INSERT INTO `userlist` VALUES ('啊啊啊', 'a123', 'https://img-blog.csdnimg.cn/img_convert/efc034d110fe11e1f82c86a4f3cd9377.jpeg', 'token-h93zuf8b5tk0000000', '用户', '2', 'b635da01-b85a-457d-a3f1-f51013e07078');
+INSERT INTO `userlist` VALUES ('用户名', 'a123', 'http://127.0.0.1:3003/api/getImg?url=/uploads/file/20240224/file-1708757175757-aJpeTest1.jpg', 'token-1dy8kly36ji800000000', '用户', '2', 'c834f1c9-e1b1-4c6f-b033-93b40418334a');
+INSERT INTO `userlist` VALUES ('啊啊', 'a123', 'https://img-blog.csdnimg.cn/img_convert/efc034d110fe11e1f82c86a4f3cd9377.jpeg', 'token-1wmp9zt8f5pc000000', '用户', '2', 'c912781d-a3d9-4c3a-889d-25bead65ba97');
+INSERT INTO `userlist` VALUES ('gs', 'a123', null, null, '用户', '2', 'g');
+INSERT INTO `userlist` VALUES ('a', 'a123', null, null, '用户', '2', 'gggg');
+INSERT INTO `userlist` VALUES ('af', 'a123', null, null, '用户', '2', 'ggggaaa');
+INSERT INTO `userlist` VALUES ('asd ', 'a123', null, null, '用户', '2', 'gsggewg');
+INSERT INTO `userlist` VALUES ('g', 'a123', null, null, '用户', '2', 'jtujyujuj');
