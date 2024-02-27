@@ -138,12 +138,12 @@ export default class PublicPage extends Vue {
       },
     ],
     fileList: [
-      {
-        required: true,
-        // message: '请上传图片',
-        trigger: "blur",
-        validator: this.validateFileList,
-      },
+      // {
+      //   required: true,
+      //   // message: '请上传图片',
+      //   trigger: "blur",
+      //   validator: this.validateFileList,
+      // },
     ],
   };
 
@@ -223,7 +223,7 @@ export default class PublicPage extends Vue {
     register({
       username: this.formData.username,
       password: this.formData.password,
-      headimg: this.fileList[0].url,
+      headimg: this.fileList.length > 0 ? this.fileList[0].url : "https://pic.imgdb.cn/item/65de114a9f345e8d035975f7.png", // 设置默认图片
       role: this.formData.role ? this.formData.role : "用户",
       roleid: this.formData.roleid ? this.formData.roleid : "2",
     })
