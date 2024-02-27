@@ -451,8 +451,8 @@ export default class PublicPage extends Vue {
   getUserList() {
     let userInfo = JSON.parse((localStorage as any).getItem("userInfo"));
     getUserByUserName({
-      username: userInfo.role == 2 ? userInfo.username : "",
-      role: userInfo.role == 2 ? userInfo.role : "",
+      username: userInfo.username,
+      role: userInfo.role,
     }).then((res: any) => {
       this.userList = res.data.data || [];
     });
