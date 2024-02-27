@@ -300,7 +300,8 @@ export default class PublicPage extends Vue {
     let res = this.userList.filter((item: any) => {
       return item.id === e;
     })[0];
-    this.formData.user_name = res.username;
+    this.$set(this.formData, "user_name", res.username);
+    this.$forceUpdate();
   }
 
   /**
@@ -451,8 +452,8 @@ export default class PublicPage extends Vue {
   getUserList() {
     let userInfo = JSON.parse((localStorage as any).getItem("userInfo"));
     getUserByUserName({
-      username: userInfo.username,
-      role: userInfo.role,
+      username: userInfo.role == 2 ? userInfo.username : "",
+      role: userInfo.role == 2 ? userInfo.role : "",
     }).then((res: any) => {
       this.userList = res.data.data || [];
     });
