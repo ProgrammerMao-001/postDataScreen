@@ -174,7 +174,7 @@ export default class Index extends Vue {
       flex-wrap: wrap;
 
       .el-tag {
-        margin-right: 20px;
+        margin: 5px 20px 5px 0;
       }
     }
   }

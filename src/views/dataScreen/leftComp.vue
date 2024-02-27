@@ -112,8 +112,10 @@ export default class leftComp extends Vue {
         resAvgArr.forEach((item: any, index: any) => {
           item.avg =
             item.avgArr.length > 0
-              ? item.avgArr.reduce((a: any, b: any) => a + b, 0) /
-                item.avgArr.length
+              ? item.avgArr.reduce(
+                  (a: any, b: any) => Number(a) + Number(b),
+                  0
+                ) / item.avgArr.length
               : 0;
         });
         this.lBox2Data.yData = resAvgArr.map((num: any) => num.avg);
