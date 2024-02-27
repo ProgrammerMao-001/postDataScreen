@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import Home from "../components/home.vue";
+import { Message } from "element-ui";
 
 Vue.use(VueRouter);
 
@@ -197,6 +198,7 @@ const router = new VueRouter({
 // 导航守卫
 // 使用 router.beforeEach 注册一个全局前置守卫，判断用户是否登陆(如果没登录就退出到登陆页面)
 router.beforeEach((to, from, next) => {
+  console.log(to.path, "to.path");
   if (to.path === "/login") {
     next();
   } else {
@@ -205,6 +207,19 @@ router.beforeEach((to, from, next) => {
     if (token === null || token === "") {
       next("/login");
     } else {
+      // 获取所有菜单
+      let menuList: any =
+        JSON.parse((localStorage as any).getItem("menuList")) || [];
+      let menuItem = menuList.find((item: any) => item.url === to.path);
+      if (!menuItem && to.path !== "/home") {
+        // 判断是否有菜单权限
+        Message.error({
+          message: "您没有该页面的访问权限！",
+          duration: 1000,
+        });
+        next("/home");
+        return;
+      }
       next();
     }
   }

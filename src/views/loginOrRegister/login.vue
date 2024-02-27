@@ -154,6 +154,7 @@ import { Component, Vue } from "vue-property-decorator";
 import { getPicCode, login } from "@/api/userModule";
 import registerDialog from "@/views/loginOrRegister/registerDialog.vue";
 import { getCompanyListByPrams } from "@/api/companyModule";
+import { getRouterListByParams } from "@/api/routerModule";
 
 @Component({
   components: { registerDialog },
@@ -321,6 +322,7 @@ export default class Login extends Vue {
             this.$message.success("登陆成功");
             this.$store.dispatch("loginModule/getUserInfo");
             this.getCompanyArr(res); // 获取公司列表
+            this.getMenuList(); // 获取所有的菜单
             this.$router.push("/home");
           }
           if (res.status === 101404) {
@@ -402,6 +404,15 @@ export default class Login extends Vue {
         localStorage.setItem("companyArr", JSON.stringify([]));
         this.$store.dispatch("loginModule/getCompanyArr", JSON.stringify([]));
       }
+    });
+  }
+
+  /* 获取菜单 */
+  getMenuList() {
+    getRouterListByParams({
+      type: JSON.parse((localStorage as any).getItem("userInfo"))?.role || null,
+    }).then((res: any) => {
+      localStorage.setItem("menuList", JSON.stringify(res.data.data));
     });
   }
 }

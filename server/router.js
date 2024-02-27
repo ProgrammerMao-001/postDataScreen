@@ -31,6 +31,7 @@ router.get('/getRoleListByName', roleModule.getRoleListByName)
 /* 菜单配置模块 */
 router.get('/getList', routerModule.getList)
 router.get('/getRouterListByNameUrl', routerModule.getRouterListByNameUrl)
+router.get('/getRouterListByParams', routerModule.getRouterListByParams)
 /* 菜单配置模块 */
 
 /* 图片上传 */
