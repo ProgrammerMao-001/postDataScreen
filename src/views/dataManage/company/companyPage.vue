@@ -272,12 +272,12 @@ export default class PublicPage extends Vue {
     province_id: [{ required: true, message: "请选择省份", trigger: "blur" }],
     position: [{ required: true, message: "请选择点位", trigger: "blur" }],
     fileList: [
-      {
-        required: true,
-        message: "请上传企业照片",
-        trigger: "blur",
-        validator: this.validateFileList,
-      },
+      // {
+      //   required: true,
+      //   message: "请上传企业照片",
+      //   trigger: "blur",
+      //   validator: this.validateFileList,
+      // },
     ],
   };
   provinceList: any = []; // 省份列表
@@ -388,12 +388,14 @@ export default class PublicPage extends Vue {
       if (res.data.status === 200) {
         console.log(res.data.data);
         this.formData = res.data.data[0];
-        this.fileList = [
-          {
-            name: res.data.data[0].picname,
-            url: res.data.data[0].photos,
-          },
-        ];
+        if (this.formData.photos) {
+          this.fileList = [
+            {
+              name: res.data.data[0].picname,
+              url: res.data.data[0].photos,
+            },
+          ];
+        }
       }
     });
   }
@@ -447,7 +449,11 @@ export default class PublicPage extends Vue {
   }
 
   getUserList() {
-    getUserByUserName({ role: "" }).then((res: any) => {
+    let userInfo = JSON.parse((localStorage as any).getItem("userInfo"));
+    getUserByUserName({
+      username: userInfo.username,
+      role: userInfo.role,
+    }).then((res: any) => {
       this.userList = res.data.data || [];
     });
   }

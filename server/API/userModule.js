@@ -76,7 +76,7 @@ exports.login = (req, res) => {
 // 需要传入的参数(必填) =》
 // 用户名：username
 // 密码：password
-// 头像：headimg  ===>  https://img-blog.csdnimg.cn/img_convert/ed6d8bd1e8499487cf3516a52a54e7e3.jpeg（默认的）
+// 头像：headimg  ===>  https://pic.imgdb.cn/item/65dd4c909f345e8d0332c3f1.jpg（默认的）
 // token: token
 // 账号类型：role
 // 账号类型对应的id: roleid
@@ -137,7 +137,7 @@ exports.deleteUser = (req, res) => {
 // 需要传入的参数(必填) =》
 // 用户名：username
 // 密码：password
-// 头像：headimg  ===>  https://img-blog.csdnimg.cn/img_convert/ed6d8bd1e8499487cf3516a52a54e7e3.jpeg（默认的）
+// 头像：headimg  ===>  https://pic.imgdb.cn/item/65dd4c909f345e8d0332c3f1.jpg（默认的）
 // token: token
 // 账号类型：role
 // 账号类型对应的id: roleid

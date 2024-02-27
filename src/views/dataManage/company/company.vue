@@ -177,12 +177,21 @@ export default class RoleManage extends Vue {
       user_id: userInfo.roleid == 2 ? userInfo.id : null, // 1:管理员 2:普通用户
       name: this.searchForm.name,
       business_status: this.searchForm.business_status,
-    }).then((res: any) => {
-      if (res.status === 200) {
-        this.tableData = res.data.data;
-        this.total = this.tableData.length;
-      }
-    });
+    })
+      .then((res: any) => {
+        if (res.status === 200) {
+          this.tableData = res.data.data;
+          this.total = this.tableData.length;
+        }
+      })
+      .finally(() => {
+        let companyIdArr = this.tableData.map((item: any) => item.id);
+        localStorage.setItem("companyArr", JSON.stringify(companyIdArr));
+        this.$store.dispatch(
+          "loginModule/getCompanyArr",
+          JSON.stringify(companyIdArr)
+        );
+      });
   }
 
   /**

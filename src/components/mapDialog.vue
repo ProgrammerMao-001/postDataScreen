@@ -79,7 +79,9 @@ export default class PublicDialog extends Vue {
     this.title = data.type;
     this.dialogVisible = true;
     this.markerPoint = data.data;
-    this.mapCenter = this.markerPoint;
+    this.mapCenter = this.markerPoint.lat
+      ? this.markerPoint
+      : { lng: 116.404, lat: 39.915 };
     this.canEdit = data.canEdit;
   }
 

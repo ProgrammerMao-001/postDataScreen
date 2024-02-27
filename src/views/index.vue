@@ -64,16 +64,17 @@ export default class Index extends Vue {
     let userInfo = JSON.parse((localStorage as any).getItem("userInfo"));
     getCompanyListByPrams({
       user_id: userInfo.roleid == 2 ? userInfo.id : null, // 1:管理员 2:普通用户
-    }).then((res: any) => {
-      this.companyList = res.data.data;
-    });
+    })
+      .then((res: any) => {
+        this.companyList = res.data.data;
+      })
+      .finally(() => {
+        this.getPostList(this.companyList.map((item: any) => item.id));
+      });
   }
 
-  getPostList() {
+  getPostList(helpCompanyArr: any) {
     var userInfo = JSON.parse((localStorage as any).getItem("userInfo"));
-    var companyArr: any = JSON.parse(
-      (localStorage as any).getItem("companyArr")
-    );
     var helpTableData: any = [];
     if (userInfo.roleid == 1) {
       /* 管理员 */
@@ -85,6 +86,14 @@ export default class Index extends Vue {
         }
       });
     } else if (userInfo.roleid == 2) {
+      var companyArr: any = JSON.parse(
+        (localStorage as any).getItem("companyArr")
+      );
+      console.log(companyArr, "companyArr");
+      if (!companyArr && !Array.isArray(companyArr)) {
+        companyArr = helpCompanyArr;
+      }
+
       /* 用户 */
       if (companyArr.length > 0) {
         companyArr.forEach((item: any, index: any) => {
@@ -106,7 +115,6 @@ export default class Index extends Vue {
 
   created() {
     this.getCompanyList();
-    this.getPostList();
   }
 }
 </script>

@@ -150,8 +150,7 @@ export default class Register extends Vue {
           password: this.formData.password,
           role: "用户", // 外部注册时，默认为用户
           roleid: "2", // 外部注册时，默认为用户 id
-          headimg:
-            "https://img-blog.csdnimg.cn/img_convert/efc034d110fe11e1f82c86a4f3cd9377.jpeg",
+          headimg: "https://pic.imgdb.cn/item/65dd4c909f345e8d0332c3f1.jpg",
         })
           .then((res: any) => {
             if (res.status === 200) {
