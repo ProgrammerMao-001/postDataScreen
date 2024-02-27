@@ -3,9 +3,10 @@
     <div class="boxContent-public-title">公司分布情况</div>
     <div class="boxContent-public-main">
       <vue-seamless-scroll
+        class="warp"
+        v-if="companyList.length > 0"
         :data="companyList"
         :class-option="classOption"
-        class="warp"
       >
         <div class="warp-item">
           <div
@@ -23,6 +24,8 @@
           </div>
         </div>
       </vue-seamless-scroll>
+
+      <div class="none">暂无公司数据...</div>
     </div>
   </div>
 </template>
@@ -114,5 +117,11 @@ export default class bottomComp extends Vue {
       }
     }
   }
+}
+
+.none {
+  font-size: 20px;
+  color: #fff;
+  padding-left: 20px;
 }
 </style>
