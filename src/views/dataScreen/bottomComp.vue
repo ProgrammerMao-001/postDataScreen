@@ -1,7 +1,7 @@
 <template>
   <div class="boxContent">
     <div class="boxContent-public-title">公司分布情况</div>
-    <div class="boxContent-public-main">
+    <div class="boxContent-public-main" @click="chooseCompany">
       <vue-seamless-scroll
         class="warp"
         v-if="companyList.length > 0"
@@ -13,7 +13,7 @@
             class="warp-item-li"
             v-for="(item, index) in companyList"
             :key="item.id"
-            @click="chooseCompany(item)"
+            :chooseIndex="index"
           >
             <div class="warp-item-left">
               <span class="warp-item-left-title">{{ item.name }}</span>
@@ -50,8 +50,12 @@ export default class bottomComp extends Vue {
     });
   }
 
-  chooseCompany(item: any) {
-    (this.$parent as any).showCompanyDialog(item);
+  chooseCompany(e: any) {
+    const child: any = e.target.closest(".warp-item-li"); // 获取点击的那一项
+    let index: any = child.getAttribute("chooseIndex");
+    if (index) {
+      (this.$parent as any).showCompanyDialog(this.companyList[index]);
+    }
   }
 
   mounted() {

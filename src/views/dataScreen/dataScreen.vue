@@ -120,7 +120,6 @@ export default class dataScreen extends Vue {
 
   /* 打开公司详情 */
   showCompanyDialog(item: any) {
-    console.log(item, "点击了");
     this.mapCenter = JSON.parse(item.position);
     this.mapZoom = 15;
     (this.$refs.companyDetailDialog as any).showDialog({
