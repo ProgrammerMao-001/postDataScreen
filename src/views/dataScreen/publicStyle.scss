@@ -1,5 +1,7 @@
 $titleHeight: 34px;
 $bgColor: rgba(39, 77, 155, .1);
+$deepBgColor: rgba(39, 77, 155, .8);
+@import "~@/assets/styles/scrollbar.css";
 
 .boxContent {
   width: 100%;
@@ -26,7 +28,7 @@ $bgColor: rgba(39, 77, 155, .1);
       background: url("/public/img/dataScreen/boxBg.png");
       background-repeat: no-repeat;
       background-size: 100% 100%;
-      //background-color: $bgColor;
+      background-color: $deepBgColor !important;
     }
   }
 }
