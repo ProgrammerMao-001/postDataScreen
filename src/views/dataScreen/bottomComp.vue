@@ -25,7 +25,7 @@
         </div>
       </vue-seamless-scroll>
 
-      <div class="none">暂无公司数据...</div>
+      <div v-else class="none">暂无公司数据...</div>
     </div>
   </div>
 </template>
