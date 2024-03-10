@@ -7,7 +7,6 @@
     :style="{
       display: 'flex',
       justifyContent: 'center',
-      border: '1px solid red',
     }"
   >
     <svg

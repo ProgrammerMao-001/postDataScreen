@@ -33,7 +33,6 @@ import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { getPostListByPrams } from "@/api/postModule";
 import postType from "@/utils/postType";
 import wordCloud from "@/views/dataScreen/wordCloud.vue";
-import { getCompanyListByPrams } from "@/api/companyModule";
 
 @Component({
   components: { wordCloud },
@@ -46,8 +45,8 @@ export default class rightComp extends Vue {
     dataList: [],
   };
   rBox3: any = {
-    width: 400,
-    height: 240,
+    width: 0,
+    height: 0,
   };
 
   /* 获取rBox1数据 (分析不同地区的不同职位的总数【互联网/AI行业】。如：在浙江、湖南等后端开发、人工智能等的岗位数) */
@@ -277,7 +276,7 @@ export default class rightComp extends Vue {
         {
           name: "目前在招岗位",
           center: ["50%", "50%"],
-          radius: ["60%", "70%"],
+          radius: ["70%", "70%"],
           clockWise: false,
           hoverAnimation: false,
           type: "pie",
@@ -369,7 +368,15 @@ export default class rightComp extends Vue {
     });
   }
 
+  initBox3Box() {
+    let rBox3: any = document.querySelector("#rBox3");
+    this.rBox3 = {
+      width: rBox3.clientWidth,
+      height: rBox3.clientHeight,
+    };
+  }
   async getRBox3Data() {
+    await this.initBox3Box();
     let postList: any = await getPostListByPrams({});
     let arr: any = postList.data.data;
 
@@ -378,7 +385,6 @@ export default class rightComp extends Vue {
     let passData = resArr.concat(resArr1);
     if (passData.length > 0) {
       (this as any).$refs.wordCloud.setTags(passData);
-      console.log(passData, "passDasta");
     }
   }
   created() {}
