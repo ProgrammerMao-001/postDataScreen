@@ -75,7 +75,7 @@ export default class bottomComp extends Vue {
 
 .boxContent-public-main {
   width: calc(100% - 10px * 2);
-  height: calc(100% - 40px * 2);
+  height: calc(100% - 40px * 2 + 6px);
   padding: 20px 10px;
 
   .warp {

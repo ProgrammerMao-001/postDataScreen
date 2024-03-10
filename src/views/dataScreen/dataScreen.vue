@@ -144,7 +144,7 @@ $height: 100vh;
 $topHeight: 128px;
 $bottomHeight: 250px;
 $bottomBgHeight: 30px;
-$boxHeight: calc(#{$height} - #{$topHeight} - #{$bottomHeight});
+$boxHeight: calc(#{$height} - #{$topHeight} + #{$margin});
 
 .dataScreen {
   width: $width;
@@ -183,11 +183,13 @@ $boxHeight: calc(#{$height} - #{$topHeight} - #{$bottomHeight});
   }
 
   &-bottom {
+    width: calc(#{$width - #{$margin} * 4 - #{$boxWidth} * 2});
     height: $bottomHeight;
     position: absolute;
-    left: $margin;
-    right: $margin;
+    left: 0;
+    right: 0;
     bottom: $margin;
+    margin: auto;
   }
 }
 
