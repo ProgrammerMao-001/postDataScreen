@@ -364,14 +364,14 @@ export default class leftComp extends Vue {
     let postArr: any = await getPostListByPrams({});
     console.log(postArr.data.data, "postArr");
     /* 获取工作经验列表 */
-    await (this as any).getDict("workExperience").then((res: any) => {
-      let workExperienceArr = res.data.data[0]?.data || "[]";
-      console.log(JSON.parse(workExperienceArr), "workExperienceArr");
-    });
+    let workExperienceArr = await (this as any).getDict("workExperience")
+    let helpWorkArr = workExperienceArr.data.data[0]?.data || "[]";
+    let xData = JSON.parse(helpWorkArr).map((e: any) => e.label)
 
+    console.log(JSON.parse(helpWorkArr), "helpWorkArr")
     this.initLBox3({
       legendData: ["岗位数", "薪资"],
-      xData: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+      xData: xData,
       barData: [
         2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3,
       ],
