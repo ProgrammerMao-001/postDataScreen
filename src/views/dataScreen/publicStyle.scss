@@ -8,7 +8,8 @@ $deepBgColor: rgba(39, 77, 155, .8);
   height: 100%;
 
   &-public {
-    height: 50%;
+    height: calc(100% / 3);
+    position: relative;
 
     &-title {
       height: $titleHeight;

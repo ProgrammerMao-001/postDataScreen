@@ -2,15 +2,30 @@
   <div class="boxContent">
     <div class="boxContent-public">
       <div class="boxContent-public-title">职位分布情况</div>
-      <div class="boxContent-public-main">
-        <div id="lBox1"></div>
-      </div>
+      <div class="boxContent-public-main"></div>
     </div>
 
     <div class="boxContent-public">
       <div class="boxContent-public-title">职位薪资情况</div>
+      <div class="boxContent-public-main"></div>
+    </div>
+
+    <div class="boxContent-public">
+      <div class="boxContent-public-title">职位{{ radioValue }}情况</div>
       <div class="boxContent-public-main">
-        <div id="lBox2"></div>
+        <div id="lBox1" v-if="radioValue === '数量'"></div>
+        <div id="lBox2" v-if="radioValue === '薪资'"></div>
+
+        <div class="check">
+          <el-radio-group
+            size="small"
+            v-model="radioValue"
+            @change="radioChange"
+          >
+            <el-radio-button label="薪资"></el-radio-button>
+            <el-radio-button label="数量"></el-radio-button>
+          </el-radio-group>
+        </div>
       </div>
     </div>
   </div>
@@ -34,6 +49,8 @@ export default class leftComp extends Vue {
     xData: [], // ["后端开发", "前端/移动开发", "测试"]
     yData: [], // [11, 60, 20]
   };
+
+  radioValue: string = "薪资";
 
   getLBoxData() {
     let postTypeArr: any = []; // [{label: "后端开发", value: "1000020"}, {label: "前端/移动开发", value: "1000030"}...]
@@ -112,24 +129,29 @@ export default class leftComp extends Vue {
         resAvgArr.forEach((item: any, index: any) => {
           item.avg =
             item.avgArr.length > 0
-              ? item.avgArr.reduce(
-                  (a: any, b: any) => Number(a) + Number(b),
-                  0
-                ) / item.avgArr.length
-              : 0;
+              ? (
+                  item.avgArr.reduce(
+                    (a: number, b: number) => Number(a) + Number(b),
+                    0
+                  ) / item.avgArr.length
+                ).toFixed(2)
+              : 0.0;
         });
         this.lBox2Data.yData = resAvgArr.map((num: any) => num.avg);
       })
       .finally(() => {
-        this.initLBox1();
-        this.initBox2();
+        if (this.radioValue === "数量") {
+          this.initLBox1();
+        } else if (this.radioValue === "薪资") {
+          this.initBox2();
+        }
       });
   }
 
   initLBox1() {
     let option: any = {
       title: {
-        text: "岗位数",
+        text: "岗位数(个)",
         textStyle: {
           align: "left",
           color: "#fff",
@@ -234,7 +256,7 @@ export default class leftComp extends Vue {
     let option = {
       backgroundColor: "",
       title: {
-        text: "平均薪资",
+        text: "平均薪资(K)",
         textStyle: {
           align: "left",
           color: "#fff",
@@ -248,7 +270,7 @@ export default class leftComp extends Vue {
         axisPointer: {
           type: "shadow",
         },
-        formatter: "{b}：{c}" + "K",
+        formatter: "{b}：{c}",
       },
       grid: {
         top: "18%",
@@ -329,6 +351,11 @@ export default class leftComp extends Vue {
     });
   }
 
+  radioChange() {
+    console.log(this.radioValue);
+    this.getLBoxData();
+  }
+
   mounted() {
     this.getLBoxData();
   }
@@ -342,5 +369,22 @@ export default class leftComp extends Vue {
 #lBox2 {
   width: 100%;
   height: 100%;
+}
+
+.check {
+  position: absolute;
+  top: 40px;
+  right: 10px;
+}
+
+::v-deep .el-radio-button__inner,
+.el-radio-group {
+  height: 14px;
+  line-height: 0px;
+}
+
+::v-deep .el-radio-button__orig-radio:checked + .el-radio-button__inner {
+  background-color: $deepBgColor;
+  border-color: $deepBgColor;
 }
 </style>
