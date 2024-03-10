@@ -17,7 +17,13 @@
     <div class="boxContent-public">
       <div class="boxContent-public-title">词云</div>
       <div class="boxContent-public-main">
-        <div id="rBox3"></div>
+        <div id="rBox3">
+          <wordCloud
+            ref="wordCloud"
+            :width="rBox3.width"
+            :height="rBox3.height"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -26,9 +32,11 @@
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { getPostListByPrams } from "@/api/postModule";
 import postType from "@/utils/postType";
+import wordCloud from "@/views/dataScreen/wordCloud.vue";
+import { getCompanyListByPrams } from "@/api/companyModule";
 
 @Component({
-  components: {},
+  components: { wordCloud },
 })
 export default class rightComp extends Vue {
   myChart: any = null;
@@ -36,6 +44,10 @@ export default class rightComp extends Vue {
   box1Data: any = {
     xAxisData: [],
     dataList: [],
+  };
+  rBox3: any = {
+    width: 400,
+    height: 240,
   };
 
   /* 获取rBox1数据 (分析不同地区的不同职位的总数【互联网/AI行业】。如：在浙江、湖南等后端开发、人工智能等的岗位数) */
@@ -356,11 +368,25 @@ export default class rightComp extends Vue {
       myChart.resize();
     });
   }
+
+  async getRBox3Data() {
+    let postList: any = await getPostListByPrams({});
+    let arr: any = postList.data.data;
+
+    let resArr: any = arr.map((item: any) => item.company_name);
+    let resArr1: any = arr.map((item: any) => item.name);
+    let passData = resArr.concat(resArr1);
+    if (passData.length > 0) {
+      (this as any).$refs.wordCloud.setTags(passData);
+      console.log(passData, "passDasta");
+    }
+  }
   created() {}
 
   mounted() {
     this.getRBox1Data();
     this.getRBox2Data();
+    this.getRBox3Data();
   }
 }
 </script>
