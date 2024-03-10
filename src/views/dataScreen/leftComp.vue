@@ -364,9 +364,9 @@ export default class leftComp extends Vue {
     let postArr: any = await getPostListByPrams({});
     console.log(postArr.data.data, "postArr");
     /* 获取工作经验列表 */
-    let workExperienceArr = await (this as any).getDict("workExperience")
+    let workExperienceArr = await (this as any).getDict("workExperience");
     let helpWorkArr = workExperienceArr.data.data[0]?.data || "[]";
-    let xData = JSON.parse(helpWorkArr).map((e: any) => e.label)
+    let xData = JSON.parse(helpWorkArr).map((e: any) => e.label);
     let helpPostArr = postArr.data.data; // 岗位列表
 
     let helpWorkArr1 = JSON.parse(helpWorkArr); // 在校生、应届生...经验字典
@@ -376,28 +376,66 @@ export default class leftComp extends Vue {
       // 遍历 helpWorkArr 并统计或初始化数量
       helpWorkArr1.forEach((workItem: any) => {
         const education = workItem.value;
-        educationCounts[workItem.label] = helpPostArr.filter((post: any) => post.education === education).length || 0;
+        educationCounts[workItem.label] =
+          helpPostArr.filter((post: any) => post.education === education)
+            .length || 0;
       });
       // 按照 helpWorkArr 的顺序输出统计结果
       const output = helpWorkArr1.map((workItem: any) => ({
         label: workItem.label,
         count: educationCounts[workItem.label],
-      }))
+      }));
       return output.map((e: any) => e.count) || [];
     }
 
     function getLineData() {
+      // 初始化一个对象用于存储教育程度与平均范围数组
+      const educationAvgRanges: any = {};
 
+      // 遍历 helpWorkArr1 并统计平均范围
+      helpWorkArr1.forEach((workItem: any) => {
+        const education = workItem.value;
+        educationAvgRanges[workItem.label] = helpPostArr
+          .filter((post: any) => post.education === education)
+          .map((post: any) => parseFloat(post.avg_range) || 0);
+      });
+
+      // 如果需要将不存在的数据表示为一个空数组，可以进一步处理：
+      Object.keys(educationAvgRanges).forEach((key) => {
+        if (!educationAvgRanges[key].length) {
+          educationAvgRanges[key] = [];
+        }
+      });
+
+      // 按照 helpWorkArr1 的顺序生成并填充平均值到新数组中
+      const resultWithAveragesInOrder = helpWorkArr1.reduce(
+        (acc: any, workItem: any) => {
+          const avgRangeArray = educationAvgRanges[workItem.label];
+          if (avgRangeArray.length > 0) {
+            // 如果有数据，则计算平均值并保留两位小数
+            const average = parseFloat(
+              (
+                avgRangeArray.reduce((total: any, num: any) => total + num, 0) /
+                avgRangeArray.length
+              ).toFixed(2)
+            );
+            acc.push({ label: workItem.label, average });
+          } else {
+            // 如果没有数据，则设置为 0
+            acc.push({ label: workItem.label, average: 0 });
+          }
+          return acc;
+        },
+        []
+      );
+
+      return resultWithAveragesInOrder.map((item: any) => item.average) || [];
     }
-
-
-
-    console.log(helpPostArr, helpWorkArr1, "aaa")
     this.initLBox3({
       legendData: ["岗位数", "平均薪资"],
       xData: xData,
       barData: getBarData(),
-      lineData: [2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2,],
+      lineData: getLineData(),
     });
   }
 
