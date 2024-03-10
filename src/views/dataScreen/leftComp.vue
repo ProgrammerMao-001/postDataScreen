@@ -1,21 +1,33 @@
 <template>
   <div class="boxContent">
     <div class="boxContent-public">
-      <div class="boxContent-public-title">不同经验职位情况</div>
+      <div class="boxContent-public-title">不同经验职位</div>
       <div class="boxContent-public-main">
         <div id="lBox3"></div>
       </div>
     </div>
 
     <div class="boxContent-public">
-      <div class="boxContent-public-title">不同学历职位情况</div>
+      <div class="boxContent-public-title">不同学历职位</div>
       <div class="boxContent-public-main">
-        <div id="lBox4"></div>
+        <div v-if="box4RadioValue === '对比图'" id="lBox4"></div>
+        <div v-if="box4RadioValue === '饼图'" id="lBox5"></div>
+
+        <div class="check">
+          <el-radio-group
+            size="small"
+            v-model="box4RadioValue"
+            @change="box4RadioChange"
+          >
+            <el-radio-button label="对比图"></el-radio-button>
+            <el-radio-button label="饼图"></el-radio-button>
+          </el-radio-group>
+        </div>
       </div>
     </div>
 
     <div class="boxContent-public">
-      <div class="boxContent-public-title">职位{{ radioValue }}情况</div>
+      <div class="boxContent-public-title">不同职位{{ radioValue }}</div>
       <div class="boxContent-public-main">
         <div id="lBox1" v-if="radioValue === '数量'"></div>
         <div id="lBox2" v-if="radioValue === '薪资'"></div>
@@ -55,6 +67,12 @@ export default class leftComp extends Vue {
   };
 
   radioValue: string = "薪资";
+  box4RadioValue: string = "对比图";
+  box5Data: any = {
+    data: [],
+    total: 0,
+  };
+  option: any = {};
 
   getLBoxData() {
     let postTypeArr: any = []; // [{label: "后端开发", value: "1000020"}, {label: "前端/移动开发", value: "1000030"}...]
@@ -359,6 +377,14 @@ export default class leftComp extends Vue {
     this.getLBoxData();
   }
 
+  box4RadioChange() {
+    if (this.box4RadioValue === "对比图") {
+      this.getBox4();
+    } else if (this.box4RadioValue === "饼图") {
+      this.getBox5();
+    }
+  }
+
   async getBox3() {
     /* 获取岗位列表 */
     let postArr: any = await getPostListByPrams({});
@@ -452,6 +478,7 @@ export default class leftComp extends Vue {
       toolbox: {},
       legend: {
         top: 10,
+        left: 80,
         textStyle: {
           color: "#fff",
         },
@@ -696,6 +723,7 @@ export default class leftComp extends Vue {
       toolbox: {},
       legend: {
         top: 10,
+        left: 80,
         textStyle: {
           color: "#fff",
         },
@@ -749,9 +777,10 @@ export default class leftComp extends Vue {
             },
           },
           type: "value",
-          name: "平均薪资(K)",
+          // name: "平均薪资(K)",
           min: 0,
           axisLabel: {
+            show: false,
             formatter: "{value}",
           },
         },
@@ -843,6 +872,149 @@ export default class leftComp extends Vue {
     });
   }
 
+  initLBox5() {
+    this.option = {
+      backgroundColor: "",
+      animation: true,
+      title: {
+        text: this.box5Data.total, // 中间展示的数字
+        subtext: "岗位数",
+        x: "center",
+        y: "center",
+        textStyle: {
+          color: "#fff",
+          fontSize: 20,
+          fontWeight: "normal",
+          align: "center",
+        },
+        subtextStyle: {
+          color: "#fff",
+          fontSize: 12,
+          fontWeight: "normal",
+        },
+      },
+      series: [
+        {
+          type: "pie",
+          center: ["50%", "50%"],
+          radius: ["40%", "53%"],
+          color: [
+            "#FEE449",
+            "#00FFFF",
+            "#00FFA8",
+            "#9F17FF",
+            "#FFE400",
+            "#F76F01",
+            "#01A4F7",
+            "#FE2C8A",
+          ],
+          startAngle: 135,
+          labelLine: {
+            normal: {
+              length: 10,
+            },
+          },
+          label: {
+            normal: {
+              formatter: "{b|{b}:}  {c|{c}人}",
+              backgroundColor: "rgba(255, 147, 38, 0)",
+              borderColor: "transparent",
+              borderRadius: 4,
+              rich: {
+                hr: {
+                  borderColor: "#aaa",
+                  width: "100%",
+                  borderWidth: 1,
+                  height: 0,
+                },
+                b: {
+                  color: "#b3e5ff",
+                  fontSize: 14,
+                  lineHeight: 33,
+                },
+                c: {
+                  fontSize: 14,
+                  color: "#eee",
+                },
+              },
+              textStyle: {
+                color: "#fff",
+                fontSize: 6,
+              },
+            },
+          },
+          data: this.box5Data.data,
+        },
+        {
+          type: "pie",
+          center: ["50%", "50%"],
+          radius: ["35%", "36%"],
+          label: {
+            show: false,
+          },
+          data: [],
+        },
+      ],
+    };
+
+    let myChart = (this as any).$echarts.init(document.getElementById("lBox5")); // 图标初始化
+    myChart.setOption(this.option); // 渲染页面
+    /* ECharts动态效果 */
+    window.addEventListener("resize", () => {
+      myChart.resize();
+    });
+  }
+
+  async getBox5() {
+    try {
+      /* 学历列表 */
+      const educationResponse = await (this as any).getDict("education");
+      let arr = educationResponse.data.data[0].data || "[]";
+      let educationList: any = JSON.parse(arr);
+      /* 岗位列表 */
+      const postListResponse: any = await getPostListByPrams({
+        name: undefined,
+      });
+      let postList: any = postListResponse.data.data;
+
+      /* 统计 postList 中education 0 -7 的数量 */
+      const educationCount = postList.reduce((acc: any, curr: any) => {
+        const educationLevel = parseInt(curr.education, 10);
+        if (educationLevel >= 0 && educationLevel <= 7) {
+          acc[educationLevel] = (acc[educationLevel] || 0) + 1;
+        }
+        return acc;
+      }, {});
+
+      /* 没有数据的也统计上面 */
+      educationList.sort(
+        (a: any, b: any) => parseInt(a.value, 10) - parseInt(b.value, 10)
+      );
+      const transformedData = educationList.map((mappingItem: any) => {
+        const key = mappingItem.value;
+        const count = educationCount[key] || 0;
+        return {
+          name: mappingItem.label,
+          value: count,
+        };
+      });
+      this.box5Data.data = transformedData;
+      this.box5Data.total = transformedData.reduce(
+        (accumulator: any, currentItem: any) => {
+          return accumulator + currentItem.value;
+        },
+        0
+      );
+
+      // console.log(this.box2Data, "box2Data");
+      await this.initLBox5();
+      // console.log(transformedData, "transformedData") [{name: '初中及以下', value: 0}, ...]
+    } catch (error) {
+      // 处理错误
+      console.error("Error fetching data2:", error);
+    }
+  }
+
   mounted() {
     this.getLBoxData();
     this.getBox3();
@@ -857,7 +1029,8 @@ export default class leftComp extends Vue {
 #lBox1,
 #lBox2,
 #lBox3,
-#lBox4 {
+#lBox4,
+#lBox5 {
   width: 100%;
   height: 100%;
 }
