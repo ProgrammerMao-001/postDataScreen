@@ -1,13 +1,17 @@
 <template>
   <div class="boxContent">
     <div class="boxContent-public">
-      <div class="boxContent-public-title">职位分布情况</div>
-      <div class="boxContent-public-main"></div>
+      <div class="boxContent-public-title">不同经验职位情况</div>
+      <div class="boxContent-public-main">
+        <div id="lBox3"></div>
+      </div>
     </div>
 
     <div class="boxContent-public">
-      <div class="boxContent-public-title">职位薪资情况</div>
-      <div class="boxContent-public-main"></div>
+      <div class="boxContent-public-title">不同学历职位情况</div>
+      <div class="boxContent-public-main">
+        <div id="lBox4"></div>
+      </div>
     </div>
 
     <div class="boxContent-public">
@@ -352,12 +356,194 @@ export default class leftComp extends Vue {
   }
 
   radioChange() {
-    console.log(this.radioValue);
     this.getLBoxData();
+  }
+
+  async getBox3() {
+    /* 获取岗位列表 */
+    let postArr: any = await getPostListByPrams({});
+    console.log(postArr.data.data, "postArr");
+    /* 获取工作经验列表 */
+    await (this as any).getDict("workExperience").then((res: any) => {
+      let workExperienceArr = res.data.data[0]?.data || "[]";
+      console.log(JSON.parse(workExperienceArr), "workExperienceArr");
+    });
+
+    this.initLBox3({
+      legendData: ["岗位数", "薪资"],
+      xData: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+      barData: [
+        2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3,
+      ],
+      lineData: [
+        2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2,
+      ],
+    });
+  }
+
+  initLBox3(params: any = {}) {
+    let { legendData = [], xData = [], barData = [], lineData = [] } = params;
+    let option: any = {
+      tooltip: {
+        trigger: "axis",
+      },
+      grid: {
+        top: "18%",
+        bottom: "15%",
+      },
+      toolbox: {},
+      legend: {
+        top: 10,
+        textStyle: {
+          color: "#fff",
+        },
+        data: legendData,
+      },
+      xAxis: [
+        {
+          type: "category",
+          data: xData,
+          axisLine: {
+            lineStyle: {
+              color: "#fff",
+            },
+          },
+        },
+      ],
+      yAxis: [
+        {
+          type: "value",
+          name: "岗位数(个)",
+          min: 0,
+          splitLine: {
+            show: false,
+            lineStyle: {
+              type: "dashed",
+              color: "#DDD",
+            },
+          },
+          axisLine: {
+            show: false,
+            lineStyle: {
+              color: "#fff",
+            },
+          },
+          axisLabel: {
+            formatter: "{value}",
+          },
+        },
+        {
+          splitLine: {
+            show: false,
+            lineStyle: {
+              type: "dashed",
+              color: "#DDD",
+            },
+          },
+          axisLine: {
+            show: false,
+            lineStyle: {
+              color: "#fff",
+            },
+          },
+          type: "value",
+          name: "薪资(K)",
+          min: 0,
+          axisLabel: {
+            formatter: "{value}",
+          },
+        },
+      ],
+      series: [
+        {
+          name: "岗位数",
+          type: "bar",
+          tooltip: {
+            valueFormatter: function (value: any) {
+              return value + " 个";
+            },
+          },
+          data: barData, // 柱状图的数据 岗位数
+          barWidth: "20px",
+          itemStyle: {
+            normal: {
+              color: new (this as any).$echarts.graphic.LinearGradient(
+                0,
+                0,
+                0,
+                1,
+                [
+                  {
+                    offset: 0,
+                    color: "rgba(0,244,255,.5)", // 0% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: "rgba(42,132,136,0.5)", // 100% 处的颜色
+                  },
+                ],
+                false
+              ),
+              barBorderRadius: [8, 8, 0, 0],
+              shadowColor: "rgba(0,160,221,.8)",
+              shadowBlur: 4,
+            },
+          },
+        },
+        {
+          name: "薪资",
+          type: "line",
+          yAxisIndex: 1,
+          tooltip: {
+            valueFormatter: function (value: any) {
+              return value + " K";
+            },
+          },
+          data: lineData, // 折线图的数据 薪资
+          lineStyle: {
+            normal: {
+              width: 2, // 线条粗细
+              color: {
+                type: "linear",
+
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: "#38bcf3", // 0% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: "#48D8BF", // 100% 处的颜色
+                  },
+                ],
+                globalCoord: false, // 缺省为 false
+              },
+              shadowColor: "rgba(72,216,191, 0.3)",
+              shadowBlur: 10,
+              shadowOffsetY: 20,
+            },
+          },
+          itemStyle: {
+            normal: {
+              color: "#48D8BF",
+              borderWidth: 10,
+            },
+          },
+          smooth: true,
+        },
+      ],
+    };
+    let myChart = (this as any).$echarts.init(document.getElementById("lBox3"));
+    myChart.setOption(option); // 渲染页面
+    /* ECharts动态效果 */
+    window.addEventListener("resize", () => {
+      myChart.resize();
+    });
   }
 
   mounted() {
     this.getLBoxData();
+    this.getBox3();
   }
 }
 </script>
@@ -366,7 +552,9 @@ export default class leftComp extends Vue {
 @import "publicStyle";
 
 #lBox1,
-#lBox2 {
+#lBox2,
+#lBox3,
+#lBox4 {
   width: 100%;
   height: 100%;
 }
