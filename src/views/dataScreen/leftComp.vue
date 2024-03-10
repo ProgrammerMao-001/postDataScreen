@@ -372,45 +372,45 @@ export default class leftComp extends Vue {
     let helpWorkArr1 = JSON.parse(helpWorkArr); // 在校生、应届生...经验字典
     function getBarData() {
       // 初始化一个对象用于存储教育程度与数量
-      const educationCounts: any = {};
+      const workLifeCounts: any = {};
       // 遍历 helpWorkArr 并统计或初始化数量
       helpWorkArr1.forEach((workItem: any) => {
-        const education = workItem.value;
-        educationCounts[workItem.label] =
-          helpPostArr.filter((post: any) => post.education === education)
+        const workLife = workItem.value;
+        workLifeCounts[workItem.label] =
+          helpPostArr.filter((post: any) => post.work_life === workLife)
             .length || 0;
       });
       // 按照 helpWorkArr 的顺序输出统计结果
       const output = helpWorkArr1.map((workItem: any) => ({
         label: workItem.label,
-        count: educationCounts[workItem.label],
+        count: workLifeCounts[workItem.label],
       }));
       return output.map((e: any) => e.count) || [];
     }
 
     function getLineData() {
       // 初始化一个对象用于存储教育程度与平均范围数组
-      const educationAvgRanges: any = {};
+      const workLifeAvgRanges: any = {};
 
       // 遍历 helpWorkArr1 并统计平均范围
       helpWorkArr1.forEach((workItem: any) => {
-        const education = workItem.value;
-        educationAvgRanges[workItem.label] = helpPostArr
-          .filter((post: any) => post.education === education)
+        const workLife = workItem.value;
+        workLifeAvgRanges[workItem.label] = helpPostArr
+          .filter((post: any) => post.work_life === workLife)
           .map((post: any) => parseFloat(post.avg_range) || 0);
       });
 
       // 如果需要将不存在的数据表示为一个空数组，可以进一步处理：
-      Object.keys(educationAvgRanges).forEach((key) => {
-        if (!educationAvgRanges[key].length) {
-          educationAvgRanges[key] = [];
+      Object.keys(workLifeAvgRanges).forEach((key) => {
+        if (!workLifeAvgRanges[key].length) {
+          workLifeAvgRanges[key] = [];
         }
       });
 
       // 按照 helpWorkArr1 的顺序生成并填充平均值到新数组中
       const resultWithAveragesInOrder = helpWorkArr1.reduce(
         (acc: any, workItem: any) => {
-          const avgRangeArray = educationAvgRanges[workItem.label];
+          const avgRangeArray = workLifeAvgRanges[workItem.label];
           if (avgRangeArray.length > 0) {
             // 如果有数据，则计算平均值并保留两位小数
             const average = parseFloat(
@@ -599,9 +599,212 @@ export default class leftComp extends Vue {
     });
   }
 
+  async getBox4() {
+    /* 学历列表 */
+    const educationResponse = await (this as any).getDict("education");
+    let arr = educationResponse.data.data[0].data || "[]";
+    let educationList: any = JSON.parse(arr);
+    /* 岗位列表 */
+    const postListResponse: any = await getPostListByPrams({
+      name: undefined,
+    });
+    let postList: any = postListResponse.data.data;
+
+    /* 统计 postList 中education 0 -7 的数量 */
+    const educationCount = postList.reduce((acc: any, curr: any) => {
+      const educationLevel = parseInt(curr.education, 10);
+      if (educationLevel >= 0 && educationLevel <= 7) {
+        acc[educationLevel] = (acc[educationLevel] || 0) + 1;
+      }
+      return acc;
+    }, {});
+
+    /* 没有数据的也统计上面 */
+    educationList.sort(
+      (a: any, b: any) => parseInt(a.value, 10) - parseInt(b.value, 10)
+    );
+    const transformedData = educationList.map((mappingItem: any) => {
+      const key = mappingItem.value;
+      const count = educationCount[key] || 0;
+      return {
+        name: mappingItem.label,
+        value: count,
+      };
+    });
+    console.log(transformedData, "transformedData");
+
+    this.initLBox4({
+      legendData: ["岗位数", "平均薪资"],
+      xData: transformedData.map((item: any) => item.name) || [],
+      barData: transformedData.map((item: any) => item.value) || [],
+      lineData: [1, 2, 3],
+    });
+  }
+
+  initLBox4(params: any = {}) {
+    let { legendData = [], xData = [], barData = [], lineData = [] } = params;
+    let option: any = {
+      tooltip: {
+        trigger: "axis",
+      },
+      grid: {
+        top: "18%",
+        bottom: "15%",
+      },
+      toolbox: {},
+      legend: {
+        top: 10,
+        textStyle: {
+          color: "#fff",
+        },
+        data: legendData,
+      },
+      xAxis: [
+        {
+          type: "category",
+          data: xData,
+          axisLine: {
+            lineStyle: {
+              color: "#fff",
+            },
+          },
+        },
+      ],
+      yAxis: [
+        {
+          type: "value",
+          name: "岗位数(个)",
+          min: 0,
+          splitLine: {
+            show: false,
+            lineStyle: {
+              type: "dashed",
+              color: "#DDD",
+            },
+          },
+          axisLine: {
+            show: false,
+            lineStyle: {
+              color: "#fff",
+            },
+          },
+          axisLabel: {
+            formatter: "{value}",
+          },
+        },
+        {
+          splitLine: {
+            show: false,
+            lineStyle: {
+              type: "dashed",
+              color: "#DDD",
+            },
+          },
+          axisLine: {
+            show: false,
+            lineStyle: {
+              color: "#fff",
+            },
+          },
+          type: "value",
+          name: "平均薪资(K)",
+          min: 0,
+          axisLabel: {
+            formatter: "{value}",
+          },
+        },
+      ],
+      series: [
+        {
+          name: "岗位数",
+          type: "bar",
+          tooltip: {
+            valueFormatter: function (value: any) {
+              return value + " 个";
+            },
+          },
+          data: barData, // 柱状图的数据 岗位数
+          barWidth: "20px",
+          itemStyle: {
+            normal: {
+              color: new (this as any).$echarts.graphic.LinearGradient(
+                0,
+                0,
+                0,
+                1,
+                [
+                  {
+                    offset: 0,
+                    color: "rgba(0,244,255,.5)", // 0% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: "rgba(42,132,136,0.5)", // 100% 处的颜色
+                  },
+                ],
+                false
+              ),
+              barBorderRadius: [8, 8, 0, 0],
+              shadowColor: "rgba(0,160,221,.8)",
+              shadowBlur: 4,
+            },
+          },
+        },
+        {
+          name: "平均薪资",
+          type: "line",
+          yAxisIndex: 1,
+          tooltip: {
+            valueFormatter: function (value: any) {
+              return value + " K";
+            },
+          },
+          data: lineData, // 折线图的数据 薪资
+          lineStyle: {
+            normal: {
+              width: 2, // 线条粗细
+              color: {
+                type: "linear",
+
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: "#38bcf3", // 0% 处的颜色
+                  },
+                  {
+                    offset: 1,
+                    color: "#48D8BF", // 100% 处的颜色
+                  },
+                ],
+                globalCoord: false, // 缺省为 false
+              },
+              shadowColor: "rgba(72,216,191, 0.3)",
+              shadowBlur: 10,
+              shadowOffsetY: 20,
+            },
+          },
+          itemStyle: {
+            normal: {
+              color: "#48D8BF",
+              borderWidth: 10,
+            },
+          },
+          smooth: true,
+        },
+      ],
+    };
+    let myChart = (this as any).$echarts.init(document.getElementById("lBox4"));
+    myChart.setOption(option); // 渲染页面
+    /* ECharts动态效果 */
+    window.addEventListener("resize", () => {
+      myChart.resize();
+    });
+  }
+
   mounted() {
     this.getLBoxData();
     this.getBox3();
+    this.getBox4();
   }
 }
 </script>
