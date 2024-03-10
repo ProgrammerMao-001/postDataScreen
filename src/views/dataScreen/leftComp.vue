@@ -631,13 +631,55 @@ export default class leftComp extends Vue {
         value: count,
       };
     });
-    console.log(transformedData, "transformedData");
+    // console.log(transformedData, "transformedData");
 
+    function getAvgArr() {
+      // 初始化一个对象用于存储教育程度与平均范围数组
+      const educationAvgRanges: any = {};
+
+      // 遍历 postList 并填充对应教育程度的平均范围数组
+      postList.forEach((post: any) => {
+        const educationValue = post.education;
+        if (educationAvgRanges[educationValue]) {
+          educationAvgRanges[educationValue].push(parseFloat(post.avg_range));
+        } else {
+          educationAvgRanges[educationValue] = [parseFloat(post.avg_range)];
+        }
+      });
+
+      // 按照 educationList 的顺序生成并填充平均值到新数组中
+      const resultWithAveragesInOrder = educationList.reduce(
+        (acc: any, educationItem: any) => {
+          const avgRangeArray: any =
+            educationAvgRanges[educationItem.value] || [];
+          let average: any = 0.0;
+          if (avgRangeArray.length > 0) {
+            let avg: any =
+              avgRangeArray.reduce((total: any, num: any) => total + num, 0) /
+              avgRangeArray.length;
+            average = parseFloat(avg).toFixed(2);
+          }
+          acc.push({
+            label: educationItem.label,
+            avg_range_array: avgRangeArray,
+            average,
+          });
+          return acc;
+        },
+        []
+      );
+
+      // 输出按顺序的结果
+      // console.log(resultWithAveragesInOrder, "resultWithAveragesInOrder");
+      return resultWithAveragesInOrder.map((item: any) => item.average) || [];
+    }
+
+    getAvgArr();
     this.initLBox4({
       legendData: ["岗位数", "平均薪资"],
       xData: transformedData.map((item: any) => item.name) || [],
       barData: transformedData.map((item: any) => item.value) || [],
-      lineData: [1, 2, 3],
+      lineData: getAvgArr(),
     });
   }
 
