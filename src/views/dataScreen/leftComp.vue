@@ -367,17 +367,37 @@ export default class leftComp extends Vue {
     let workExperienceArr = await (this as any).getDict("workExperience")
     let helpWorkArr = workExperienceArr.data.data[0]?.data || "[]";
     let xData = JSON.parse(helpWorkArr).map((e: any) => e.label)
+    let helpPostArr = postArr.data.data; // 岗位列表
 
-    console.log(JSON.parse(helpWorkArr), "helpWorkArr")
+    let helpWorkArr1 = JSON.parse(helpWorkArr); // 在校生、应届生...经验字典
+    function getBarData() {
+      // 初始化一个对象用于存储教育程度与数量
+      const educationCounts: any = {};
+      // 遍历 helpWorkArr 并统计或初始化数量
+      helpWorkArr1.forEach((workItem: any) => {
+        const education = workItem.value;
+        educationCounts[workItem.label] = helpPostArr.filter((post: any) => post.education === education).length || 0;
+      });
+      // 按照 helpWorkArr 的顺序输出统计结果
+      const output = helpWorkArr1.map((workItem: any) => ({
+        label: workItem.label,
+        count: educationCounts[workItem.label],
+      }))
+      return output.map((e: any) => e.count) || [];
+    }
+
+    function getLineData() {
+
+    }
+
+
+
+    console.log(helpPostArr, helpWorkArr1, "aaa")
     this.initLBox3({
-      legendData: ["岗位数", "薪资"],
+      legendData: ["岗位数", "平均薪资"],
       xData: xData,
-      barData: [
-        2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3,
-      ],
-      lineData: [
-        2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2,
-      ],
+      barData: getBarData(),
+      lineData: [2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2,],
     });
   }
 
@@ -447,7 +467,7 @@ export default class leftComp extends Vue {
             },
           },
           type: "value",
-          name: "薪资(K)",
+          name: "平均薪资(K)",
           min: 0,
           axisLabel: {
             formatter: "{value}",
@@ -491,7 +511,7 @@ export default class leftComp extends Vue {
           },
         },
         {
-          name: "薪资",
+          name: "平均薪资",
           type: "line",
           yAxisIndex: 1,
           tooltip: {
