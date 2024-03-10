@@ -73,6 +73,7 @@ export default class leftComp extends Vue {
     total: 0,
   };
   option: any = {};
+  myChart: any = null;
 
   getLBoxData() {
     let postTypeArr: any = []; // [{label: "后端开发", value: "1000020"}, {label: "前端/移动开发", value: "1000030"}...]
@@ -377,11 +378,13 @@ export default class leftComp extends Vue {
     this.getLBoxData();
   }
 
-  box4RadioChange() {
+  async box4RadioChange() {
     if (this.box4RadioValue === "对比图") {
-      this.getBox4();
+      await this.myChart.dispose();
+      await this.getBox4();
     } else if (this.box4RadioValue === "饼图") {
-      this.getBox5();
+      await this.myChart.dispose();
+      await this.getBox5();
     }
   }
 
@@ -864,11 +867,13 @@ export default class leftComp extends Vue {
         },
       ],
     };
-    let myChart = (this as any).$echarts.init(document.getElementById("lBox4"));
-    myChart.setOption(option); // 渲染页面
+    this.myChart = (this as any).$echarts.init(
+      document.getElementById("lBox4")
+    );
+    this.myChart.setOption(option); // 渲染页面
     /* ECharts动态效果 */
     window.addEventListener("resize", () => {
-      myChart.resize();
+      this.myChart.resize();
     });
   }
 
@@ -957,11 +962,13 @@ export default class leftComp extends Vue {
       ],
     };
 
-    let myChart = (this as any).$echarts.init(document.getElementById("lBox5")); // 图标初始化
-    myChart.setOption(this.option); // 渲染页面
+    this.myChart = (this as any).$echarts.init(
+      document.getElementById("lBox5")
+    ); // 图标初始化
+    this.myChart.setOption(this.option); // 渲染页面
     /* ECharts动态效果 */
-    window.addEventListener("resize", () => {
-      myChart.resize();
+    this.myChart.addEventListener("resize", () => {
+      this.myChart.resize();
     });
   }
 
