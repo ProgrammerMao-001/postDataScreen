@@ -8,7 +8,7 @@
     </div>
 
     <div class="boxContent-public">
-      <div class="boxContent-public-title">学历和薪资情况</div>
+      <div class="boxContent-public-title">职位招聘情况</div>
       <div class="boxContent-public-main">
         <div id="rBox2"></div>
       </div>
@@ -31,15 +31,8 @@ import postType from "@/utils/postType";
   components: {},
 })
 export default class rightComp extends Vue {
-  option: any = {};
   myChart: any = null;
-  educationList: any = []; // 学历列表
   provinceList: any = []; // 省份列表
-  postList: any = []; // 岗位列表
-  box2Data: any = {
-    data: [],
-    total: 0,
-  };
   box1Data: any = {
     xAxisData: [],
     dataList: [],
@@ -134,7 +127,7 @@ export default class rightComp extends Vue {
           fontSize: 12,
         },
         top: "5%",
-        left: "left",
+        left: "2%",
       },
       tooltip: {
         trigger: "axis",
@@ -234,10 +227,140 @@ export default class rightComp extends Vue {
       this.myChart.resize();
     });
   }
+
+  async getRBox2Data() {
+    let postArr: any = await getPostListByPrams({});
+    let postList = postArr.data.data;
+    let on: number = 0;
+    let off: number = 0;
+    if (postList && postList.length > 0) {
+      postList.forEach((item: any) => {
+        if (item.recruitment_status == 1) {
+          off++;
+        } else {
+          on++;
+        }
+      });
+    }
+    await this.initRBox2(on, off);
+  }
+
+  initRBox2(on: any, off: any) {
+    let option = {
+      title: {
+        text: "在招岗位",
+        top: "5%",
+        left: "2%",
+        textStyle: {
+          align: "left",
+          color: "#fff",
+          fontSize: 12,
+        },
+      },
+      tooltip: {
+        trigger: "item",
+        formatter: "{a} : ({d}%)",
+      },
+      series: [
+        {
+          name: "目前在招岗位",
+          center: ["50%", "50%"],
+          radius: ["60%", "70%"],
+          clockWise: false,
+          hoverAnimation: false,
+          type: "pie",
+          data: [
+            {
+              value: on,
+              name: "",
+              label: {
+                normal: {
+                  show: true,
+                  formatter: "{d} %",
+                  textStyle: {
+                    fontSize: 28,
+                    fontWeight: "bold",
+                  },
+                  position: "center",
+                },
+              },
+              labelLine: {
+                show: false,
+              },
+              itemStyle: {
+                normal: {
+                  color: "#5886f0",
+                  borderColor: new (
+                    this as any
+                  ).$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                    {
+                      offset: 0,
+                      color: "#00a2ff",
+                    },
+                    {
+                      offset: 1,
+                      color: "#70ffac",
+                    },
+                  ]),
+                  borderWidth: 25,
+                },
+                emphasis: {
+                  color: "#5886f0",
+                  borderColor: new (
+                    this as any
+                  ).$echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                    {
+                      offset: 0,
+                      color: "#85b6b2",
+                    },
+                    {
+                      offset: 1,
+                      color: "#6d4f8d",
+                    },
+                  ]),
+                  borderWidth: 25,
+                },
+              },
+            },
+            {
+              name: " ",
+              value: off,
+              itemStyle: {
+                normal: {
+                  label: {
+                    show: false,
+                  },
+                  labelLine: {
+                    show: false,
+                  },
+                  color: "rgba(0,0,0,0)",
+                  borderColor: "rgba(0,0,0,0)",
+                  borderWidth: 0,
+                },
+                emphasis: {
+                  color: "rgba(0,0,0,0)",
+                  borderColor: "rgba(0,0,0,0)",
+                  borderWidth: 0,
+                },
+              },
+            },
+          ],
+        },
+      ],
+    };
+
+    let myChart = (this as any).$echarts.init(document.getElementById("rBox2")); // 图标初始化
+    myChart.setOption(option); // 渲染页面
+    /* ECharts动态效果 */
+    window.addEventListener("resize", () => {
+      myChart.resize();
+    });
+  }
   created() {}
 
   mounted() {
     this.getRBox1Data();
+    this.getRBox2Data();
   }
 }
 </script>
